@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="description" content="Atlas interactivo CST230 ES_A190: Fundamentos de Redes - Semana 1" />
+  <title>CST230 Atlas Interactivo</title>
+  <link rel="stylesheet" href="./styles.css?v=v1" />
+</head>
+<body>
+  <main class="page-shell">
+    <header class="hero card">
+      <p class="eyebrow">Tiffin University · CST230 · ES_A190</p>
+      <h1>CST230 — FUNDAMENTOS DE REDES</h1>
+      <h2>SEMANA 1 · INTRODUCCIÓN A LAS REDES EN EL MUNDO REAL</h2>
+      <p class="question">¿Cómo logran comunicarse los dispositivos?</p>
+      <p class="lede">
+        Atlas de aprendizaje progresivo, estable y acumulativo.
+        Semana 1 construye la base: dispositivos, aplicaciones, protocolos, hardware, medios, topologías, OSI, cableado e integración con gestión.
+      </p>
+      <div class="meta">Fuentes base: Molina-Robles (2015) Cap. 1-2 + Warriors of the Net</div>
+    </header>
+
+    <section class="workspace card">
+      <aside class="side">
+        <div class="group">
+          <h3>Filtros</h3>
+          <label>Buscar <input id="searchInput" type="search" placeholder="buscar nodo" /></label>
+        </div>
+        <div class="group">
+          <p>Semana activa</p>
+          <div id="weekFilters" class="filters"></div>
+        </div>
+        <div class="group">
+          <p>Capa</p>
+          <div id="layerFilters" class="filters"></div>
+        </div>
+        <div class="group">
+          <p>Estado</p>
+          <div id="statusFilters" class="filters"></div>
+        </div>
+      </aside>
+
+      <section class="graph-wrap">
+        <svg id="knowledgeMap" viewBox="0 0 1400 900" role="img" aria-labelledby="mapTitle mapDescription">
+          <title id="mapTitle">Atlas de aprendizaje CST230</title>
+          <desc id="mapDescription">Semana 1, estructura inicial del mapa de aprendizaje.</desc>
+          <g id="edgesLayer"></g>
+          <g id="nodesLayer"></g>
+        </svg>
+      </section>
+
+      <aside class="side">
+        <h3>Detalle de concepto</h3>
+        <h4 id="detailTitle">Selecciona un nodo</h4>
+        <dl id="detailContent"></dl>
+      </aside>
+    </section>
+  </main>
+
+  <script src="./app.js?v=v1"></script>
+</body>
+</html>
+
