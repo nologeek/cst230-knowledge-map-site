@@ -1,14 +1,39 @@
 const mapData = {
   version: "CST230-Week-1-Foundation",
   currentWeek: 1,
-  weeks: [
-    { id: 1, label: "Semana 1", enabled: true },
-    { id: 2, label: "Semana 2", enabled: false },
-    { id: 3, label: "Semana 3", enabled: false },
-    { id: 4, label: "Semana 4", enabled: false },
-    { id: 5, label: "Semana 5", enabled: false },
-    { id: 6, label: "Semana 6", enabled: false },
-    { id: 7, label: "Semana 7", enabled: false }
+  stages: [
+    {
+      id: "s1",
+      label: "Etapa 1",
+      title: "¿Cómo se abre la comunicación entre dispositivos?",
+      intro: "Primero conectamos la pregunta central del curso con los conceptos base. Si entendemos el mensaje, la comunicación deja de ser «mágica» y se vuelve un flujo trazable.",
+      question: "¿Qué mínimo necesita existir para que una red funcione en el aula o laboratorio?",
+      nodeIds: ["cst230-core", "pregunta-principal", "dispositivos", "aplicaciones", "protocolos"]
+    },
+    {
+      id: "s2",
+      label: "Etapa 2",
+      title: "Medio físico, topología y equipos",
+      intro: "Ahora aterrizamos: la comunicación no existe sin cableado, arquitectura física y equipos que la sostengan.",
+      question: "¿Qué cambia cuando la red crece de una mesa a varias aulas o edificios?",
+      nodeIds: ["medios", "cableado", "infraestructura", "topologias", "hardware", "router-world", "switch-world", "cableado-world", "dispositivos-world"]
+    },
+    {
+      id: "s3",
+      label: "Etapa 3",
+      title: "Modelo OSI como arquitectura de trazabilidad",
+      intro: "OSI permite localizar dónde ocurre cada responsabilidad y saber qué capa responde por qué función.",
+      question: "¿Cómo identificamos dónde está el problema en el flujo de una comunicación?",
+      nodeIds: ["modelo-osi", "capa-aplicacion", "capa-presentacion", "capa-sesion", "capa-transporte", "capa-red", "capa-enlace", "capa-fisica", "tcpip"]
+    },
+    {
+      id: "s4",
+      label: "Etapa 4",
+      title: "Gestión y operación con apoyo de IA",
+      intro: "La operación estable requiere monitoreo, inventario, cambios controlados y documentación. Aquí integramos IA como apoyo de decisiones.",
+      question: "¿Qué valor aporta IA sin reemplazar la base académica?",
+      nodeIds: ["seguridad", "documentacion", "gestion-cambios", "gestion-red", "ai-layer", "ai-insight", "host-world"]
+    }
   ],
   statuses: {
     no_estudiado: { label: "No estudiado", color: "var(--no-estudiado)" },
@@ -19,13 +44,8 @@ const mapData = {
   },
   layers: {
     canonical: { label: "Académica / Canonical", color: "var(--canon)" },
-    worldreal: { label: "Mundo real", color: "var(--real)" }
-  },
-  relationshipTypes: {
-    contains: { label: "contiene", symbol: "→" },
-    relation: { label: "relación", symbol: "—" },
-    supports: { label: "apoya", symbol: "↔" },
-    sequence: { label: "secuencia", symbol: "→" }
+    worldreal: { label: "Mundo real", color: "var(--real)" },
+    ai: { label: "Conexión con IA", color: "var(--ai)" }
   },
   nodes: [
     {
@@ -34,17 +54,18 @@ const mapData = {
       layer: "canonical",
       status: "comprendido",
       weekIntroduced: 1,
-      x: 560,
-      y: 140,
-      size: 34,
-      definitionSimple: "Mapa central para responder cómo se comunican los dispositivos en una red.",
-      definitionTechnical: "Modelo de conectividad, protocolos, direccionamiento, medios y administración de infraestructura.",
-      analogy: "Como un aeropuerto: aviones, rutas, rutas de cabina, torre de control y mantenimiento.",
-      realExample: "La red de un edificio académico con aulas, Wi‑Fi, servidores y switches.",
-      source: "Objetivo de curso + guía del curso.",
-      week: 1,
-      relations: ["Dispositivos", "Protocolos", "Modelo OSI", "Gestión de red", "Medios"],
-      osiLayer: "Pregunta central del curso"
+      x: 650,
+      y: 180,
+      size: 30,
+      definitionSimple: "Mapa central para responder cómo se comunican los dispositivos.",
+      definitionTechnical: "Marco integral de conectividad, medios, protocolos, topología y operación.",
+      analogy: "Como un sistema nervioso central.",
+      realExample: "Red de aulas, servidor y Wi‑Fi con administración.",
+      source: "Diseño académico del curso",
+      relations: ["dispositivos", "protocolos", "topologias", "modelo-osi", "gestion-red"],
+      osiLayer: "Visión transversal del curso",
+      question: "¿Qué representa este mapa para toda la semana?",
+      questionDetail: "Permite construir una respuesta incremental y trazable para la comunicación de red."
     },
     {
       id: "pregunta-principal",
@@ -52,16 +73,18 @@ const mapData = {
       layer: "canonical",
       status: "comprendido",
       weekIntroduced: 1,
-      x: 560,
-      y: 215,
-      size: 24,
-      definitionSimple: "Pregunta guía del atlas: conectar la evidencia académica con el funcionamiento real.",
-      definitionTechnical: "Integra capas, protocolos, direccionamiento, topología y gestión de operación.",
-      analogy: "Una pregunta eje como sistema nervioso de todo el mapa.",
-      realExample: "Qué necesita una computadora en la misma LAN para hablar con un servidor.",
-      source: "Diseño pedagógico de semana 1.",
-      relations: ["Modelo OSI", "Dispositivos", "Protocolos", "Topologías"],
-      osiLayer: "Aplicación"
+      x: 650,
+      y: 240,
+      size: 22,
+      definitionSimple: "Pregunta guía que organiza la integración de conceptos.",
+      definitionTechnical: "Integra capas de comunicación, protocolos y operación de red.",
+      analogy: "La brújula de todo el atlas.",
+      realExample: "Qué debe pasar para que una laptop vea un servidor interno.",
+      source: "Objetivo de semana 1",
+      relations: ["dispositivos", "protocolos", "modelo-osi", "topologias"],
+      osiLayer: "Pregunta central",
+      question: "¿Qué elemento responde primero al mensaje del usuario?",
+      questionDetail: "Generalmente inicia en el dispositivo final (host) y termina en destino tras un conjunto de capas."
     },
     {
       id: "dispositivos",
@@ -69,16 +92,18 @@ const mapData = {
       layer: "canonical",
       status: "introducido",
       weekIntroduced: 1,
-      x: 320,
-      y: 300,
-      size: 24,
-      definitionSimple: "Equipos que originan o reciben datos en la red.",
-      definitionTechnical: "Hosts con stack de red y configuración para identificación y comunicación.",
-      analogy: "Personas en una conversación: cada una habla y escucha.",
-      realExample: "Laptop, impresora de red, servidor y teléfonos IP.",
+      x: 430,
+      y: 320,
+      size: 20,
+      definitionSimple: "Equipos que originan o reciben datos en una red.",
+      definitionTechnical: "Hosts, servidores y dispositivos con stack de red.",
+      analogy: "Participantes de una conversación técnica.",
+      realExample: "PC, laptop, impresora o teléfono IP.",
       source: "Molina-Robles Cap 1–2",
-      relations: ["Hosts", "Protocolos", "Topologías"],
-      osiLayer: "Aplicación → Física"
+      relations: ["aplicaciones", "protocolos", "topologias"],
+      osiLayer: "7 → 1",
+      question: "¿Qué debe tener un dispositivo para participar?",
+      questionDetail: "Dirección, software de red y reglas de acceso."
     },
     {
       id: "aplicaciones",
@@ -86,16 +111,18 @@ const mapData = {
       layer: "canonical",
       status: "introducido",
       weekIntroduced: 1,
-      x: 780,
-      y: 300,
-      size: 24,
-      definitionSimple: "Servicios software que generan el tráfico útil para usuarios.",
-      definitionTechnical: "Protocolos cliente-servidor y flujos lógicos sobre conectividad red.",
-      analogy: "Un traductor de mensajes entre personas.",
-      realExample: "Correo, LMS, videollamada y ERP.",
+      x: 870,
+      y: 320,
+      size: 20,
+      definitionSimple: "Servicios de software que generan el tráfico útil.",
+      definitionTechnical: "Lógicas cliente-servidor y flujo de solicitudes y respuestas.",
+      analogy: "Un traductor entre la intención del usuario y la red.",
+      realExample: "Correo, LMS, videollamada.",
       source: "Molina-Robles Cap 1–2",
-      relations: ["Protocolos", "Hosts", "Capa Aplicación OSI"],
-      osiLayer: "Aplicación (7)"
+      relations: ["protocolos", "capa-aplicacion"],
+      osiLayer: "7",
+      question: "¿Qué capa se hace evidente en una aplicación?",
+      questionDetail: "Normalmente aparece en Capa 7 (Aplicación)."
     },
     {
       id: "protocolos",
@@ -103,16 +130,18 @@ const mapData = {
       layer: "canonical",
       status: "en_aprendizaje",
       weekIntroduced: 1,
-      x: 560,
-      y: 310,
-      size: 24,
-      definitionSimple: "Reglas para intercambiar datos entre dos nodos.",
-      definitionTechnical: "Definen formato, orden, control, confiabilidad y cierre de sesión.",
-      analogy: "Como una gramática compartida para conversar.",
+      x: 650,
+      y: 330,
+      size: 20,
+      definitionSimple: "Reglas para intercambiar bits, mensajes y tráfico.",
+      definitionTechnical: "Definen formato, control y confiabilidad.",
+      analogy: "Una gramática para hablar técnicamente.",
       realExample: "HTTP, TCP, IP, DNS.",
       source: "Molina-Robles Cap 1–2",
-      relations: ["Modelo OSI", "TCP/IP", "Aplicaciones"],
-      osiLayer: "Todas las capas"
+      relations: ["modelo-osi", "tcpip", "dispositivos", "aplicaciones"],
+      osiLayer: "Transversal",
+      question: "¿Por qué dos equipos no se entienden sin protocolo?",
+      questionDetail: "Porque deben compartir reglas de formato y diálogo."
     },
     {
       id: "medios",
@@ -120,33 +149,16 @@ const mapData = {
       layer: "canonical",
       status: "introducido",
       weekIntroduced: 1,
-      x: 560,
-      y: 420,
-      size: 24,
-      definitionSimple: "Elementos físicos o inalámbricos que transportan la señal.",
-      definitionTechnical: "Enlaces con propiedades de alcance, tasa y ruido.",
-      analogy: "Carreteras y rutas aéreas para el transporte.",
-      realExample: "Cable UTP, fibra, Wi‑Fi.",
+      x: 650,
+      y: 430,
+      size: 20,
+      definitionSimple: "Canal físico o inalámbrico que transporta señal.",
+      definitionTechnical: "Tecnología de transmisión con alcance, tasa y ruido.",
+      analogy: "Carreteras y rutas de un envío digital.",
+      realExample: "UTP, fibra y Wi‑Fi.",
       source: "Molina-Robles Cap 1–2",
-      relations: ["Cableado", "Topologías", "Capa Física"],
-      osiLayer: "Física (1)"
-    },
-    {
-      id: "hardware",
-      title: "Hardware de red",
-      layer: "canonical",
-      status: "introducido",
-      weekIntroduced: 1,
-      x: 320,
-      y: 500,
-      size: 24,
-      definitionSimple: "Equipos que soportan conmutación, enrutamiento y conectividad.",
-      definitionTechnical: "Switches, routers, APs, paneles y equipos de borde.",
-      analogy: "La infraestructura vial y semafórica de la ciudad digital.",
-      realExample: "Switch de acceso en rack de laboratorio.",
-      source: "Molina-Robles Cap 1–2",
-      relations: ["Topologías", "Medios", "Gestión de cambios"],
-      osiLayer: "Física (1) y Enlace (2)"
+      relations: ["cableado", "topologias", "capa-fisica"],
+      osiLayer: "1"
     },
     {
       id: "topologias",
@@ -154,16 +166,67 @@ const mapData = {
       layer: "canonical",
       status: "en_aprendizaje",
       weekIntroduced: 1,
-      x: 780,
+      x: 790,
       y: 500,
-      size: 24,
-      definitionSimple: "Formas de interconexión entre nodos de red.",
-      definitionTechnical: "Diseños físicos y lógicos de interconexión.",
-      analogy: "Planos de distribución de una ciudad.",
-      realExample: "Estrella y malla en redes LAN.",
+      size: 20,
+      definitionSimple: "Forma de interconexión entre nodos de una red.",
+      definitionTechnical: "Diseños físicos y lógicos para distribución.",
+      analogy: "Plano urbano de conectividad.",
+      realExample: "Topología estrella.",
       source: "Molina-Robles Cap 1–2",
-      relations: ["Hardware", "Medios", "Infraestructura física"],
+      relations: ["hardware", "medios", "infraestructura"],
       osiLayer: "Diseño transversal"
+    },
+    {
+      id: "hardware",
+      title: "Hardware de red",
+      layer: "canonical",
+      status: "introducido",
+      weekIntroduced: 1,
+      x: 520,
+      y: 500,
+      size: 20,
+      definitionSimple: "Equipos que habilitan conectividad y encaminamiento.",
+      definitionTechnical: "Switches, routers, AP y paneles.",
+      analogy: "Sistema de cruces y control en una ciudad.",
+      realExample: "Switch de acceso en rack de laboratorio.",
+      source: "Molina-Robles Cap 1–2",
+      relations: ["topologias", "medios", "infraestructura"],
+      osiLayer: "1–2"
+    },
+    {
+      id: "cableado",
+      title: "Cableado estructurado",
+      layer: "canonical",
+      status: "en_aprendizaje",
+      weekIntroduced: 1,
+      x: 480,
+      y: 600,
+      size: 19,
+      definitionSimple: "Instalación ordenada de conductos, cable y conectores.",
+      definitionTechnical: "Canalización, etiquetado y trazabilidad.",
+      analogy: "Plantas y planos del barrio técnico.",
+      realExample: "Patch panel con código por rack y puerto.",
+      source: "Semana 1",
+      relations: ["medios", "infraestructura", "documentacion"],
+      osiLayer: "1"
+    },
+    {
+      id: "infraestructura",
+      title: "Infraestructura física",
+      layer: "canonical",
+      status: "introducido",
+      weekIntroduced: 1,
+      x: 650,
+      y: 600,
+      size: 19,
+      definitionSimple: "Entorno físico que soporta continuidad eléctrica y térmica.",
+      definitionTechnical: "Racks, ventilación, energía y organización.",
+      analogy: "La base de soporte de un sistema.",
+      realExample: "Rack con UPS y ventilación para nodos de red.",
+      source: "Semana 1",
+      relations: ["hardware", "cableado", "seguridad"],
+      osiLayer: "1"
     },
     {
       id: "modelo-osi",
@@ -171,16 +234,16 @@ const mapData = {
       layer: "canonical",
       status: "en_aprendizaje",
       weekIntroduced: 1,
-      x: 560,
-      y: 600,
+      x: 650,
+      y: 680,
       size: 30,
-      definitionSimple: "Marco de 7 capas para ubicar responsabilidades de la comunicación.",
-      definitionTechnical: "Estructura de interoperabilidad entre aplicaciones y enlace físico.",
-      analogy: "Una cadena de procesos que no deja espacios ciegos.",
-      realExample: "Una petición viaja desde aplicación hasta capa física y vuelve con respuesta.",
+      definitionSimple: "Marco de siete capas para ubicar responsabilidades.",
+      definitionTechnical: "Referencia para interoperabilidad y diagnóstico.",
+      analogy: "Cadena de procesos con trazabilidad completa.",
+      realExample: "Una solicitud recorre y vuelve por capas.",
       source: "Molina-Robles Cap 1–2",
-      relations: ["Capa Aplicación", "Capa Presentación", "Capa Sesión", "Capa Transporte", "Capa Red", "Capa Enlace", "Capa Física"],
-      osiLayer: "Modelo OSI (7 capas)"
+      relations: ["capa-aplicacion", "capa-presentacion", "capa-sesion", "capa-transporte", "capa-red", "capa-enlace", "capa-fisica", "tcpip"],
+      osiLayer: "7 capas"
     },
     {
       id: "capa-aplicacion",
@@ -188,15 +251,15 @@ const mapData = {
       layer: "canonical",
       status: "no_estudiado",
       weekIntroduced: 1,
-      x: 880,
-      y: 500,
-      size: 18,
-      definitionSimple: "Interfaz final donde el usuario o servicio consume datos.",
-      definitionTechnical: "Protocolos de aplicación y representación de servicios.",
-      analogy: "La recepción de un paquete en destino.",
-      realExample: "Navegador solicitando una página web.",
+      x: 410,
+      y: 760,
+      size: 16,
+      definitionSimple: "Interfaz visible para usuario o servicio.",
+      definitionTechnical: "Protocolos de interacción final.",
+      analogy: "La recepción de un paquete de servicio.",
+      realExample: "Navegador solicitando una página.",
       source: "Molina-Robles Cap 1–2",
-      relations: ["Modelo OSI", "Aplicaciones"],
+      relations: ["modelo-osi", "aplicaciones"],
       osiLayer: "7"
     },
     {
@@ -205,15 +268,15 @@ const mapData = {
       layer: "canonical",
       status: "no_estudiado",
       weekIntroduced: 1,
-      x: 900,
-      y: 540,
-      size: 18,
-      definitionSimple: "Formatea y codifica la información para intercambio.",
-      definitionTechnical: "Codificación, compresión y presentación interoperable.",
-      analogy: "Traductor antes de entregar un mensaje.",
-      realExample: "Conversión de codificaciones de texto o imagen.",
+      x: 510,
+      y: 760,
+      size: 16,
+      definitionSimple: "Codifica y adapta la representación de datos.",
+      definitionTechnical: "Formato, codificación y conversión.",
+      analogy: "Traductor antes de entregar el contenido.",
+      realExample: "Conversión de formatos de imagen o texto.",
       source: "Molina-Robles Cap 1–2",
-      relations: ["Modelo OSI", "Capa Aplicación"],
+      relations: ["capa-aplicacion", "modelo-osi"],
       osiLayer: "6"
     },
     {
@@ -222,15 +285,15 @@ const mapData = {
       layer: "canonical",
       status: "no_estudiado",
       weekIntroduced: 1,
-      x: 920,
-      y: 580,
-      size: 18,
-      definitionSimple: "Gestiona apertura, mantenimiento y cierre de sesiones.",
-      definitionTechnical: "Sincroniza estados y diálogo entre nodos extremos.",
-      analogy: "La regla de inicio/fin de una reunión.",
-      realExample: "Inicio y cierre de autenticación en un servicio.",
+      x: 610,
+      y: 760,
+      size: 16,
+      definitionSimple: "Gestiona apertura y cierre de la conversación.",
+      definitionTechnical: "Control de estado y diálogo entre extremos.",
+      analogy: "Abrir, sostener y cerrar una reunión digital.",
+      realExample: "Conexión autenticada con cierre controlado.",
       source: "Molina-Robles Cap 1–2",
-      relations: ["Modelo OSI", "Aplicaciones"],
+      relations: ["modelo-osi", "capa-transporte"],
       osiLayer: "5"
     },
     {
@@ -239,15 +302,15 @@ const mapData = {
       layer: "canonical",
       status: "no_estudiado",
       weekIntroduced: 1,
-      x: 940,
-      y: 620,
-      size: 18,
+      x: 710,
+      y: 760,
+      size: 16,
       definitionSimple: "Entrega confiable entre extremos.",
-      definitionTechnical: "Control de flujo, orden y fiabilidad de segmentos.",
-      analogy: "Repartir cartas con constancia de entrega.",
-      realExample: "Conexión TCP con control de retransmisión.",
+      definitionTechnical: "Control de flujo, orden y retransmisión.",
+      analogy: "Repartidor con confirmación de entrega.",
+      realExample: "Conexión TCP con control de errores.",
       source: "Molina-Robles Cap 1–2",
-      relations: ["Modelo OSI", "Protocolos", "TCP/IP"],
+      relations: ["modelo-osi", "tcpip", "protocolos"],
       osiLayer: "4"
     },
     {
@@ -256,15 +319,15 @@ const mapData = {
       layer: "canonical",
       status: "no_estudiado",
       weekIntroduced: 1,
-      x: 960,
-      y: 660,
-      size: 18,
-      definitionSimple: "Define rutas y direcciones para mover paquetes entre redes.",
-      definitionTechnical: "Direccionamiento lógico y forwarding.",
-      analogy: "Una central de mensajería entre ciudades.",
-      realExample: "Direcciones IP y tablas de encaminamiento.",
+      x: 810,
+      y: 760,
+      size: 16,
+      definitionSimple: "Direcciona paquetes entre redes.",
+      definitionTechnical: "Direccionamiento lógico y rutas.",
+      analogy: "Ruta entre barrios digitales.",
+      realExample: "Direcciones IP y encaminamiento.",
       source: "Molina-Robles Cap 1–2",
-      relations: ["Modelo OSI", "Capa Enlace de datos"],
+      relations: ["modelo-osi", "capa-enlace", "router-world"],
       osiLayer: "3"
     },
     {
@@ -273,15 +336,15 @@ const mapData = {
       layer: "canonical",
       status: "no_estudiado",
       weekIntroduced: 1,
-      x: 980,
-      y: 700,
-      size: 18,
-      definitionSimple: "Encapsula tramas y controla acceso al medio local.",
-      definitionTechnical: "Dirección física y control de enlace.",
-      analogy: "Camión que lleva paquetes por una misma calle.",
-      realExample: "Direcciones MAC y tramas Ethernet.",
+      x: 910,
+      y: 760,
+      size: 16,
+      definitionSimple: "Gestiona tramas dentro de un enlace local.",
+      definitionTechnical: "Direcciones físicas y control de acceso al medio.",
+      analogy: "Envío por una avenida local.",
+      realExample: "Dirección MAC en una LAN.",
       source: "Molina-Robles Cap 1–2",
-      relations: ["Modelo OSI", "Medios", "Topologías"],
+      relations: ["modelo-osi", "capa-fisica", "switch-world"],
       osiLayer: "2"
     },
     {
@@ -290,181 +353,426 @@ const mapData = {
       layer: "canonical",
       status: "no_estudiado",
       weekIntroduced: 1,
-      x: 1000,
-      y: 740,
-      size: 18,
-      definitionSimple: "Transmite bits por el medio físico.",
-      definitionTechnical: "Voltaje, señalización y propiedades de cableado.",
-      analogy: "El asfalto sobre el cual circula el paquete.",
-      realExample: "UTP, fibra, canalizaciones y conectores.",
+      x: 1010,
+      y: 760,
+      size: 16,
+      definitionSimple: "Transmite bits por señales en un medio.",
+      definitionTechnical: "Propiedades eléctricas, ópticas y mecánicas.",
+      analogy: "La base física del flujo.",
+      realExample: "Conexión UTP o fibra hacia el switch.",
       source: "Molina-Robles Cap 1–2",
-      relations: ["Modelo OSI", "Medios", "Cableado", "Hosts"],
+      relations: ["modelo-osi", "medios", "cableado"],
       osiLayer: "1"
     },
-    { id: "tcpip", title: "TCP/IP", layer: "canonical", status: "en_aprendizaje", weekIntroduced: 1, x: 760, y: 700, size: 22, definitionSimple: "Conjunto práctico de protocolos de interconexión.", definitionTechnical: "Arquitectura operativa para la operación real de redes IP.", analogy: "Versión aplicada del marco OSI para tráfico real.", realExample: "HTTP sobre TCP sobre IP hacia un servidor.", source: "Semana 1", relations: ["Protocolos", "Capa Transmisión"], osiLayer: "4–3", },
-    { id: "cableado", title: "Cableado", layer: "canonical", status: "en_aprendizaje", weekIntroduced: 1, x: 500, y: 650, size: 20, definitionSimple: "Canales físicos organizados y etiquetados por diseño.", definitionTechnical: "Cableado estructurado y documentación asociada.", analogy: "La red eléctrica y su plano en un edificio.", realExample: "Patch panels y etiquetado en rack.", source: "Semana 1", relations: ["Medios", "Infraestructura física", "Documentación"], osiLayer: "1" },
-    { id: "infraestructura", title: "Infraestructura física", layer: "canonical", status: "introducido", weekIntroduced: 1, x: 340, y: 620, size: 20, definitionSimple: "Racks, energía y espacio físico para operación de red.", definitionTechnical: "Organiza enlaces verticales y horizontales, climatización, energía y seguridad física.", analogy: "Fundación de un edificio técnico.", realExample: "Armario con UPS y ventilación para switches.", source: "Semana 1", relations: ["Hardware", "Cableado", "Seguridad"], osiLayer: "1–2" },
-    { id: "seguridad", title: "Políticas de seguridad", layer: "worldreal", status: "introducido", weekIntroduced: 1, x: 700, y: 800, size: 22, definitionSimple: "Reglas para proteger acceso y operación de red.", definitionTechnical: "Control de accesos, segmentación y cambio seguro.", analogy: "Sistema de guardias y accesos del edificio.", realExample: "Separar VLAN de invitados y administrativa.", source: "Buenas prácticas de curso", relations: ["Gestión de red", "Gestión de cambios"], osiLayer: "Operación" },
-    { id: "documentacion", title: "Documentación", layer: "worldreal", status: "introducido", weekIntroduced: 1, x: 920, y: 800, size: 22, definitionSimple: "Registros de arquitectura, inventarios y convenciones.", definitionTechnical: "Mapas, diagramas, nomenclatura, cambios y estado.", analogy: "Bitácora de la infraestructura viva.", realExample: "Inventario con número de puerto y cable por rack.", source: "Buenas prácticas de curso", relations: ["Cableado", "Infraestructura física", "Gestión de cambios"], osiLayer: "Gestión" },
-    { id: "gestion-cambios", title: "Gestión de cambios", layer: "worldreal", status: "introducido", weekIntroduced: 1, x: 1120, y: 640, size: 22, definitionSimple: "Proceso para aprobar y controlar modificaciones.", definitionTechnical: "Solicitud, revisión, ventana, validación y evidencia de retorno.", analogy: "Trabajar en una red sin cortar el flujo principal.", realExample: "Actualización de firmware de un switch en ventana programada.", source: "Buenas prácticas de curso", relations: ["Documentación", "Seguridad", "Gestión de red"], osiLayer: "Gobernanza" },
-    { id: "gestion-red", title: "Gestión de red", layer: "worldreal", status: "introducido", weekIntroduced: 1, x: 1120, y: 720, size: 22, definitionSimple: "Operación, monitoreo y control continuo de la red.", definitionTechnical: "Inventario, monitoreo, documentación, cambios y revisión de incidentes.", analogy: "El centro de mando de la red.", realExample: "Monitoreo de uso, rendimiento y alertas de enlaces.", source: "Buenas prácticas de curso", relations: ["Documentación", "Gestión de cambios", "Seguridad"], osiLayer: "Operación" },
-    { id: "router-world", title: "Router (mundo real)", layer: "worldreal", status: "aplicado", weekIntroduced: 1, x: 280, y: 820, size: 20, definitionSimple: "Conecta segmentos y enruta tráfico entre dominios.", definitionTechnical: "Dispositivo de encaminamiento y control de rutas.", analogy: "Peaje inteligente entre barrios.", realExample: "Router en borde de red académica.", source: "Laboratorio", relations: ["Topologías", "Protocolos", "Capa Red"], osiLayer: "3" },
-    { id: "switch-world", title: "Switch (mundo real)", layer: "worldreal", status: "aplicado", weekIntroduced: 1, x: 460, y: 820, size: 20, definitionSimple: "Distribuye tramas dentro de LAN local.", definitionTechnical: "Conecta múltiples equipos y aplica dominio de broadcast.", analogy: "Centro de cruce entre aulas de una misma planta.", realExample: "Switch de planta de 48 puertos.", source: "Laboratorio", relations: ["Topologías", "Hardware", "Capa Enlace"], osiLayer: "2" },
-    { id: "cableado-world", title: "Cableado (mundo real)", layer: "worldreal", status: "aplicado", weekIntroduced: 1, x: 640, y: 820, size: 20, definitionSimple: "Canales físicos instalados y etiquetados.", definitionTechnical: "Cable estructurado terminado en patch panel y racks.", analogy: "Tuberías de una red física", realExample: "UTP Cat6ado en canaletas con identificación.", source: "Laboratorio", relations: ["Cableado", "Infraestructura física"], osiLayer: "1" },
-    { id: "dispositivos-world", title: "Host / Endpoint", layer: "worldreal", status: "aplicado", weekIntroduced: 1, x: 820, y: 820, size: 20, definitionSimple: "Dispositivo final dentro de una red real de trabajo.", definitionTechnical: "Nodo IP/MAC con stack de red activo y políticas de acceso.", analogy: "Empleado conectándose a su puesto de trabajo.", realExample: "Laptop conectada a Wi‑Fi con perfil corporativo.", source: "Laboratorio", relations: ["Dispositivos", "Protocolos", "Seguridad"], osiLayer: "7–1" }
+    {
+      id: "tcpip",
+      title: "TCP/IP",
+      layer: "canonical",
+      status: "en_aprendizaje",
+      weekIntroduced: 1,
+      x: 850,
+      y: 690,
+      size: 20,
+      definitionSimple: "Conjunto práctico de protocolos de interconexión.",
+      definitionTechnical: "Arquitectura operativa de redes actuales.",
+      analogy: "Mapa práctico para llevar teoría OSI a operación.",
+      realExample: "HTTP sobre TCP sobre IP.",
+      source: "Semana 1",
+      relations: ["capa-red", "capa-transporte", "protocolos"],
+      osiLayer: "4→3"
+    },
+    {
+      id: "seguridad",
+      title: "Políticas de seguridad",
+      layer: "worldreal",
+      status: "introducido",
+      weekIntroduced: 1,
+      x: 420,
+      y: 620,
+      size: 19,
+      definitionSimple: "Reglas para proteger acceso y operación.",
+      definitionTechnical: "Accesos, segmentación y cambios seguros.",
+      analogy: "Guardia y control de ingreso del campus digital.",
+      realExample: "Separar VLAN de invitados y administración.",
+      source: "Buenas prácticas de operación",
+      relations: ["gestion-red", "gestion-cambios", "host-world"],
+      osiLayer: "Gobernanza"
+    },
+    {
+      id: "documentacion",
+      title: "Documentación",
+      layer: "worldreal",
+      status: "introducido",
+      weekIntroduced: 1,
+      x: 590,
+      y: 620,
+      size: 19,
+      definitionSimple: "Bitácora viva de arquitectura y operación.",
+      definitionTechnical: "Inventario, convenciones y trazabilidad.",
+      analogy: "Mapa vivo de toda la red.",
+      realExample: "Inventario por puerto y cable.",
+      source: "Semana 1",
+      relations: ["cableado", "infraestructura", "gestion-red"],
+      osiLayer: "Soporte"
+    },
+    {
+      id: "gestion-cambios",
+      title: "Gestión de cambios",
+      layer: "worldreal",
+      status: "introducido",
+      weekIntroduced: 1,
+      x: 760,
+      y: 620,
+      size: 19,
+      definitionSimple: "Controla qué se cambia y con evidencia.",
+      definitionTechnical: "Solicitud, aprobación, ventana, rollback y evidencia.",
+      analogy: "Planear obra sin romper la operación.",
+      realExample: "Actualización de firmware en ventana controlada.",
+      source: "Semana 1",
+      relations: ["documentacion", "seguridad", "gestion-red"],
+      osiLayer: "Operación"
+    },
+    {
+      id: "gestion-red",
+      title: "Gestión de red",
+      layer: "worldreal",
+      status: "introducido",
+      weekIntroduced: 1,
+      x: 920,
+      y: 620,
+      size: 19,
+      definitionSimple: "Monitoreo y control continuo de la red.",
+      definitionTechnical: "Diagnóstico, seguimiento y mejora continua.",
+      analogy: "Centro de control de operaciones.",
+      realExample: "Dashboard de alertas de enlace y rendimiento.",
+      source: "Semana 1",
+      relations: ["documentacion", "gestion-cambios", "seguridad"],
+      osiLayer: "Operación"
+    },
+    {
+      id: "router-world",
+      title: "Router (mundo real)",
+      layer: "worldreal",
+      status: "aplicado",
+      weekIntroduced: 1,
+      x: 440,
+      y: 520,
+      size: 17,
+      definitionSimple: "Conecta segmentos y enruta tráfico entre dominios.",
+      definitionTechnical: "Controla tablas de encaminamiento y rutas.",
+      analogy: "Intersección inteligente entre barrios.",
+      realExample: "Router de borde de red académica.",
+      source: "Laboratorio",
+      relations: ["capa-red", "topologias", "protocolos"],
+      osiLayer: "3"
+    },
+    {
+      id: "switch-world",
+      title: "Switch (mundo real)",
+      layer: "worldreal",
+      status: "aplicado",
+      weekIntroduced: 1,
+      x: 560,
+      y: 520,
+      size: 17,
+      definitionSimple: "Conecta dispositivos locales en una LAN.",
+      definitionTechnical: "Distribuye tramas y define dominio de broadcast.",
+      analogy: "Cruce principal de una planta.",
+      realExample: "Switch de acceso de 48 puertos.",
+      source: "Laboratorio",
+      relations: ["capa-enlace", "topologias", "hardware"],
+      osiLayer: "2"
+    },
+    {
+      id: "cableado-world",
+      title: "Cableado (mundo real)",
+      layer: "worldreal",
+      status: "aplicado",
+      weekIntroduced: 1,
+      x: 680,
+      y: 520,
+      size: 17,
+      definitionSimple: "Conexiones físicas instaladas con trazabilidad.",
+      definitionTechnical: "Conectores y rutas en patch panel.",
+      analogy: "Las venas del sistema técnico.",
+      realExample: "UTP Cat6 en canaletas con etiquetado.",
+      source: "Laboratorio",
+      relations: ["cableado", "infraestructura", "documentacion"],
+      osiLayer: "1"
+    },
+    {
+      id: "host-world",
+      title: "Host / Endpoint",
+      layer: "worldreal",
+      status: "aplicado",
+      weekIntroduced: 1,
+      x: 820,
+      y: 520,
+      size: 17,
+      definitionSimple: "Nodo final real que consume y genera tráfico.",
+      definitionTechnical: "Equipo con protocolos activos y política de acceso.",
+      analogy: "Puesto de trabajo conectado al servicio.",
+      realExample: "Laptop conectada a Wi‑Fi con perfil corporativo.",
+      source: "Laboratorio",
+      relations: ["dispositivos", "protocolos", "seguridad"],
+      osiLayer: "7→1"
+    },
+    {
+      id: "ai-layer",
+      title: "Capa de apoyo con IA",
+      layer: "ai",
+      status: "en_aprendizaje",
+      weekIntroduced: 1,
+      x: 1130,
+      y: 280,
+      size: 22,
+      definitionSimple: "Punto donde la IA sugiere, detecta y prioriza.",
+      definitionTechnical: "Asistente inteligente para operación y analítica.",
+      analogy: "Copiloto que acelera decisiones con evidencia.",
+      realExample: "Alertas de saturación y recomendaciones.",
+      source: "Diseño transversal del atlas",
+      relations: ["gestion-red", "documentacion", "cableado", "protocolos"],
+      osiLayer: "Capa transversal",
+      aiValue: [
+        "Detecta patrones de tráfico repetido.",
+        "Sugerencia de cambios con menor riesgo operativo.",
+        "Resume inventario y cambios pendientes."
+      ]
+    },
+    {
+      id: "ai-insight",
+      title: "Conexión IA - Caso",
+      layer: "ai",
+      status: "en_aprendizaje",
+      weekIntroduced: 1,
+      x: 1130,
+      y: 420,
+      size: 18,
+      definitionSimple: "Ejemplo concreto de valor de IA entre conceptos.",
+      definitionTechnical: "Relación de decisión entre evidencia académica y operación.",
+      analogy: "Una capa de razonamiento entre teoría y acción.",
+      realExample: "Sugerir ventanas de cambio para evitar cortes.",
+      source: "Diseño transversal del atlas",
+      relations: ["ai-layer", "gestion-cambios", "seguridad", "gestion-red"],
+      osiLayer: "Transversal",
+      aiValue: ["Clasifica incidentes por severidad.", "Detecta huecos de documentación."]
+    }
   ],
   edges: [
-    ["cst230-core", "pregunta-principal", "contains", "pregunta"],
-    ["cst230-core", "dispositivos", "contains", "fundamento"],
-    ["cst230-core", "aplicaciones", "contains", "fundamento"],
-    ["cst230-core", "protocolos", "contains", "fundamento"],
-    ["cst230-core", "medios", "contains", "fundamento"],
-    ["cst230-core", "hardware", "contains", "fundamento"],
-    ["cst230-core", "topologias", "contains", "fundamento"],
-    ["cst230-core", "modelo-osi", "contains", "eje"],
-    ["cst230-core", "tcpip", "contains", "eje"],
-    ["cst230-core", "cableado", "contains", "base"],
-    ["cst230-core", "infraestructura", "contains", "base"],
-    ["cst230-core", "seguridad", "contains", "operación"],
-    ["cst230-core", "documentacion", "contains", "operación"],
-    ["cst230-core", "gestion-cambios", "contains", "operación"],
-    ["cst230-core", "gestion-red", "contains", "operación"],
-    ["dispositivos", "protocolos", "relation", "usa"],
-    ["aplicaciones", "protocolos", "relation", "usa"],
-    ["protocolos", "modelo-osi", "relation", "se organiza"],
-    ["hardware", "topologias", "relation", "implementa"],
-    ["medios", "topologias", "supports", "define"],
-    ["medios", "cableado", "contains", "materializa"],
-    ["cableado", "infraestructura", "contains", "ubica"],
-    ["topologias", "hardware", "supports", "usa"],
-    ["modelo-osi", "capa-aplicacion", "contains", "subcapa"],
-    ["modelo-osi", "capa-presentacion", "contains", "subcapa"],
-    ["modelo-osi", "capa-sesion", "contains", "subcapa"],
-    ["modelo-osi", "capa-transporte", "contains", "subcapa"],
-    ["modelo-osi", "capa-red", "contains", "subcapa"],
-    ["modelo-osi", "capa-enlace", "contains", "subcapa"],
-    ["modelo-osi", "capa-fisica", "contains", "subcapa"],
-    ["capa-red", "tcpip", "supports", "soporta"],
-    ["capa-transporte", "tcpip", "supports", "soporta"],
-    ["seguridad", "gestion-cambios", "relation", "requiere"],
-    ["documentacion", "gestion-red", "supports", "hace trazable"],
-    ["gestion-red", "gestion-cambios", "contains", "gobierna"],
-    ["gestion-cambios", "router-world", "relation", "aplica"],
-    ["gestion-red", "switch-world", "relation", "aplica"],
-    ["seguridad", "dispositivos-world", "relation", "gobierna"],
-    ["cableado-world", "documentacion", "relation", "reflejado"]
-  ].map(([source, target, relationshipType, label]) => ({
-    source,
-    target,
-    relationshipType,
-    label,
-    weekIntroduced: 1
-  }))
+    { source: "cst230-core", target: "pregunta-principal", relationshipType: "contains", label: "eje" },
+    { source: "cst230-core", target: "dispositivos", relationshipType: "contains", label: "base" },
+    { source: "cst230-core", target: "aplicaciones", relationshipType: "contains", label: "base" },
+    { source: "cst230-core", target: "protocolos", relationshipType: "contains", label: "base" },
+    { source: "cst230-core", target: "medios", relationshipType: "contains", label: "base" },
+    { source: "cst230-core", target: "topologias", relationshipType: "contains", label: "estructura" },
+    { source: "cst230-core", target: "hardware", relationshipType: "contains", label: "infraestructura" },
+    { source: "cst230-core", target: "modelo-osi", relationshipType: "contains", label: "marco" },
+    { source: "cst230-core", target: "gestion-red", relationshipType: "contains", label: "operación" },
+    { source: "pregunta-principal", target: "modelo-osi", relationshipType: "relation", label: "mapea" },
+    { source: "pregunta-principal", target: "dispositivos", relationshipType: "relation", label: "origen" },
+    { source: "pregunta-principal", target: "protocolos", relationshipType: "relation", label: "reglas" },
+    { source: "dispositivos", target: "protocolos", relationshipType: "relation", label: "usa" },
+    { source: "aplicaciones", target: "protocolos", relationshipType: "relation", label: "usa" },
+    { source: "aplicaciones", target: "capa-aplicacion", relationshipType: "contains", label: "se expresa en" },
+    { source: "protocolos", target: "modelo-osi", relationshipType: "supports", label: "se organiza en" },
+    { source: "protocolos", target: "tcpip", relationshipType: "supports", label: "aplica en" },
+    { source: "topologias", target: "hardware", relationshipType: "supports", label: "usa" },
+    { source: "topologias", target: "medios", relationshipType: "supports", label: "depende de" },
+    { source: "medios", target: "cableado", relationshipType: "contains", label: "materializa" },
+    { source: "medios", target: "capa-fisica", relationshipType: "supports", label: "es base de" },
+    { source: "cableado", target: "infraestructura", relationshipType: "contains", label: "estructura" },
+    { source: "infraestructura", target: "seguridad", relationshipType: "supports", label: "sostiene" },
+    { source: "seguridad", target: "gestion-cambios", relationshipType: "relation", label: "requiere control" },
+    { source: "documentacion", target: "gestion-red", relationshipType: "supports", label: "traza" },
+    { source: "gestion-red", target: "gestion-cambios", relationshipType: "contains", label: "gobierna" },
+    { source: "modelo-osi", target: "capa-aplicacion", relationshipType: "contains", label: "incluye" },
+    { source: "modelo-osi", target: "capa-presentacion", relationshipType: "contains", label: "incluye" },
+    { source: "modelo-osi", target: "capa-sesion", relationshipType: "contains", label: "incluye" },
+    { source: "modelo-osi", target: "capa-transporte", relationshipType: "contains", label: "incluye" },
+    { source: "modelo-osi", target: "capa-red", relationshipType: "contains", label: "incluye" },
+    { source: "modelo-osi", target: "capa-enlace", relationshipType: "contains", label: "incluye" },
+    { source: "modelo-osi", target: "capa-fisica", relationshipType: "contains", label: "incluye" },
+    { source: "capa-transporte", target: "tcpip", relationshipType: "supports", label: "complementa" },
+    { source: "capa-red", target: "tcpip", relationshipType: "supports", label: "complementa" },
+    { source: "capa-red", target: "router-world", relationshipType: "supports", label: "implementa" },
+    { source: "capa-enlace", target: "switch-world", relationshipType: "supports", label: "implementa" },
+    { source: "capa-fisica", target: "cableado-world", relationshipType: "supports", label: "materializa" },
+    { source: "seguridad", target: "host-world", relationshipType: "relation", label: "protege" },
+    { source: "cableado-world", target: "documentacion", relationshipType: "relation", label: "se refleja" },
+    { source: "ai-layer", target: "protocolos", relationshipType: "ai", label: "sugerencia" },
+    { source: "ai-layer", target: "gestion-cambios", relationshipType: "ai", label: "prioriza", isDashed: true },
+    { source: "ai-layer", target: "documentacion", relationshipType: "ai", label: "resume", isDashed: true },
+    { source: "ai-layer", target: "gestion-red", relationshipType: "ai", label: "asiste" },
+    { source: "ai-insight", target: "ai-layer", relationshipType: "ai", label: "deriva" },
+    { source: "ai-insight", target: "gestion-red", relationshipType: "ai", label: "diagnostica" },
+    { source: "ai-insight", target: "seguridad", relationshipType: "ai", label: "detecta riesgos" }
+  ]
 };
 
 const state = {
-  activeWeeks: new Set([1]),
+  activeStages: 0,
+  query: "",
   activeLayers: new Set(Object.keys(mapData.layers)),
   activeStatuses: new Set(Object.keys(mapData.statuses)),
-  query: "",
-  selectedNodeId: "cst230-core"
+  selectedNodeId: "cst230-core",
+  showAiConnections: true
 };
 
+const stageNav = document.getElementById("journeyNav");
+const storyWeek = document.getElementById("storyWeek");
+const storyTitle = document.getElementById("storyTitle");
+const storyIntro = document.getElementById("storyIntro");
+const storyQuestion = document.getElementById("storyQuestion");
+const searchInput = document.getElementById("searchInput");
+const layerFilters = document.getElementById("layerFilters");
+const statusFilters = document.getElementById("statusFilters");
 const svg = document.getElementById("knowledgeMap");
 const edgesLayer = document.getElementById("edgesLayer");
 const nodesLayer = document.getElementById("nodesLayer");
-const weekFilters = document.getElementById("weekFilters");
-const layerFilters = document.getElementById("layerFilters");
-const statusFilters = document.getElementById("statusFilters");
-const searchInput = document.getElementById("searchInput");
+const prevStage = document.getElementById("prevStage");
+const nextStage = document.getElementById("nextStage");
 const detailTitle = document.getElementById("detailTitle");
 const detailContent = document.getElementById("detailContent");
+const aiToggle = document.getElementById("aiToggle");
+const nodeBackdrop = document.getElementById("nodeBackdrop");
+const nodePopup = document.getElementById("nodePopup");
+const closePopup = document.getElementById("closePopup");
 
 function normalize(value) {
   return (value || "").toString().toLowerCase();
 }
 
+function getNodeById(id) {
+  return mapData.nodes.find((node) => node.id === id);
+}
+
+function stageNodeIds() {
+  return mapData.stages[state.activeStages].nodeIds;
+}
+
 function visibleNodes() {
-  const query = normalize(searchInput.value);
+  const query = normalize(state.query);
+  const stageSet = new Set(stageNodeIds());
   return mapData.nodes.filter((node) => {
-    if (!state.activeWeeks.has(node.weekIntroduced)) return false;
-    if (!state.activeLayers.has(node.layer || "canonical")) return false;
+    if (!stageSet.has(node.id)) return false;
+    if (!state.showAiConnections && node.layer === "ai") return false;
+    if (!state.activeLayers.has(node.layer)) return false;
     if (!state.activeStatuses.has(node.status)) return false;
     if (!query) return true;
-    return normalize(node.title).includes(query) || normalize(node.definitionSimple).includes(query) || normalize(node.realExample).includes(query);
+    return (
+      normalize(node.title).includes(query) ||
+      normalize(node.definitionSimple).includes(query) ||
+      normalize(node.realExample).includes(query)
+    );
   });
 }
 
 function visibleEdges(visibleNodeIds) {
-  const set = new Set(visibleNodeIds);
-  return mapData.edges.filter((edge) => set.has(edge.source) && set.has(edge.target));
+  const visible = new Set(visibleNodeIds);
+  return mapData.edges.filter((edge) => {
+    if (edge.relationshipType === "ai" && !state.showAiConnections) return false;
+    return visible.has(edge.source) && visible.has(edge.target);
+  });
+}
+
+function renderStageNav() {
+  stageNav.innerHTML = mapData.stages
+    .map((stage, index) => `<button class="journey-tab ${index === state.activeStages ? "is-active" : ""}" data-stage="${index}" type="button">${stage.label}</button>`)
+    .join("");
+  stageNav.querySelectorAll("button").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.activeStages = Number(button.dataset.stage);
+      state.selectedNodeId = mapData.stages[state.activeStages].nodeIds[0];
+      render();
+    });
+  });
+  prevStage.disabled = state.activeStages === 0;
+  nextStage.disabled = state.activeStages === mapData.stages.length - 1;
+}
+
+function renderStory() {
+  const stage = mapData.stages[state.activeStages];
+  storyWeek.textContent = `Semana ${mapData.currentWeek} · ${stage.label}`;
+  storyTitle.textContent = stage.title;
+  storyIntro.textContent = stage.intro;
+  storyQuestion.textContent = `Pregunta de análisis: ${stage.question}`;
 }
 
 function renderFilters() {
-  weekFilters.innerHTML = mapData.weeks
-    .map(
-      (week) => `<label><input type="checkbox" data-week="${week.id}" ${week.enabled ? "checked" : ""}><span>${week.label}</span></label>`
-    )
-    .join("");
-
   layerFilters.innerHTML = Object.entries(mapData.layers)
-    .map(
-      ([key, value]) =>
-        `<label><input type="checkbox" data-layer="${key}" checked><span>${value.label}</span></label>`
-    )
+    .map(([key, layer]) => `<label><input type="checkbox" data-layer="${key}" checked><span>${layer.label}</span></label>`)
     .join("");
-
   statusFilters.innerHTML = Object.entries(mapData.statuses)
-    .map(
-      ([key, value]) =>
-        `<label><input type="checkbox" data-status="${key}" checked><span>${value.label}</span></label>`
-    )
+    .map(([key, status]) => `<label><input type="checkbox" data-status="${key}" checked><span>${status.label}</span></label>`)
     .join("");
-
-  weekFilters.querySelectorAll("input").forEach((input) => {
-    input.addEventListener("change", () => {
-      const id = Number(input.dataset.week);
-      if (input.checked) state.activeWeeks.add(id);
-      else state.activeWeeks.delete(id);
-      render();
-    });
-  });
-
   layerFilters.querySelectorAll("input").forEach((input) => {
     input.addEventListener("change", () => {
-      const id = input.dataset.layer;
-      if (input.checked) state.activeLayers.add(id);
-      else state.activeLayers.delete(id);
+      const layer = input.dataset.layer;
+      if (input.checked) state.activeLayers.add(layer);
+      else state.activeLayers.delete(layer);
       render();
     });
   });
-
   statusFilters.querySelectorAll("input").forEach((input) => {
     input.addEventListener("change", () => {
-      const id = input.dataset.status;
-      if (input.checked) state.activeStatuses.add(id);
-      else state.activeStatuses.delete(id);
+      const status = input.dataset.status;
+      if (input.checked) state.activeStatuses.add(status);
+      else state.activeStatuses.delete(status);
       render();
     });
   });
+}
+
+function lineClass(type, isDashed) {
+  return `${type === "ai" ? "edge-line ai" : "edge-line"}${isDashed ? " dashed" : ""}`;
 }
 
 function updateDetail(node) {
   if (!node) return;
   state.selectedNodeId = node.id;
-  detailTitle.textContent = node.title;
+  const statusLabel = mapData.statuses[node.status]?.label || node.status;
+  const layerLabel = mapData.layers[node.layer]?.label || "Sin capa";
+  const aiValue = Array.isArray(node.aiValue) ? node.aiValue.map((entry) => `• ${entry}`).join("<br>") : "—";
+  const relations = mapData.edges
+    .filter((edge) => edge.source === node.id || edge.target === node.id)
+    .map((edge) => {
+      const source = getNodeById(edge.source);
+      const target = getNodeById(edge.target);
+      const linked = source && target ? (source.id === node.id ? target.title : source.title) : "";
+      const suffix = edge.relationshipType === "ai" ? " · IA" : "";
+      return `${edge.label}: ${linked}${suffix}`;
+    })
+    .join("<br>");
+
+  detailTitle.innerHTML = `${node.title}${node.layer === "ai" ? ' <span class="ai-badge">IA</span>' : ""}`;
   detailContent.innerHTML = `
     <dt>Definición simple</dt><dd>${node.definitionSimple}</dd>
     <dt>Definición técnica</dt><dd>${node.definitionTechnical}</dd>
+    <dt>Pregunta de comprensión</dt><dd>${node.question || "¿Qué función cumple este concepto en la red?"}</dd>
+    <dt>Pregunta detallada</dt><dd>${node.questionDetail || "¿Cómo se conecta con el tramo actual?"}</dd>
     <dt>Analogía</dt><dd>${node.analogy}</dd>
     <dt>Ejemplo real</dt><dd>${node.realExample}</dd>
-    <dt>Relaciones</dt><dd>${(node.relations || []).map((item) => `• ${item}`).join("<br/>") || "—"}</dd>
+    <dt>Relaciones y conexiones</dt><dd>${relations || "—"}</dd>
     <dt>Capa OSI</dt><dd>${node.osiLayer || "—"}</dd>
-    <dt>Fuente</dt><dd>${node.source || "—"}</dd>
-    <dt>Semana aprendida</dt><dd>${node.weekIntroduced}</dd>
-    <dt>Estado</dt><dd>${mapData.statuses[node.status]?.label || node.status}</dd>
-    <dt>Tipo de capa</dt><dd>${mapData.layers[node.layer || "canonical"].label}</dd>
+    <dt>Fuente</dt><dd>${node.source}</dd>
+    <dt>Semana en que aparece</dt><dd>${node.weekIntroduced}</dd>
+    <dt>Estado de aprendizaje</dt><dd>${statusLabel}</dd>
+    <dt>Capa</dt><dd>${layerLabel}</dd>
+    ${node.layer === "ai" ? `<dt>¿Qué trae IA aquí?</dt><dd>${aiValue}</dd>` : ""}
   `;
+}
+
+function openPopup(node) {
+  updateDetail(node);
+  nodePopup.removeAttribute("hidden");
+  nodePopup.setAttribute("aria-hidden", "false");
+  nodeBackdrop.removeAttribute("hidden");
+}
+
+function closePopupPanel() {
+  nodePopup.setAttribute("hidden", "true");
+  nodePopup.setAttribute("aria-hidden", "true");
+  nodeBackdrop.setAttribute("hidden", "true");
 }
 
 function draw() {
@@ -474,40 +782,79 @@ function draw() {
 
   edgesLayer.innerHTML = edges
     .map((edge) => {
-      const source = mapData.nodes.find((node) => node.id === edge.source);
-      const target = mapData.nodes.find((node) => node.id === edge.target);
+      const source = getNodeById(edge.source);
+      const target = getNodeById(edge.target);
+      if (!state.showAiConnections && (source?.layer === "ai" || target?.layer === "ai")) return "";
       if (!source || !target) return "";
-      const type = mapData.relationshipTypes[edge.relationshipType];
-      return `<line x1="${source.x}" y1="${source.y}" x2="${target.x}" y2="${target.y}" stroke="rgba(160, 190, 225, 0.45)" stroke-width="2" />`;
+      return `<line class="${lineClass(edge.relationshipType, edge.isDashed)}" x1="${source.x}" y1="${source.y}" x2="${target.x}" y2="${target.y}" />`;
     })
     .join("");
 
   nodesLayer.innerHTML = nodes
     .map((node) => {
-      const color = mapData.layers[node.layer || "canonical"].color;
-      return `
-        <g class="node" data-id="${node.id}" tabindex="0">
-          <circle cx="${node.x}" cy="${node.y}" r="${node.size}" fill="${color}" class="node-chip" stroke="#d8ecff" stroke-width="2"/>
-          <text x="${node.x + 12}" y="${node.y + 4}" font-size="12">${node.title}</text>
-        </g>
-      `;
+      const color = mapData.layers[node.layer]?.color || "var(--canon)";
+      return `<g class="node-dot" data-node="${node.id}" tabindex="0" role="button" aria-label="Ver detalle de ${node.title}">
+        <circle cx="${node.x}" cy="${node.y}" r="${node.size}" fill="${color}" class="node-core" />
+        <circle cx="${node.x}" cy="${node.y}" r="${node.size + 3}" class="node-ring" />
+        <text x="${node.x + 16}" y="${node.y + 5}" class="node-label">${node.title}</text>
+      </g>`;
     })
     .join("");
 
-  nodesLayer.querySelectorAll("[data-id]").forEach((el) => {
-    el.addEventListener("click", () => {
-      const node = mapData.nodes.find((n) => n.id === el.dataset.id);
-      updateDetail(node);
+  nodesLayer.querySelectorAll("[data-node]").forEach((el) => {
+    const node = getNodeById(el.dataset.node);
+    const open = () => openPopup(node);
+    el.addEventListener("click", open);
+    el.addEventListener("keypress", (event) => {
+      if (event.key === "Enter") open();
     });
   });
+
+  const current = getNodeById(state.selectedNodeId);
+  const fallback = nodes.find((node) => node.id === state.selectedNodeId) || nodes[0];
+  updateDetail(fallback);
 }
 
 function render() {
+  renderStory();
+  renderStageNav();
   draw();
-  const selected = mapData.nodes.find((node) => node.id === state.selectedNodeId);
-  updateDetail(selected);
 }
 
-searchInput.addEventListener("input", render);
+prevStage.addEventListener("click", () => {
+  if (state.activeStages > 0) {
+    state.activeStages -= 1;
+    state.selectedNodeId = mapData.stages[state.activeStages].nodeIds[0];
+    render();
+  }
+});
+
+nextStage.addEventListener("click", () => {
+  if (state.activeStages < mapData.stages.length - 1) {
+    state.activeStages += 1;
+    state.selectedNodeId = mapData.stages[state.activeStages].nodeIds[0];
+    render();
+  }
+});
+
+searchInput.addEventListener("input", (event) => {
+  state.query = event.target.value;
+  render();
+});
+
+aiToggle.addEventListener("change", () => {
+  state.showAiConnections = aiToggle.checked;
+  render();
+});
+
+nodeBackdrop.addEventListener("click", closePopupPanel);
+closePopup.addEventListener("click", closePopupPanel);
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") closePopupPanel();
+});
+
+window.addEventListener("popstate", closePopupPanel);
+
 renderFilters();
 render();
+

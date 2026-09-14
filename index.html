@@ -5,57 +5,71 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex, nofollow" />
   <meta name="description" content="Atlas interactivo CST230 ES_A190: Fundamentos de Redes - Semana 1" />
-  <title>CST230 Atlas Interactivo</title>
-  <link rel="stylesheet" href="./styles.css?v=v1" />
+  <title>CST230 Atlas de Aprendizaje</title>
+  <link rel="stylesheet" href="./styles.css?v=editorial-scroll-v3" />
 </head>
 <body>
-  <main class="page-shell">
-    <header class="hero card">
-      <p class="eyebrow">Tiffin University · CST230 · ES_A190</p>
+  <main class="atlas-root">
+    <header class="course-cover">
+      <p class="kicker">Tiffin University · CST230 · ES_A190</p>
       <h1>CST230 — FUNDAMENTOS DE REDES</h1>
-      <h2>SEMANA 1 · INTRODUCCIÓN A LAS REDES EN EL MUNDO REAL</h2>
-      <p class="question">¿Cómo logran comunicarse los dispositivos?</p>
-      <p class="lede">
-        Atlas de aprendizaje progresivo, estable y acumulativo.
-        Semana 1 construye la base: dispositivos, aplicaciones, protocolos, hardware, medios, topologías, OSI, cableado e integración con gestión.
-      </p>
-      <div class="meta">Fuentes base: Molina-Robles (2015) Cap. 1-2 + Warriors of the Net</div>
+      <h2>Semana 1 · Introducción a las redes en el mundo real</h2>
+      <p class="lead">¿Cómo logran comunicarse los dispositivos en una red?</p>
+      <p class="meta">Un atlas visual progresivo para construir respuestas semanales sin reconstruir el mapa.</p>
     </header>
 
-    <section class="workspace card">
-      <aside class="side">
-        <div class="group">
-          <h3>Filtros</h3>
-          <label>Buscar <input id="searchInput" type="search" placeholder="buscar nodo" /></label>
-        </div>
-        <div class="group">
-          <p>Semana activa</p>
-          <div id="weekFilters" class="filters"></div>
-        </div>
-        <div class="group">
-          <p>Capa</p>
+    <section class="journey-shell">
+      <section id="journeyNav" class="journey-nav" aria-label="Etapas"></section>
+
+      <section id="storyPanel" class="story-panel">
+        <p class="kicker" id="storyWeek">Semana 1</p>
+        <h3 id="storyTitle">Título del tramo</h3>
+        <p id="storyIntro" class="story-intro">Texto de introducción del tramo.</p>
+        <p id="storyQuestion" class="story-question">Pregunta para activar reflexión.</p>
+      </section>
+
+      <section class="stage-nav controls-row">
+        <button id="prevStage" type="button">◀ Etapa anterior</button>
+        <button id="nextStage" type="button">Siguiente etapa ▶</button>
+      </section>
+
+      <section class="control-strip">
+        <p class="section-kicker">Exploración guiada</p>
+        <label class="search-wrap">Buscar concepto
+          <input id="searchInput" type="search" placeholder="Buscar nodo o idea" />
+        </label>
+        <div class="filter-group">
+          <span>Capa</span>
           <div id="layerFilters" class="filters"></div>
         </div>
-        <div class="group">
-          <p>Estado</p>
+        <div class="filter-group">
+          <span>Estado</span>
           <div id="statusFilters" class="filters"></div>
         </div>
-      </aside>
+        <label class="ia-switch">
+          <input id="aiToggle" type="checkbox" checked />
+          <span>Activar impacto de IA</span>
+        </label>
+      </section>
 
-      <section class="graph-wrap">
-        <svg id="knowledgeMap" viewBox="0 0 1400 900" role="img" aria-labelledby="mapTitle mapDescription">
-          <title id="mapTitle">Atlas de aprendizaje CST230</title>
-          <desc id="mapDescription">Semana 1, estructura inicial del mapa de aprendizaje.</desc>
+      <section class="diagram-wrap">
+        <p class="map-caption">Texto visual: el diagrama se despliega con scroll para revisar preguntas y conexiones entre conceptos.</p>
+        <svg id="knowledgeMap" viewBox="0 0 1300 760" role="img" aria-labelledby="mapTitle mapDescription">
+          <title id="mapTitle">Mapa de aprendizaje CST230 — Semana 1</title>
+          <desc id="mapDescription">Visualización de nodos y relaciones por tramos de guía académica.</desc>
           <g id="edgesLayer"></g>
           <g id="nodesLayer"></g>
         </svg>
       </section>
 
-      <aside class="side">
-        <h3>Detalle de concepto</h3>
-        <h4 id="detailTitle">Selecciona un nodo</h4>
-        <dl id="detailContent"></dl>
-      </aside>
+      <p class="section-kicker">Pulsa un nodo para abrir su ficha de contexto.</p>
+    </section>
+
+    <div id="nodeBackdrop" class="node-backdrop" hidden></div>
+    <section id="nodePopup" class="node-popup" role="dialog" aria-modal="true" aria-labelledby="detailTitle" aria-hidden="true" hidden>
+      <button id="closePopup" class="close-popup" type="button" aria-label="Cerrar detalle">×</button>
+      <h4 id="detailTitle">Selecciona un nodo</h4>
+      <dl id="detailContent"></dl>
     </section>
   </main>
 
