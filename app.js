@@ -1,12 +1,12 @@
 const mapData = {
-  version: "CST230-Week-1-Foundation",
+  version: "Network-Foundations-Week-1",
   currentWeek: 1,
   stages: [
     {
       id: "s1",
       label: "Etapa 1",
       title: "¿Cómo se abre la comunicación entre dispositivos?",
-      intro: "Primero conectamos la pregunta central del curso con los conceptos base. Si entendemos el mensaje, la comunicación deja de ser «mágica» y se vuelve un flujo trazable.",
+      intro: "",
       question: "¿Qué mínimo necesita existir para que una red funcione en el aula o laboratorio?",
       nodeIds: ["cst230-core", "pregunta-principal", "dispositivos", "aplicaciones", "protocolos"]
     },
@@ -50,7 +50,7 @@ const mapData = {
   nodes: [
     {
       id: "cst230-core",
-      title: "CST230 — Fundamentos de Redes",
+      title: "Fundamentos de Redes",
       layer: "canonical",
       status: "comprendido",
       weekIntroduced: 1,
@@ -618,19 +618,10 @@ const state = {
   showAiConnections: true
 };
 
-const stageNav = document.getElementById("journeyNav");
-const storyWeek = document.getElementById("storyWeek");
-const storyTitle = document.getElementById("storyTitle");
-const storyIntro = document.getElementById("storyIntro");
-const storyQuestion = document.getElementById("storyQuestion");
-const searchInput = document.getElementById("searchInput");
-const layerFilters = document.getElementById("layerFilters");
-const statusFilters = document.getElementById("statusFilters");
+const storyFlow = document.getElementById("storyFlow");
 const svg = document.getElementById("knowledgeMap");
 const edgesLayer = document.getElementById("edgesLayer");
 const nodesLayer = document.getElementById("nodesLayer");
-const prevStage = document.getElementById("prevStage");
-const nextStage = document.getElementById("nextStage");
 const detailTitle = document.getElementById("detailTitle");
 const detailContent = document.getElementById("detailContent");
 const aiToggle = document.getElementById("aiToggle");
@@ -646,24 +637,10 @@ function getNodeById(id) {
   return mapData.nodes.find((node) => node.id === id);
 }
 
-function stageNodeIds() {
-  return mapData.stages[state.activeStages].nodeIds;
-}
-
 function visibleNodes() {
-  const query = normalize(state.query);
-  const stageSet = new Set(stageNodeIds());
   return mapData.nodes.filter((node) => {
-    if (!stageSet.has(node.id)) return false;
     if (!state.showAiConnections && node.layer === "ai") return false;
-    if (!state.activeLayers.has(node.layer)) return false;
-    if (!state.activeStatuses.has(node.status)) return false;
-    if (!query) return true;
-    return (
-      normalize(node.title).includes(query) ||
-      normalize(node.definitionSimple).includes(query) ||
-      normalize(node.realExample).includes(query)
-    );
+    return true;
   });
 }
 
@@ -675,52 +652,16 @@ function visibleEdges(visibleNodeIds) {
   });
 }
 
-function renderStageNav() {
-  stageNav.innerHTML = mapData.stages
-    .map((stage, index) => `<button class="journey-tab ${index === state.activeStages ? "is-active" : ""}" data-stage="${index}" type="button">${stage.label}</button>`)
-    .join("");
-  stageNav.querySelectorAll("button").forEach((button) => {
-    button.addEventListener("click", () => {
-      state.activeStages = Number(button.dataset.stage);
-      state.selectedNodeId = mapData.stages[state.activeStages].nodeIds[0];
-      render();
-    });
-  });
-  prevStage.disabled = state.activeStages === 0;
-  nextStage.disabled = state.activeStages === mapData.stages.length - 1;
-}
-
-function renderStory() {
-  const stage = mapData.stages[state.activeStages];
-  storyWeek.textContent = `Semana ${mapData.currentWeek} · ${stage.label}`;
-  storyTitle.textContent = stage.title;
-  storyIntro.textContent = stage.intro;
-  storyQuestion.textContent = `Pregunta de análisis: ${stage.question}`;
-}
-
-function renderFilters() {
-  layerFilters.innerHTML = Object.entries(mapData.layers)
-    .map(([key, layer]) => `<label><input type="checkbox" data-layer="${key}" checked><span>${layer.label}</span></label>`)
-    .join("");
-  statusFilters.innerHTML = Object.entries(mapData.statuses)
-    .map(([key, status]) => `<label><input type="checkbox" data-status="${key}" checked><span>${status.label}</span></label>`)
-    .join("");
-  layerFilters.querySelectorAll("input").forEach((input) => {
-    input.addEventListener("change", () => {
-      const layer = input.dataset.layer;
-      if (input.checked) state.activeLayers.add(layer);
-      else state.activeLayers.delete(layer);
-      render();
-    });
-  });
-  statusFilters.querySelectorAll("input").forEach((input) => {
-    input.addEventListener("change", () => {
-      const status = input.dataset.status;
-      if (input.checked) state.activeStatuses.add(status);
-      else state.activeStatuses.delete(status);
-      render();
-    });
-  });
+function renderStoryFlow() {
+  storyFlow.innerHTML = mapData.stages.map((stage, index) => `
+    <article class="story-panel" id="${stage.id}">
+      <p class="kicker">Semana ${mapData.currentWeek} · ${stage.label}</p>
+      <h3>${stage.title}</h3>
+      ${stage.intro ? `<p class="story-intro">${stage.intro}</p>` : ""}
+      <p class="story-question"><span>Pregunta de análisis</span>${stage.question}</p>
+      ${index < mapData.stages.length - 1 ? '<span class="scroll-cue" aria-hidden="true">↓</span>' : ""}
+    </article>
+  `).join("");
 }
 
 function lineClass(type, isDashed) {
@@ -816,31 +757,8 @@ function draw() {
 }
 
 function render() {
-  renderStory();
-  renderStageNav();
   draw();
 }
-
-prevStage.addEventListener("click", () => {
-  if (state.activeStages > 0) {
-    state.activeStages -= 1;
-    state.selectedNodeId = mapData.stages[state.activeStages].nodeIds[0];
-    render();
-  }
-});
-
-nextStage.addEventListener("click", () => {
-  if (state.activeStages < mapData.stages.length - 1) {
-    state.activeStages += 1;
-    state.selectedNodeId = mapData.stages[state.activeStages].nodeIds[0];
-    render();
-  }
-});
-
-searchInput.addEventListener("input", (event) => {
-  state.query = event.target.value;
-  render();
-});
 
 aiToggle.addEventListener("change", () => {
   state.showAiConnections = aiToggle.checked;
@@ -855,6 +773,6 @@ document.addEventListener("keydown", (event) => {
 
 window.addEventListener("popstate", closePopupPanel);
 
-renderFilters();
+renderStoryFlow();
 render();
 

@@ -4,58 +4,33 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex, nofollow" />
-  <meta name="description" content="Atlas interactivo CST230 ES_A190: Fundamentos de Redes - Semana 1" />
-  <title>CST230 Atlas de Aprendizaje</title>
-  <link rel="stylesheet" href="./styles.css?v=editorial-scroll-v3" />
+  <meta name="description" content="Atlas interactivo de Fundamentos de Redes - Semana 1" />
+  <title>Fundamentos de Redes — Atlas de Aprendizaje</title>
+  <link rel="stylesheet" href="./styles.css?v=vertical-story-v1" />
 </head>
 <body>
   <main class="atlas-root">
     <header class="course-cover">
-      <p class="kicker">Tiffin University · CST230 · ES_A190</p>
-      <h1>CST230 — FUNDAMENTOS DE REDES</h1>
+      <h1>FUNDAMENTOS DE REDES</h1>
       <h2>Semana 1 · Introducción a las redes en el mundo real</h2>
       <p class="lead">¿Cómo logran comunicarse los dispositivos en una red?</p>
-      <p class="meta">Un atlas visual progresivo para construir respuestas semanales sin reconstruir el mapa.</p>
     </header>
 
     <section class="journey-shell">
-      <section id="journeyNav" class="journey-nav" aria-label="Etapas"></section>
-
-      <section id="storyPanel" class="story-panel">
-        <p class="kicker" id="storyWeek">Semana 1</p>
-        <h3 id="storyTitle">Título del tramo</h3>
-        <p id="storyIntro" class="story-intro">Texto de introducción del tramo.</p>
-        <p id="storyQuestion" class="story-question">Pregunta para activar reflexión.</p>
-      </section>
-
-      <section class="stage-nav controls-row">
-        <button id="prevStage" type="button">◀ Etapa anterior</button>
-        <button id="nextStage" type="button">Siguiente etapa ▶</button>
-      </section>
+      <section id="storyFlow" class="story-flow" aria-label="Recorrido de la semana 1"></section>
 
       <section class="control-strip">
-        <p class="section-kicker">Exploración guiada</p>
-        <label class="search-wrap">Buscar concepto
-          <input id="searchInput" type="search" placeholder="Buscar nodo o idea" />
-        </label>
-        <div class="filter-group">
-          <span>Capa</span>
-          <div id="layerFilters" class="filters"></div>
-        </div>
-        <div class="filter-group">
-          <span>Estado</span>
-          <div id="statusFilters" class="filters"></div>
-        </div>
         <label class="ia-switch">
           <input id="aiToggle" type="checkbox" checked />
-          <span>Activar impacto de IA</span>
+          <span class="switch-track" aria-hidden="true"><span></span></span>
+          <span>Mostrar impacto de IA</span>
         </label>
       </section>
 
       <section class="diagram-wrap">
         <p class="map-caption">Texto visual: el diagrama se despliega con scroll para revisar preguntas y conexiones entre conceptos.</p>
         <svg id="knowledgeMap" viewBox="0 0 1300 760" role="img" aria-labelledby="mapTitle mapDescription">
-          <title id="mapTitle">Mapa de aprendizaje CST230 — Semana 1</title>
+          <title id="mapTitle">Mapa de aprendizaje de Fundamentos de Redes — Semana 1</title>
           <desc id="mapDescription">Visualización de nodos y relaciones por tramos de guía académica.</desc>
           <g id="edgesLayer"></g>
           <g id="nodesLayer"></g>
@@ -73,7 +48,7 @@
     </section>
   </main>
 
-  <script src="./app.js?v=v1"></script>
+  <script src="./app.js?v=vertical-story-v1"></script>
 </body>
 </html>
 
