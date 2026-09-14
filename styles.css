@@ -43,7 +43,7 @@ input { color-scheme: dark; }
 .story-flow { width: 100%; }
 
 .story-panel {
-  min-height: 78vh;
+  min-height: 100vh;
   padding: 13vh 8vw 10vh;
   display: flex;
   flex-direction: column;
@@ -56,6 +56,57 @@ input { color-scheme: dark; }
 .story-question { max-width: 900px; margin: 3.5rem 0 0; color: #d9edef; font-size: clamp(1.15rem, 1.8vw, 1.5rem); line-height: 1.5; }
 .story-question span { display: block; margin-bottom: .8rem; color: var(--canon); font-size: .7rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
 .scroll-cue { margin-top: 4rem; color: var(--canon); font-size: 1.4rem; opacity: .65; }
+
+.stage-infographic {
+  width: min(1240px, 100%);
+  margin: 5rem auto 0;
+  text-align: left;
+}
+.stage-visual-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(103, 216, 210, .18);
+}
+.stage-visual-head p {
+  margin: 0;
+  color: var(--muted);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+.stage-infographic svg {
+  width: 100%;
+  min-width: 960px;
+  min-height: 0;
+  margin-top: 1.5rem;
+}
+.stage-node rect {
+  fill: rgba(7, 35, 43, .76);
+  stroke: rgba(103, 216, 210, .48);
+  stroke-width: 1.4;
+  transition: fill .2s ease, stroke .2s ease;
+}
+.stage-node text {
+  fill: var(--text);
+  font-size: 14px;
+  font-weight: 700;
+  text-anchor: middle;
+  pointer-events: none;
+}
+.stage-node { cursor: pointer; }
+.stage-node:hover rect, .stage-node:focus-visible rect { fill: rgba(19, 71, 78, .9); stroke: var(--canon); }
+.stage-edge { stroke: rgba(103, 216, 210, .31); stroke-width: 1.4; }
+.stage-ai-edge { stroke: var(--ai); stroke-width: 1.5; stroke-dasharray: 4 8; }
+.stage-ai-card { fill: rgba(16, 47, 72, .8); stroke: rgba(116, 185, 255, .72); stroke-width: 1.5; }
+.stage-ai-title { fill: var(--ai); font-size: 13px; font-weight: 700; letter-spacing: 2px; text-anchor: middle; }
+.stage-ai-copy { fill: #d8ebff; font-size: 14px; }
+.ai-stage-layer { opacity: 1; transition: opacity .3s ease; }
+.ai-stage-layer.is-hidden { opacity: 0; pointer-events: none; }
+.ai-note { margin: .5rem auto 0; color: #8faebc; text-align: center; font-size: .85rem; }
 
 .control-strip {
   position: sticky;
@@ -86,6 +137,8 @@ input { color-scheme: dark; }
   overflow-x: auto;
 }
 .map-caption { margin: 0 auto 2rem; max-width: 850px; color: #afc9cd; text-align: center; font-size: clamp(1rem, 1.4vw, 1.2rem); }
+.diagram-wrap > .kicker { text-align: center; }
+.map-heading { margin: 0 auto 1.5rem; max-width: 1000px; text-align: center; font-size: clamp(2.5rem, 5.5vw, 5.4rem); line-height: 1.02; font-weight: 300; letter-spacing: -.04em; }
 svg { display: block; width: 100%; min-width: 900px; min-height: 620px; overflow: visible; background: transparent; }
 .node-dot { cursor: pointer; }
 .node-label { font-size: 12px; fill: var(--text); }
@@ -119,12 +172,15 @@ svg { display: block; width: 100%; min-width: 900px; min-height: 620px; overflow
 .close-popup { position: sticky; top: 0; float: right; border: 0; background: transparent; color: var(--text); cursor: pointer; font-size: 1.6rem; }
 .node-backdrop { position: fixed; inset: 0; z-index: 999; background: rgba(0, 5, 8, .76); backdrop-filter: blur(5px); }
 .ai-badge { display: inline-flex; padding: .25rem .55rem; border: 1px solid rgba(116, 185, 255, .6); border-radius: 999px; color: var(--ai); font-size: .7rem; }
+.evidence-tag { display: inline-flex; padding: .35rem .65rem; border: 1px solid rgba(103, 216, 210, .4); border-radius: 999px; color: #c9f4f1; font-size: .78rem; }
 
 @media (max-width: 760px) {
   .course-cover { min-height: 86vh; padding-inline: 1.4rem; }
   .course-cover h1 { font-size: clamp(2.8rem, 13vw, 4.7rem); }
   .story-panel { min-height: 72vh; padding: 10vh 1.4rem 8vh; }
   .story-panel h3 { font-size: clamp(2.25rem, 11vw, 4rem); }
+  .stage-visual-head { align-items: flex-start; flex-direction: column; }
+  .stage-infographic { overflow-x: auto; }
   .diagram-wrap { padding-inline: 1.4rem; }
   .node-popup { padding: 1.5rem; border-radius: 14px; }
 }

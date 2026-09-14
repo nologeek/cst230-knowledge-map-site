@@ -5,34 +5,38 @@ const mapData = {
     {
       id: "s1",
       label: "Etapa 1",
-      title: "¿Cómo se abre la comunicación entre dispositivos?",
-      intro: "",
-      question: "¿Qué mínimo necesita existir para que una red funcione en el aula o laboratorio?",
-      nodeIds: ["cst230-core", "pregunta-principal", "dispositivos", "aplicaciones", "protocolos"]
+      title: "De la necesidad de comunicar a las reglas compartidas",
+      intro: "Dispositivos, servicios y protocolos participan en la comunicación de datos. Las redes locales también pueden estudiarse desde distintos criterios de clasificación.",
+      question: "¿Qué debe existir para que dos dispositivos puedan intercambiar información bajo reglas compatibles?",
+      nodeIds: ["comunicacion-datos", "dispositivos", "servicios", "aplicaciones", "protocolos", "clasificacion-redes", "clasificacion-titularidad", "topologias", "clasificacion-transferencia", "clasificacion-localizacion", "normalizacion", "organismos", "warriors-visual"],
+      ai: { observes: "flujos y eventos de comunicación", analyzes: "patrones o comportamientos anómalos", recommends: "qué evidencia revisar primero" }
     },
     {
       id: "s2",
       label: "Etapa 2",
-      title: "Medio físico, topología y equipos",
-      intro: "Ahora aterrizamos: la comunicación no existe sin cableado, arquitectura física y equipos que la sostengan.",
-      question: "¿Qué cambia cuando la red crece de una mesa a varias aulas o edificios?",
-      nodeIds: ["medios", "cableado", "infraestructura", "topologias", "hardware", "router-world", "switch-world", "cableado-world", "dispositivos-world"]
+      title: "La complejidad crea la necesidad de una arquitectura",
+      intro: "Organizar responsabilidades por niveles permite abordar los problemas de diseño y comprender por qué existen modelos y arquitecturas de red.",
+      question: "¿Cómo organizamos una comunicación compleja sin tratarla como un único problema?",
+      nodeIds: ["problemas-arquitectura", "arquitectura-niveles", "modelo-osi", "capa-aplicacion", "capa-presentacion", "capa-sesion", "capa-transporte", "capa-red", "capa-enlace", "capa-fisica", "tcpip", "red-microsoft"],
+      ai: { observes: "síntomas y evidencia del recorrido", analyzes: "en qué responsabilidad puede originarse el problema", recommends: "un orden de diagnóstico", note: "Apoyo de troubleshooting; no modifica el modelo OSI." }
     },
     {
       id: "s3",
       label: "Etapa 3",
-      title: "Modelo OSI como arquitectura de trazabilidad",
-      intro: "OSI permite localizar dónde ocurre cada responsabilidad y saber qué capa responde por qué función.",
-      question: "¿Cómo identificamos dónde está el problema en el flujo de una comunicación?",
-      nodeIds: ["modelo-osi", "capa-aplicacion", "capa-presentacion", "capa-sesion", "capa-transporte", "capa-red", "capa-enlace", "capa-fisica", "tcpip"]
+      title: "Distintas redes, medios e infraestructuras",
+      intro: "El capítulo recorre diferentes ejemplos de redes de transmisión y la Semana 1 conecta esa perspectiva con la infraestructura física de edificios y áreas de trabajo.",
+      question: "¿Todas las redes transportan información mediante la misma infraestructura?",
+      nodeIds: ["ejemplos-transmision", "rtc", "telex", "iberpac", "rdsi", "internet", "t-portador", "dsl", "redes-cable", "redes-locales", "vpn", "cable-electrico", "area-trabajo", "medios", "cableado", "hardware", "infraestructura", "edificio-campus"],
+      ai: { observes: "estado ambiental y señales operativas", analyzes: "tendencias y anomalías", recommends: "prioridades de revisión física", note: "Aplicación operativa, separada del fundamento académico." }
     },
     {
       id: "s4",
       label: "Etapa 4",
-      title: "Gestión y operación con apoyo de IA",
-      intro: "La operación estable requiere monitoreo, inventario, cambios controlados y documentación. Aquí integramos IA como apoyo de decisiones.",
-      question: "¿Qué valor aporta IA sin reemplazar la base académica?",
-      nodeIds: ["seguridad", "documentacion", "gestion-cambios", "gestion-red", "ai-layer", "ai-insight", "host-world"]
+      title: "La red también debe identificarse, documentarse y cambiar con control",
+      intro: "Una red administrable mantiene alineados sus elementos reales, su inventario, sus etiquetas y su documentación antes y después de cada cambio.",
+      question: "¿Qué ocurre cuando la red cambia pero su documentación ya no representa la realidad?",
+      nodeIds: ["elemento-red", "identificacion", "inventario", "etiquetado", "documentacion", "estado-real", "cambio", "gestion-cambios", "actualizacion", "seguridad", "gestion-red"],
+      ai: { observes: "inventario, eventos y diferencias documentales", analyzes: "anomalías, omisiones y riesgo del cambio", recommends: "actualizaciones y prioridades de revisión" }
     }
   ],
   statuses: {
@@ -48,6 +52,116 @@ const mapData = {
     ai: { label: "Conexión con IA", color: "var(--ai)" }
   },
   nodes: [
+    {
+      id: "warriors-visual", title: "Visualización del fenómeno", layer: "canonical", status: "introducido", weekIntroduced: 1,
+      definitionSimple: "Recurso audiovisual para observar el recorrido de la información como fenómeno.", definitionTechnical: "Apoyo visual de Week 1; no sustituye las definiciones académicas.",
+      analogy: "Ver en movimiento aquello que el modelo explica.", realExample: "Los componentes concretos se incorporarán solo cuando se verifiquen en el video.",
+      source: "Warriors of the Net HD · recurso audiovisual Week 1", evidenceClass: "week1", relations: ["comunicacion-datos"], osiLayer: "Visualización transversal"
+    },
+    {
+      id: "comunicacion-datos", title: "Comunicación de datos", layer: "canonical", status: "introducido", weekIntroduced: 1,
+      definitionSimple: "Territorio académico que estudia el intercambio de información entre participantes.",
+      definitionTechnical: "Contenido verificado en §1.1 del capítulo 1; la profundidad se limita a la evidencia disponible.",
+      analogy: "El fenómeno completo de una conversación a distancia.", realExample: "Dos dispositivos intercambian información.",
+      source: "Molina Robles, cap. 1, §1.1", evidenceClass: "direct", relations: ["dispositivos", "servicios", "protocolos"], osiLayer: "Transversal"
+    },
+    {
+      id: "servicios", title: "Servicios", layer: "canonical", status: "introducido", weekIntroduced: 1,
+      definitionSimple: "Funciones que una red pone a disposición de sus participantes.", definitionTechnical: "Contenido verificado en §1.1.2: servicios y protocolos.",
+      analogy: "Lo que una organización ofrece mediante la comunicación.", realExample: "Los ejemplos concretos requieren validación de las páginas.",
+      source: "Molina Robles, cap. 1, §1.1.2", evidenceClass: "direct", relations: ["aplicaciones", "protocolos"], osiLayer: "Por determinar según el servicio"
+    },
+    {
+      id: "clasificacion-redes", title: "Clasificación de redes locales", layer: "canonical", status: "introducido", weekIntroduced: 1,
+      definitionSimple: "Una red local puede analizarse desde varios criterios, no solo por su forma.", definitionTechnical: "Bloque académico verificado en §1.1.3.",
+      analogy: "Clasificar un mismo objeto desde distintas preguntas.", realExample: "Titularidad, topología, transferencia y localización.",
+      source: "Molina Robles, cap. 1, §1.1.3", evidenceClass: "direct", relations: ["clasificacion-titularidad", "topologias", "clasificacion-transferencia", "clasificacion-localizacion"], osiLayer: "Clasificación transversal"
+    },
+    {
+      id: "clasificacion-titularidad", title: "Titularidad", layer: "canonical", status: "introducido", weekIntroduced: 1,
+      definitionSimple: "Criterio académico para clasificar una red según su titularidad.", definitionTechnical: "Subapartado verificado; subtipos pendientes de evidencia detallada.",
+      analogy: "Preguntar a quién pertenece la red.", realExample: "Sin ejemplos añadidos hasta verificar el texto.", source: "Molina Robles, cap. 1, §1.1.3.1", evidenceClass: "direct", relations: ["clasificacion-redes"], osiLayer: "No aplica"
+    },
+    {
+      id: "clasificacion-transferencia", title: "Transferencia de información", layer: "canonical", status: "introducido", weekIntroduced: 1,
+      definitionSimple: "Criterio académico de clasificación según cómo se transfiere la información.", definitionTechnical: "Subapartado verificado; categorías internas pendientes.",
+      analogy: "Preguntar de qué manera circula la información.", realExample: "Sin subtipos añadidos hasta verificar el texto.", source: "Molina Robles, cap. 1, §1.1.3.3", evidenceClass: "direct", relations: ["clasificacion-redes"], osiLayer: "Transversal"
+    },
+    {
+      id: "clasificacion-localizacion", title: "Localización geográfica", layer: "canonical", status: "introducido", weekIntroduced: 1,
+      definitionSimple: "Criterio académico de clasificación relacionado con la localización.", definitionTechnical: "Subapartado verificado; categorías internas pendientes.",
+      analogy: "Preguntar qué espacio geográfico ocupa la red.", realExample: "Sin subtipos añadidos hasta verificar el texto.", source: "Molina Robles, cap. 1, §1.1.3.4", evidenceClass: "direct", relations: ["clasificacion-redes"], osiLayer: "No aplica"
+    },
+    {
+      id: "normalizacion", title: "Normalización", layer: "canonical", status: "introducido", weekIntroduced: 1,
+      definitionSimple: "Permite trabajar con reglas compatibles entre tecnologías y fabricantes.", definitionTechnical: "Territorio académico verificado en §1.1.4; detalles pendientes.",
+      analogy: "Acordar un lenguaje común antes de construir.", realExample: "No se atribuyen normas concretas sin verificar las páginas.", source: "Molina Robles, cap. 1, §1.1.4", evidenceClass: "direct", relations: ["organismos", "protocolos"], osiLayer: "Transversal"
+    },
+    {
+      id: "organismos", title: "Organismos", layer: "canonical", status: "introducido", weekIntroduced: 1,
+      definitionSimple: "Actores relacionados con la normalización de redes.", definitionTechnical: "El apartado está verificado, pero no se enumeran organismos sin evidencia de las páginas.",
+      analogy: "Quienes coordinan las reglas compartidas.", realExample: "Lista específica pendiente de fuente.", source: "Molina Robles, cap. 1, §1.1.4", evidenceClass: "direct", relations: ["normalizacion"], osiLayer: "Transversal"
+    },
+    {
+      id: "problemas-arquitectura", title: "Problemas de diseño", layer: "canonical", status: "introducido", weekIntroduced: 1,
+      definitionSimple: "La complejidad de una red crea responsabilidades que deben organizarse.", definitionTechnical: "Entrada pedagógica respaldada por §2.1.1.",
+      analogy: "Dividir un problema grande antes de resolverlo.", realExample: "Detalle de problemas concretos pendiente del texto.", source: "Molina Robles, cap. 2, §2.1.1", evidenceClass: "direct", relations: ["arquitectura-niveles"], osiLayer: "Antes del modelo"
+    },
+    {
+      id: "arquitectura-niveles", title: "Arquitectura por niveles", layer: "canonical", status: "en_aprendizaje", weekIntroduced: 1,
+      definitionSimple: "Organiza la comunicación en niveles con responsabilidades diferenciadas.", definitionTechnical: "Territorio académico verificado en §2.1.2.",
+      analogy: "Equipos especializados que colaboran por capas.", realExample: "OSI y TCP/IP se estudian como ejemplos posteriores.", source: "Molina Robles, cap. 2, §2.1.2", evidenceClass: "direct", relations: ["modelo-osi", "tcpip", "red-microsoft"], osiLayer: "Marco de niveles"
+    },
+    {
+      id: "red-microsoft", title: "Red Microsoft", layer: "canonical", status: "introducido", weekIntroduced: 1,
+      definitionSimple: "Ejemplo de arquitectura de red incluido en el capítulo.", definitionTechnical: "Presencia académica verificada; detalle pendiente de las páginas.",
+      analogy: "Un tercer ejemplo dentro del conjunto de arquitecturas estudiadas.", realExample: "No se añaden componentes sin verificar el texto.", source: "Molina Robles, cap. 2, §2.2.3", evidenceClass: "direct", relations: ["arquitectura-niveles"], osiLayer: "Arquitectura estudiada"
+    },
+    {
+      id: "ejemplos-transmision", title: "Redes de transmisión", layer: "canonical", status: "introducido", weekIntroduced: 1,
+      definitionSimple: "Conjunto de ejemplos de transmisión de datos estudiados en el capítulo 2.", definitionTechnical: "Agrupa §2.3.1 a §2.3.11 sin añadir tecnologías externas.",
+      analogy: "Un recorrido por distintas formas históricas y actuales de transportar información.", realExample: "Once ejemplos acreditados por el índice.", source: "Molina Robles, cap. 2, §2.3", evidenceClass: "direct", relations: ["rtc", "telex", "iberpac", "rdsi", "internet", "t-portador", "dsl", "redes-cable", "redes-locales", "vpn", "cable-electrico"], osiLayer: "Panorama de redes"
+    },
+    {
+      id: "rtc", title: "RTC", layer: "canonical", status: "introducido", weekIntroduced: 1, definitionSimple: "Red Telefónica Conmutada, ejemplo incluido en el capítulo.", definitionTechnical: "Detalle pendiente de evidencia textual.", analogy: "Ejemplo del recorrido académico.", realExample: "Sin ampliación no acreditada.", source: "Molina Robles, cap. 2, §2.3.1", evidenceClass: "direct", relations: ["ejemplos-transmision"], osiLayer: "Ejemplo de red" },
+    {
+      id: "telex", title: "Télex", layer: "canonical", status: "introducido", weekIntroduced: 1, definitionSimple: "Ejemplo de red de transmisión incluido en el capítulo.", definitionTechnical: "Detalle pendiente de evidencia textual.", analogy: "Ejemplo del recorrido académico.", realExample: "Sin ampliación no acreditada.", source: "Molina Robles, cap. 2, §2.3.2", evidenceClass: "direct", relations: ["ejemplos-transmision"], osiLayer: "Ejemplo de red" },
+    {
+      id: "iberpac", title: "Iberpac", layer: "canonical", status: "introducido", weekIntroduced: 1, definitionSimple: "Ejemplo de red de transmisión incluido en el capítulo.", definitionTechnical: "Detalle pendiente de evidencia textual.", analogy: "Ejemplo del recorrido académico.", realExample: "Sin ampliación no acreditada.", source: "Molina Robles, cap. 2, §2.3.3", evidenceClass: "direct", relations: ["ejemplos-transmision"], osiLayer: "Ejemplo de red" },
+    {
+      id: "rdsi", title: "RDSI", layer: "canonical", status: "introducido", weekIntroduced: 1, definitionSimple: "Red Digital de Servicios Integrados, incluida en el capítulo.", definitionTechnical: "Detalle pendiente de evidencia textual.", analogy: "Ejemplo del recorrido académico.", realExample: "Sin ampliación no acreditada.", source: "Molina Robles, cap. 2, §2.3.4", evidenceClass: "direct", relations: ["ejemplos-transmision"], osiLayer: "Ejemplo de red" },
+    {
+      id: "internet", title: "Internet", layer: "canonical", status: "introducido", weekIntroduced: 1, definitionSimple: "Ejemplo de red de transmisión estudiado formalmente.", definitionTechnical: "Presencia verificada en §2.3.5; profundidad limitada a la fuente disponible.", analogy: "Una referencia del panorama de redes.", realExample: "Internet.", source: "Molina Robles, cap. 2, §2.3.5", evidenceClass: "direct", relations: ["ejemplos-transmision", "tcpip"], osiLayer: "Arquitectura transversal" },
+    {
+      id: "t-portador", title: "T Portador", layer: "canonical", status: "introducido", weekIntroduced: 1, definitionSimple: "Ejemplo de red de transmisión incluido en el capítulo.", definitionTechnical: "Detalle pendiente de evidencia textual.", analogy: "Ejemplo del recorrido académico.", realExample: "Sin ampliación no acreditada.", source: "Molina Robles, cap. 2, §2.3.6", evidenceClass: "direct", relations: ["ejemplos-transmision"], osiLayer: "Ejemplo de red" },
+    {
+      id: "dsl", title: "DSL", layer: "canonical", status: "introducido", weekIntroduced: 1, definitionSimple: "Ejemplo de red de transmisión incluido en el capítulo.", definitionTechnical: "Detalle pendiente de evidencia textual.", analogy: "Ejemplo del recorrido académico.", realExample: "DSL.", source: "Molina Robles, cap. 2, §2.3.7", evidenceClass: "direct", relations: ["ejemplos-transmision"], osiLayer: "Ejemplo de red" },
+    {
+      id: "redes-cable", title: "Redes de cable", layer: "canonical", status: "introducido", weekIntroduced: 1, definitionSimple: "Ejemplo de red de transmisión incluido en el capítulo.", definitionTechnical: "Detalle pendiente de evidencia textual.", analogy: "Ejemplo del recorrido académico.", realExample: "Sin ampliación no acreditada.", source: "Molina Robles, cap. 2, §2.3.8", evidenceClass: "direct", relations: ["ejemplos-transmision"], osiLayer: "Ejemplo de red" },
+    {
+      id: "redes-locales", title: "Redes locales", layer: "canonical", status: "introducido", weekIntroduced: 1, definitionSimple: "Ejemplo de red de transmisión estudiado formalmente.", definitionTechnical: "Presencia verificada en §2.3.9.", analogy: "El territorio central del curso dentro del panorama.", realExample: "Red local.", source: "Molina Robles, cap. 2, §2.3.9", evidenceClass: "direct", relations: ["ejemplos-transmision", "clasificacion-redes"], osiLayer: "Transversal" },
+    {
+      id: "vpn", title: "VPN", layer: "canonical", status: "introducido", weekIntroduced: 1, definitionSimple: "Red privada virtual, ejemplo estudiado formalmente.", definitionTechnical: "Presencia verificada en §2.3.10; sin profundización adicional.", analogy: "Un ejemplo del catálogo académico.", realExample: "VPN.", source: "Molina Robles, cap. 2, §2.3.10", evidenceClass: "direct", relations: ["ejemplos-transmision"], osiLayer: "Ejemplo de red" },
+    {
+      id: "cable-electrico", title: "Comunicación por cable eléctrico", layer: "canonical", status: "introducido", weekIntroduced: 1, definitionSimple: "Ejemplo de comunicación mediante cable eléctrico incluido en el capítulo.", definitionTechnical: "Detalle pendiente de evidencia textual.", analogy: "Ejemplo del recorrido académico.", realExample: "Sin ampliación no acreditada.", source: "Molina Robles, cap. 2, §2.3.11", evidenceClass: "direct", relations: ["ejemplos-transmision"], osiLayer: "Ejemplo de red" },
+    {
+      id: "area-trabajo", title: "Área de trabajo", layer: "canonical", status: "introducido", weekIntroduced: 1, definitionSimple: "Espacio donde las personas y dispositivos acceden a la red.", definitionTechnical: "Categoría respaldada por los objetivos oficiales de Week 1.", analogy: "El punto habitado de la infraestructura.", realExample: "Área de trabajo en un edificio comercial.", source: "Objetivos oficiales de Week 1", evidenceClass: "week1", relations: ["medios", "infraestructura"], osiLayer: "Entorno físico" },
+    {
+      id: "edificio-campus", title: "Edificio / campus", layer: "canonical", status: "introducido", weekIntroduced: 1, definitionSimple: "Escala espacial que contiene y conecta áreas de trabajo e infraestructura.", definitionTechnical: "Dimensión física respaldada por los objetivos oficiales de Week 1.", analogy: "El territorio que la red debe recorrer.", realExample: "Edificio comercial o campus.", source: "Objetivos oficiales de Week 1", evidenceClass: "week1", relations: ["area-trabajo", "infraestructura"], osiLayer: "Entorno físico" },
+    {
+      id: "elemento-red", title: "Elemento de red", layer: "canonical", status: "introducido", weekIntroduced: 1, definitionSimple: "Activo físico o lógico que debe poder reconocerse y registrarse.", definitionTechnical: "Punto inicial del proceso de inventario y documentación.", analogy: "El objeto que debe tener identidad dentro del sistema.", realExample: "Categoría general, sin herramienta específica.", source: "Objetivos oficiales de Week 1", evidenceClass: "week1", relations: ["identificacion"], osiLayer: "Operación" },
+    {
+      id: "identificacion", title: "Identificación", layer: "canonical", status: "introducido", weekIntroduced: 1, definitionSimple: "Determina qué es cada elemento y cómo distinguirlo.", definitionTechnical: "Paso conceptual previo al inventario y etiquetado.", analogy: "Dar identidad antes de registrar.", realExample: "Sin convención concreta no acreditada.", source: "Objetivos oficiales de Week 1", evidenceClass: "week1", relations: ["inventario"], osiLayer: "Operación" },
+    {
+      id: "inventario", title: "Inventario", layer: "canonical", status: "introducido", weekIntroduced: 1, definitionSimple: "Registro de qué elementos existen y dónde se encuentran.", definitionTechnical: "Proceso operativo exigido por los objetivos de Week 1.", analogy: "Saber qué tenemos y dónde está.", realExample: "Sin herramienta empresarial específica.", source: "Objetivos oficiales de Week 1", evidenceClass: "week1", relations: ["etiquetado", "documentacion"], osiLayer: "Operación" },
+    {
+      id: "etiquetado", title: "Etiquetado", layer: "canonical", status: "introducido", weekIntroduced: 1, definitionSimple: "Convención que permite reconocer y rastrear elementos.", definitionTechnical: "Parte del proceso operativo y documental de Week 1.", analogy: "Un nombre visible que conecta el objeto con su registro.", realExample: "Convención específica pendiente de fuente.", source: "Objetivos oficiales de Week 1", evidenceClass: "week1", relations: ["documentacion"], osiLayer: "Operación" },
+    {
+      id: "estado-real", title: "Estado real", layer: "canonical", status: "introducido", weekIntroduced: 1, definitionSimple: "Situación actual de la red y sus elementos.", definitionTechnical: "Debe corresponder con el estado documentado.", analogy: "Lo que existe frente a lo que dice el plano.", realExample: "Comparación conceptual antes y después de un cambio.", source: "Objetivos oficiales de Week 1", evidenceClass: "week1", relations: ["cambio", "documentacion"], osiLayer: "Operación" },
+    {
+      id: "cambio", title: "Se produce un cambio", layer: "canonical", status: "introducido", weekIntroduced: 1, definitionSimple: "Una modificación puede separar la realidad de la documentación existente.", definitionTechnical: "Evento que activa la necesidad de gestión y actualización.", analogy: "La obra cambió, pero el plano sigue igual.", realExample: "Cambio genérico, sin procedimiento no acreditado.", source: "Objetivos oficiales de Week 1", evidenceClass: "week1", relations: ["gestion-cambios", "actualizacion"], osiLayer: "Operación" },
+    {
+      id: "actualizacion", title: "Actualización documental", layer: "canonical", status: "introducido", weekIntroduced: 1, definitionSimple: "Devuelve la correspondencia entre la red real y su documentación.", definitionTechnical: "Cierre conceptual del proceso de gestión del cambio.", analogy: "Actualizar el plano después de modificar la obra.", realExample: "Sin herramienta concreta.", source: "Objetivos oficiales de Week 1", evidenceClass: "week1", relations: ["documentacion", "estado-real"], osiLayer: "Operación" },
     {
       id: "cst230-core",
       title: "Fundamentos de Redes",
@@ -117,7 +231,7 @@ const mapData = {
       definitionSimple: "Servicios de software que generan el tráfico útil.",
       definitionTechnical: "Lógicas cliente-servidor y flujo de solicitudes y respuestas.",
       analogy: "Un traductor entre la intención del usuario y la red.",
-      realExample: "Correo, LMS, videollamada.",
+      realExample: "Aplicaciones contemporáneas: correo, LMS y videollamada.",
       source: "Molina-Robles Cap 1–2",
       relations: ["protocolos", "capa-aplicacion"],
       osiLayer: "7",
@@ -136,7 +250,7 @@ const mapData = {
       definitionSimple: "Reglas para intercambiar bits, mensajes y tráfico.",
       definitionTechnical: "Definen formato, control y confiabilidad.",
       analogy: "Una gramática para hablar técnicamente.",
-      realExample: "HTTP, TCP, IP, DNS.",
+      realExample: "HTTP, TCP, IP y DNS se conservan como ejemplos con fuente específica pendiente.",
       source: "Molina-Robles Cap 1–2",
       relations: ["modelo-osi", "tcpip", "dispositivos", "aplicaciones"],
       osiLayer: "Transversal",
@@ -155,7 +269,7 @@ const mapData = {
       definitionSimple: "Canal físico o inalámbrico que transporta señal.",
       definitionTechnical: "Tecnología de transmisión con alcance, tasa y ruido.",
       analogy: "Carreteras y rutas de un envío digital.",
-      realExample: "UTP, fibra y Wi‑Fi.",
+      realExample: "UTP, fibra y Wi‑Fi se conservan como ejemplos con fuente específica pendiente.",
       source: "Molina-Robles Cap 1–2",
       relations: ["cableado", "topologias", "capa-fisica"],
       osiLayer: "1"
@@ -172,7 +286,7 @@ const mapData = {
       definitionSimple: "Forma de interconexión entre nodos de una red.",
       definitionTechnical: "Diseños físicos y lógicos para distribución.",
       analogy: "Plano urbano de conectividad.",
-      realExample: "Topología estrella.",
+      realExample: "Topología estrella · SOURCE-PENDING hasta verificar las páginas.",
       source: "Molina-Robles Cap 1–2",
       relations: ["hardware", "medios", "infraestructura"],
       osiLayer: "Diseño transversal"
@@ -187,10 +301,11 @@ const mapData = {
       y: 500,
       size: 20,
       definitionSimple: "Equipos que habilitan conectividad y encaminamiento.",
-      definitionTechnical: "Switches, routers, AP y paneles.",
+      definitionTechnical: "La categoría hardware está respaldada; switch, router, AP y paneles requieren atribución específica.",
       analogy: "Sistema de cruces y control en una ciudad.",
       realExample: "Switch de acceso en rack de laboratorio.",
-      source: "Molina-Robles Cap 1–2",
+      source: "Objetivos oficiales de Week 1; ejemplos específicos SOURCE-PENDING",
+      evidenceClass: "week1",
       relations: ["topologias", "medios", "infraestructura"],
       osiLayer: "1–2"
     },
@@ -206,8 +321,9 @@ const mapData = {
       definitionSimple: "Instalación ordenada de conductos, cable y conectores.",
       definitionTechnical: "Canalización, etiquetado y trazabilidad.",
       analogy: "Plantas y planos del barrio técnico.",
-      realExample: "Patch panel con código por rack y puerto.",
-      source: "Semana 1",
+      realExample: "Patch panel con código por rack y puerto · ejemplo SOURCE-PENDING.",
+      source: "Objetivos oficiales de Week 1; ejemplo específico SOURCE-PENDING",
+      evidenceClass: "week1",
       relations: ["medios", "infraestructura", "documentacion"],
       osiLayer: "1"
     },
@@ -223,8 +339,9 @@ const mapData = {
       definitionSimple: "Entorno físico que soporta continuidad eléctrica y térmica.",
       definitionTechnical: "Racks, ventilación, energía y organización.",
       analogy: "La base de soporte de un sistema.",
-      realExample: "Rack con UPS y ventilación para nodos de red.",
-      source: "Semana 1",
+      realExample: "Rack y monitoreo ambiental están respaldados; UPS permanece SOURCE-PENDING.",
+      source: "Descripción oficial de Week 1",
+      evidenceClass: "week1",
       relations: ["hardware", "cableado", "seguridad"],
       osiLayer: "1"
     },
@@ -373,18 +490,19 @@ const mapData = {
       x: 850,
       y: 690,
       size: 20,
-      definitionSimple: "Conjunto práctico de protocolos de interconexión.",
-      definitionTechnical: "Arquitectura operativa de redes actuales.",
-      analogy: "Mapa práctico para llevar teoría OSI a operación.",
-      realExample: "HTTP sobre TCP sobre IP.",
-      source: "Semana 1",
-      relations: ["capa-red", "capa-transporte", "protocolos"],
-      osiLayer: "4→3"
+      definitionSimple: "Arquitectura de red estudiada formalmente junto con otros ejemplos del capítulo 2.",
+      definitionTechnical: "Arquitectura TCP/IP; su comparación detallada con OSI queda pendiente de evidencia de las páginas.",
+      analogy: "Otra forma académica de organizar responsabilidades de comunicación.",
+      realExample: "No se añade todavía un mapeo exhaustivo de capas.",
+      source: "Molina Robles, cap. 2, §2.2.2",
+      evidenceClass: "direct",
+      relations: ["arquitectura-niveles", "protocolos", "internet"],
+      osiLayer: "Arquitectura por niveles"
     },
     {
       id: "seguridad",
       title: "Políticas de seguridad",
-      layer: "worldreal",
+      layer: "canonical",
       status: "introducido",
       weekIntroduced: 1,
       x: 420,
@@ -393,15 +511,16 @@ const mapData = {
       definitionSimple: "Reglas para proteger acceso y operación.",
       definitionTechnical: "Accesos, segmentación y cambios seguros.",
       analogy: "Guardia y control de ingreso del campus digital.",
-      realExample: "Separar VLAN de invitados y administración.",
-      source: "Buenas prácticas de operación",
+      realExample: "Separar VLAN de invitados y administración · aplicación contemporánea.",
+      source: "Objetivos oficiales de Week 1; ejemplo en capa mundo real",
+      evidenceClass: "week1",
       relations: ["gestion-red", "gestion-cambios", "host-world"],
       osiLayer: "Gobernanza"
     },
     {
       id: "documentacion",
       title: "Documentación",
-      layer: "worldreal",
+      layer: "canonical",
       status: "introducido",
       weekIntroduced: 1,
       x: 590,
@@ -411,31 +530,33 @@ const mapData = {
       definitionTechnical: "Inventario, convenciones y trazabilidad.",
       analogy: "Mapa vivo de toda la red.",
       realExample: "Inventario por puerto y cable.",
-      source: "Semana 1",
+      source: "Objetivos oficiales de Week 1",
+      evidenceClass: "week1",
       relations: ["cableado", "infraestructura", "gestion-red"],
       osiLayer: "Soporte"
     },
     {
       id: "gestion-cambios",
       title: "Gestión de cambios",
-      layer: "worldreal",
+      layer: "canonical",
       status: "introducido",
       weekIntroduced: 1,
       x: 760,
       y: 620,
       size: 19,
       definitionSimple: "Controla qué se cambia y con evidencia.",
-      definitionTechnical: "Solicitud, aprobación, ventana, rollback y evidencia.",
+      definitionTechnical: "Mantiene alineado el estado real con el estado documentado antes y después de una modificación.",
       analogy: "Planear obra sin romper la operación.",
-      realExample: "Actualización de firmware en ventana controlada.",
-      source: "Semana 1",
+      realExample: "Actualización de firmware en ventana controlada · aplicación contemporánea.",
+      source: "Objetivos oficiales de Week 1",
+      evidenceClass: "week1",
       relations: ["documentacion", "seguridad", "gestion-red"],
       osiLayer: "Operación"
     },
     {
       id: "gestion-red",
       title: "Gestión de red",
-      layer: "worldreal",
+      layer: "canonical",
       status: "introducido",
       weekIntroduced: 1,
       x: 920,
@@ -445,7 +566,8 @@ const mapData = {
       definitionTechnical: "Diagnóstico, seguimiento y mejora continua.",
       analogy: "Centro de control de operaciones.",
       realExample: "Dashboard de alertas de enlace y rendimiento.",
-      source: "Semana 1",
+      source: "Objetivos oficiales de Week 1",
+      evidenceClass: "week1",
       relations: ["documentacion", "gestion-cambios", "seguridad"],
       osiLayer: "Operación"
     },
@@ -559,6 +681,44 @@ const mapData = {
     }
   ],
   edges: [
+    { source: "comunicacion-datos", target: "dispositivos", relationshipType: "contains", label: "participan" },
+    { source: "comunicacion-datos", target: "servicios", relationshipType: "contains", label: "ofrece" },
+    { source: "servicios", target: "protocolos", relationshipType: "relation", label: "requiere reglas" },
+    { source: "comunicacion-datos", target: "clasificacion-redes", relationshipType: "relation", label: "se estudia" },
+    { source: "clasificacion-redes", target: "clasificacion-titularidad", relationshipType: "contains", label: "criterio" },
+    { source: "clasificacion-redes", target: "topologias", relationshipType: "contains", label: "criterio" },
+    { source: "clasificacion-redes", target: "clasificacion-transferencia", relationshipType: "contains", label: "criterio" },
+    { source: "clasificacion-redes", target: "clasificacion-localizacion", relationshipType: "contains", label: "criterio" },
+    { source: "normalizacion", target: "organismos", relationshipType: "contains", label: "coordina" },
+    { source: "normalizacion", target: "protocolos", relationshipType: "supports", label: "compatibilidad" },
+    { source: "warriors-visual", target: "comunicacion-datos", relationshipType: "supports", label: "visualiza" },
+    { source: "problemas-arquitectura", target: "arquitectura-niveles", relationshipType: "relation", label: "crea necesidad" },
+    { source: "arquitectura-niveles", target: "modelo-osi", relationshipType: "contains", label: "ejemplo" },
+    { source: "arquitectura-niveles", target: "tcpip", relationshipType: "contains", label: "ejemplo" },
+    { source: "arquitectura-niveles", target: "red-microsoft", relationshipType: "contains", label: "ejemplo" },
+    { source: "ejemplos-transmision", target: "rtc", relationshipType: "contains", label: "incluye" },
+    { source: "ejemplos-transmision", target: "telex", relationshipType: "contains", label: "incluye" },
+    { source: "ejemplos-transmision", target: "iberpac", relationshipType: "contains", label: "incluye" },
+    { source: "ejemplos-transmision", target: "rdsi", relationshipType: "contains", label: "incluye" },
+    { source: "ejemplos-transmision", target: "internet", relationshipType: "contains", label: "incluye" },
+    { source: "ejemplos-transmision", target: "t-portador", relationshipType: "contains", label: "incluye" },
+    { source: "ejemplos-transmision", target: "dsl", relationshipType: "contains", label: "incluye" },
+    { source: "ejemplos-transmision", target: "redes-cable", relationshipType: "contains", label: "incluye" },
+    { source: "ejemplos-transmision", target: "redes-locales", relationshipType: "contains", label: "incluye" },
+    { source: "ejemplos-transmision", target: "vpn", relationshipType: "contains", label: "incluye" },
+    { source: "ejemplos-transmision", target: "cable-electrico", relationshipType: "contains", label: "incluye" },
+    { source: "area-trabajo", target: "medios", relationshipType: "relation", label: "se conecta" },
+    { source: "medios", target: "infraestructura", relationshipType: "relation", label: "recorre" },
+    { source: "infraestructura", target: "hardware", relationshipType: "contains", label: "sostiene" },
+    { source: "infraestructura", target: "edificio-campus", relationshipType: "relation", label: "ocupa" },
+    { source: "elemento-red", target: "identificacion", relationshipType: "relation", label: "se identifica" },
+    { source: "identificacion", target: "inventario", relationshipType: "relation", label: "se registra" },
+    { source: "inventario", target: "etiquetado", relationshipType: "relation", label: "se rastrea" },
+    { source: "etiquetado", target: "documentacion", relationshipType: "relation", label: "se documenta" },
+    { source: "estado-real", target: "cambio", relationshipType: "relation", label: "se modifica" },
+    { source: "cambio", target: "gestion-cambios", relationshipType: "relation", label: "requiere control" },
+    { source: "gestion-cambios", target: "actualizacion", relationshipType: "relation", label: "produce" },
+    { source: "actualizacion", target: "documentacion", relationshipType: "relation", label: "restablece" },
     { source: "cst230-core", target: "pregunta-principal", relationshipType: "contains", label: "eje" },
     { source: "cst230-core", target: "dispositivos", relationshipType: "contains", label: "base" },
     { source: "cst230-core", target: "aplicaciones", relationshipType: "contains", label: "base" },
@@ -592,8 +752,6 @@ const mapData = {
     { source: "modelo-osi", target: "capa-red", relationshipType: "contains", label: "incluye" },
     { source: "modelo-osi", target: "capa-enlace", relationshipType: "contains", label: "incluye" },
     { source: "modelo-osi", target: "capa-fisica", relationshipType: "contains", label: "incluye" },
-    { source: "capa-transporte", target: "tcpip", relationshipType: "supports", label: "complementa" },
-    { source: "capa-red", target: "tcpip", relationshipType: "supports", label: "complementa" },
     { source: "capa-red", target: "router-world", relationshipType: "supports", label: "implementa" },
     { source: "capa-enlace", target: "switch-world", relationshipType: "supports", label: "implementa" },
     { source: "capa-fisica", target: "cableado-world", relationshipType: "supports", label: "materializa" },
@@ -652,6 +810,89 @@ function visibleEdges(visibleNodeIds) {
   });
 }
 
+function escapeMarkup(value) {
+  return String(value || "").replace(/[&<>\"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '\"': "&quot;" }[character]));
+}
+
+function labelLines(value, maxLength = 23) {
+  const words = String(value).split(" ");
+  const lines = [];
+  words.forEach((word) => {
+    const current = lines[lines.length - 1];
+    if (!current || `${current} ${word}`.length > maxLength) lines.push(word);
+    else lines[lines.length - 1] = `${current} ${word}`;
+  });
+  return lines.slice(0, 3);
+}
+
+function stageInfographic(stage, stageIndex) {
+  const nodes = stage.nodeIds.map(getNodeById).filter(Boolean);
+  const columns = 4;
+  const cardWidth = 245;
+  const cardHeight = 78;
+  const gapX = 36;
+  const gapY = 62;
+  const startX = 55;
+  const startY = 64;
+  const positions = new Map();
+  nodes.forEach((node, index) => {
+    positions.set(node.id, {
+      x: startX + (index % columns) * (cardWidth + gapX),
+      y: startY + Math.floor(index / columns) * (cardHeight + gapY)
+    });
+  });
+  const rows = Math.ceil(nodes.length / columns);
+  const aiY = startY + rows * (cardHeight + gapY) + 34;
+  const height = aiY + 205;
+  const stageIds = new Set(nodes.map((node) => node.id));
+  let stageEdges = mapData.edges.filter((edge) => stageIds.has(edge.source) && stageIds.has(edge.target) && edge.relationshipType !== "ai");
+  if (!stageEdges.length) {
+    stageEdges = nodes.slice(1).map((node, index) => ({ source: nodes[index].id, target: node.id }));
+  }
+  const edgeMarkup = stageEdges.map((edge) => {
+    const source = positions.get(edge.source);
+    const target = positions.get(edge.target);
+    return `<line class="stage-edge" x1="${source.x + cardWidth / 2}" y1="${source.y + cardHeight / 2}" x2="${target.x + cardWidth / 2}" y2="${target.y + cardHeight / 2}" />`;
+  }).join("");
+  const nodeMarkup = nodes.map((node) => {
+    const position = positions.get(node.id);
+    const lines = labelLines(node.title);
+    const text = lines.map((line, lineIndex) => `<tspan x="${position.x + cardWidth / 2}" dy="${lineIndex ? 18 : 0}">${escapeMarkup(line)}</tspan>`).join("");
+    return `<g class="stage-node" data-node="${node.id}" tabindex="0" role="button" aria-label="Abrir ${escapeMarkup(node.title)}">
+      <rect x="${position.x}" y="${position.y}" width="${cardWidth}" height="${cardHeight}" rx="18" />
+      <text x="${position.x + cardWidth / 2}" y="${position.y + 33 - ((lines.length - 1) * 8)}">${text}</text>
+    </g>`;
+  }).join("");
+  const aiTargets = nodes.filter((node) => node.layer !== "ai").slice(-3);
+  const aiLines = aiTargets.map((node) => {
+    const target = positions.get(node.id);
+    return `<line class="stage-ai-edge" x1="600" y1="${aiY + 40}" x2="${target.x + cardWidth / 2}" y2="${target.y + cardHeight}" />`;
+  }).join("");
+  return `<section class="stage-infographic" aria-label="Infografía de ${escapeMarkup(stage.label)}">
+    <div class="stage-visual-head">
+      <p>Infografía de la etapa</p>
+      <label class="ia-switch stage-ai-switch">
+        <input type="checkbox" checked data-stage-ai="${stageIndex}" />
+        <span class="switch-track" aria-hidden="true"><span></span></span>
+        <span>Mostrar lente AI-FIRST</span>
+      </label>
+    </div>
+    <svg viewBox="0 0 1200 ${height}" role="img" aria-label="Relaciones conceptuales de ${escapeMarkup(stage.label)}">
+      <g>${edgeMarkup}</g>
+      <g>${nodeMarkup}</g>
+      <g class="ai-stage-layer" data-ai-layer="${stageIndex}">
+        ${aiLines}
+        <rect class="stage-ai-card" x="230" y="${aiY}" width="740" height="150" rx="24" />
+        <text class="stage-ai-title" x="600" y="${aiY + 31}">✦ AI-FIRST · APLICACIÓN SEPARADA</text>
+        <text class="stage-ai-copy" x="270" y="${aiY + 68}">OBSERVA · ${escapeMarkup(stage.ai.observes)}</text>
+        <text class="stage-ai-copy" x="270" y="${aiY + 96}">ANALIZA · ${escapeMarkup(stage.ai.analyzes)}</text>
+        <text class="stage-ai-copy" x="270" y="${aiY + 124}">RECOMIENDA · ${escapeMarkup(stage.ai.recommends)}</text>
+      </g>
+    </svg>
+    ${stage.ai.note ? `<p class="ai-note">${stage.ai.note}</p>` : ""}
+  </section>`;
+}
+
 function renderStoryFlow() {
   storyFlow.innerHTML = mapData.stages.map((stage, index) => `
     <article class="story-panel" id="${stage.id}">
@@ -659,9 +900,16 @@ function renderStoryFlow() {
       <h3>${stage.title}</h3>
       ${stage.intro ? `<p class="story-intro">${stage.intro}</p>` : ""}
       <p class="story-question"><span>Pregunta de análisis</span>${stage.question}</p>
+      ${stageInfographic(stage, index)}
       ${index < mapData.stages.length - 1 ? '<span class="scroll-cue" aria-hidden="true">↓</span>' : ""}
     </article>
   `).join("");
+  storyFlow.querySelectorAll("[data-stage-ai]").forEach((toggle) => {
+    toggle.addEventListener("change", () => {
+      storyFlow.querySelector(`[data-ai-layer="${toggle.dataset.stageAi}"]`)?.classList.toggle("is-hidden", !toggle.checked);
+    });
+  });
+  bindNodeInteractions(storyFlow);
 }
 
 function lineClass(type, isDashed) {
@@ -674,6 +922,16 @@ function updateDetail(node) {
   const statusLabel = mapData.statuses[node.status]?.label || node.status;
   const layerLabel = mapData.layers[node.layer]?.label || "Sin capa";
   const aiValue = Array.isArray(node.aiValue) ? node.aiValue.map((entry) => `• ${entry}`).join("<br>") : "—";
+  const evidenceLabels = {
+    direct: "Fundamento académico verificado",
+    week1: "Evidencia oficial de Week 1",
+    worldreal: "Aplicación al mundo real",
+    deepening: "Profundización académica",
+    source_pending: "SOURCE-PENDING · fuente por verificar",
+    ai: "AI-FIRST · aplicación separada"
+  };
+  const inferredEvidence = node.layer === "ai" ? "ai" : node.layer === "worldreal" ? "worldreal" : node.source?.includes("Molina") ? "direct" : "source_pending";
+  const evidenceLabel = evidenceLabels[node.evidenceClass || inferredEvidence];
   const relations = mapData.edges
     .filter((edge) => edge.source === node.id || edge.target === node.id)
     .map((edge) => {
@@ -696,11 +954,23 @@ function updateDetail(node) {
     <dt>Relaciones y conexiones</dt><dd>${relations || "—"}</dd>
     <dt>Capa OSI</dt><dd>${node.osiLayer || "—"}</dd>
     <dt>Fuente</dt><dd>${node.source}</dd>
+    <dt>Clasificación de evidencia</dt><dd><span class="evidence-tag">${evidenceLabel}</span></dd>
     <dt>Semana en que aparece</dt><dd>${node.weekIntroduced}</dd>
     <dt>Estado de aprendizaje</dt><dd>${statusLabel}</dd>
     <dt>Capa</dt><dd>${layerLabel}</dd>
     ${node.layer === "ai" ? `<dt>¿Qué trae IA aquí?</dt><dd>${aiValue}</dd>` : ""}
   `;
+}
+
+function bindNodeInteractions(root) {
+  root.querySelectorAll("[data-node]").forEach((element) => {
+    const node = getNodeById(element.dataset.node);
+    const open = () => openPopup(node);
+    element.addEventListener("click", open);
+    element.addEventListener("keypress", (event) => {
+      if (event.key === "Enter") open();
+    });
+  });
 }
 
 function openPopup(node) {
@@ -720,36 +990,40 @@ function draw() {
   const nodes = visibleNodes();
   const visibleIds = nodes.map((node) => node.id);
   const edges = visibleEdges(visibleIds);
+  const orderedIds = [...new Set([...mapData.stages.flatMap((stage) => stage.nodeIds), ...nodes.map((node) => node.id)])];
+  const orderedNodes = orderedIds.map(getNodeById).filter((node) => nodes.includes(node));
+  const columns = 8;
+  const positions = new Map();
+  orderedNodes.forEach((node, index) => positions.set(node.id, { x: 120 + (index % columns) * 225, y: 110 + Math.floor(index / columns) * 150 }));
+  const mapHeight = 220 + Math.ceil(orderedNodes.length / columns) * 150;
+  svg.setAttribute("viewBox", `0 0 1900 ${mapHeight}`);
 
   edgesLayer.innerHTML = edges
     .map((edge) => {
       const source = getNodeById(edge.source);
       const target = getNodeById(edge.target);
+      const sourcePosition = positions.get(edge.source);
+      const targetPosition = positions.get(edge.target);
       if (!state.showAiConnections && (source?.layer === "ai" || target?.layer === "ai")) return "";
-      if (!source || !target) return "";
-      return `<line class="${lineClass(edge.relationshipType, edge.isDashed)}" x1="${source.x}" y1="${source.y}" x2="${target.x}" y2="${target.y}" />`;
+      if (!source || !target || !sourcePosition || !targetPosition) return "";
+      return `<line class="${lineClass(edge.relationshipType, edge.isDashed)}" x1="${sourcePosition.x}" y1="${sourcePosition.y}" x2="${targetPosition.x}" y2="${targetPosition.y}" />`;
     })
     .join("");
 
   nodesLayer.innerHTML = nodes
     .map((node) => {
       const color = mapData.layers[node.layer]?.color || "var(--canon)";
+      const position = positions.get(node.id);
+      if (!position) return "";
       return `<g class="node-dot" data-node="${node.id}" tabindex="0" role="button" aria-label="Ver detalle de ${node.title}">
-        <circle cx="${node.x}" cy="${node.y}" r="${node.size}" fill="${color}" class="node-core" />
-        <circle cx="${node.x}" cy="${node.y}" r="${node.size + 3}" class="node-ring" />
-        <text x="${node.x + 16}" y="${node.y + 5}" class="node-label">${node.title}</text>
+        <circle cx="${position.x}" cy="${position.y}" r="16" fill="${color}" class="node-core" />
+        <circle cx="${position.x}" cy="${position.y}" r="20" class="node-ring" />
+        <text x="${position.x + 27}" y="${position.y + 5}" class="node-label">${escapeMarkup(node.title)}</text>
       </g>`;
     })
     .join("");
 
-  nodesLayer.querySelectorAll("[data-node]").forEach((el) => {
-    const node = getNodeById(el.dataset.node);
-    const open = () => openPopup(node);
-    el.addEventListener("click", open);
-    el.addEventListener("keypress", (event) => {
-      if (event.key === "Enter") open();
-    });
-  });
+  bindNodeInteractions(nodesLayer);
 
   const current = getNodeById(state.selectedNodeId);
   const fallback = nodes.find((node) => node.id === state.selectedNodeId) || nodes[0];
