@@ -909,10 +909,12 @@ function stageInfographic(stage, stageIndex) {
     if (!source || !target) return "";
     const x = (source.x + target.x) / 2;
     const y = (source.y + target.y) / 2 + (index % 2 ? 28 : -28);
+    const pillWidth = Math.max(128, touchpoint.term.length * 7.2 + 24);
     return `<g class="stage-ai-touchpoint">
       <path class="stage-ai-edge" d="M ${source.x} ${source.y} Q ${x} ${y}, ${target.x} ${target.y}" />
       <circle cx="${x}" cy="${y}" r="13" />
-      <text x="${x}" y="${y - 24}">${escapeMarkup(touchpoint.term)}</text>
+      <rect class="ai-term-pill" x="${x - pillWidth / 2}" y="${y - 48}" width="${pillWidth}" height="25" rx="12.5" />
+      <text x="${x}" y="${y - 31}">${escapeMarkup(touchpoint.term)}</text>
     </g>`;
   }).join("");
   const explanationMarkup = aiTouchpoints.map((touchpoint) => `<article><strong>${escapeMarkup(touchpoint.term)}</strong><p>${escapeMarkup(touchpoint.detail)}</p></article>`).join("");

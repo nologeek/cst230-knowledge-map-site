@@ -118,6 +118,7 @@ input { color-scheme: dark; }
 .stage-base-network { opacity: .82; }
 .stage-ai-edge { fill: none; stroke: var(--ai); stroke-width: 2; stroke-dasharray: 5 8; filter: drop-shadow(0 0 4px rgba(116, 185, 255, .6)); }
 .stage-ai-touchpoint circle { fill: var(--ai); stroke: #d6ebff; stroke-width: 2; filter: drop-shadow(0 0 8px rgba(116, 185, 255, .8)); }
+.stage-ai-touchpoint .ai-term-pill { fill: #0a2740; stroke: rgba(116, 185, 255, .72); stroke-width: 1; }
 .stage-ai-touchpoint text { fill: #b9dcff; font-size: 12px; font-weight: 700; text-anchor: middle; }
 .ai-stage-layer { opacity: 1; transition: opacity .3s ease; }
 .ai-stage-layer.is-hidden { opacity: 0; pointer-events: none; }
