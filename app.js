@@ -810,7 +810,7 @@ const state = {
   activeLayers: new Set(Object.keys(mapData.layers)),
   activeStatuses: new Set(Object.keys(mapData.statuses)),
   selectedNodeId: "cst230-core",
-  showAiConnections: true
+  showAiConnections: false
 };
 
 const storyFlow = document.getElementById("storyFlow");
@@ -870,7 +870,7 @@ function stageInfographic(stage, stageIndex) {
   const columnGap = (endX - startX) / (columns.length - 1);
   const maxRows = Math.max(...columns.map((column) => column.ids.length));
   const plotTop = 105;
-  const rowGap = maxRows > 8 ? 58 : maxRows > 5 ? 70 : 96;
+  const rowGap = maxRows > 8 ? 82 : maxRows > 5 ? 88 : 104;
   const plotHeight = Math.max(430, (maxRows - 1) * rowGap + 90);
   const height = plotTop + plotHeight + 245;
   const positions = new Map();
@@ -888,21 +888,24 @@ function stageInfographic(stage, stageIndex) {
     const target = positions.get(edge.target);
     if (!source || !target) return "";
     const bend = Math.max(45, Math.abs(target.x - source.x) * .42);
-    return `<path class="stage-edge" d="M ${source.x} ${source.y} C ${source.x + bend} ${source.y}, ${target.x - bend} ${target.y}, ${target.x} ${target.y}" />`;
+    return `<path class="stage-edge" marker-end="url(#stage-arrow-${stageIndex})" d="M ${source.x} ${source.y} C ${source.x + bend} ${source.y}, ${target.x - bend} ${target.y}, ${target.x} ${target.y}" />`;
   }).join("");
-  const nodeMarkup = columns.flatMap((column) => column.ids).map((id) => {
+  const nodeMarkup = columns.flatMap((column, columnIndex) => column.ids.map((id) => ({ id, columnIndex }))).map(({ id, columnIndex }) => {
     const node = getNodeById(id);
     const position = positions.get(id);
-    const lines = labelLines(node.title, 20);
-    const text = lines.map((line, lineIndex) => `<tspan x="${position.x}" dy="${lineIndex ? 16 : 0}">${escapeMarkup(line)}</tspan>`).join("");
+    const lines = labelLines(node.title, 23);
+    const labelOnLeft = columnIndex === columns.length - 1;
+    const labelX = position.x + (labelOnLeft ? -34 : 34);
+    const text = lines.map((line, lineIndex) => `<tspan x="${labelX}" dy="${lineIndex ? 16 : 0}">${escapeMarkup(line)}</tspan>`).join("");
     return `<g class="stage-node" data-node="${id}" tabindex="0" role="button" aria-label="Abrir ${escapeMarkup(node.title)}">
       <circle cx="${position.x}" cy="${position.y}" r="20" />
       <circle class="stage-node-halo" cx="${position.x}" cy="${position.y}" r="27" />
-      <text x="${position.x}" y="${position.y + 43}">${text}</text>
+      <text class="${labelOnLeft ? "label-left" : "label-right"}" x="${labelX}" y="${position.y - ((lines.length - 1) * 8) + 5}">${text}</text>
     </g>`;
   }).join("");
   const columnLabels = columns.map((column, index) => `<text class="stage-column-label" x="${startX + index * columnGap}" y="42">${escapeMarkup(column.label)}</text>`).join("");
   const aiTouchpoints = stage.ai.touchpoints || [];
+  const aiHub = { x: width / 2, y: height - 72 };
   const aiMarkup = aiTouchpoints.map((touchpoint, index) => {
     const source = positions.get(touchpoint.from);
     const target = positions.get(touchpoint.to);
@@ -911,7 +914,8 @@ function stageInfographic(stage, stageIndex) {
     const y = (source.y + target.y) / 2 + (index % 2 ? 28 : -28);
     const pillWidth = Math.max(128, touchpoint.term.length * 7.2 + 24);
     return `<g class="stage-ai-touchpoint">
-      <path class="stage-ai-edge" d="M ${source.x} ${source.y} Q ${x} ${y}, ${target.x} ${target.y}" />
+      <path class="stage-ai-origin" d="M ${aiHub.x} ${aiHub.y} Q ${x} ${aiHub.y - 70}, ${x} ${y}" />
+      <path class="stage-ai-edge" marker-end="url(#ai-arrow-${stageIndex})" d="M ${x} ${y} Q ${(x + target.x) / 2} ${y}, ${target.x} ${target.y}" />
       <circle cx="${x}" cy="${y}" r="13" />
       <rect class="ai-term-pill" x="${x - pillWidth / 2}" y="${y - 48}" width="${pillWidth}" height="25" rx="12.5" />
       <text x="${x}" y="${y - 31}">${escapeMarkup(touchpoint.term)}</text>
@@ -920,26 +924,35 @@ function stageInfographic(stage, stageIndex) {
   const explanationMarkup = aiTouchpoints.map((touchpoint) => `<article><strong>${escapeMarkup(touchpoint.term)}</strong><p>${escapeMarkup(touchpoint.detail)}</p></article>`).join("");
   return `<section class="stage-infographic" aria-label="Infografía de ${escapeMarkup(stage.label)}">
     <div class="stage-visual-head">
-      <p>Diagrama de red conceptual · flujo de izquierda a derecha</p>
+      <p>Diagrama de red conceptual</p>
       <label class="ia-switch stage-ai-switch">
-        <input type="checkbox" checked data-stage-ai="${stageIndex}" />
+        <input type="checkbox" data-stage-ai="${stageIndex}" />
         <span class="switch-track" aria-hidden="true"><span></span></span>
         <span>Mostrar lente AI-FIRST</span>
       </label>
     </div>
     <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Relaciones conceptuales de ${escapeMarkup(stage.label)}">
+      <defs>
+        <marker id="stage-arrow-${stageIndex}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="stage-arrow-head" d="M 0 0 L 10 5 L 0 10 z" /></marker>
+        <marker id="ai-arrow-${stageIndex}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ai-arrow-head" d="M 0 0 L 10 5 L 0 10 z" /></marker>
+      </defs>
       <g>${columnLabels}</g>
       <g class="stage-base-network">${edgeMarkup}</g>
       <g>${nodeMarkup}</g>
-      <g class="ai-stage-layer" data-ai-layer="${stageIndex}">
+      <g class="ai-stage-layer is-hidden" data-ai-layer="${stageIndex}">
+        <g class="stage-ai-hub">
+          <circle cx="${aiHub.x}" cy="${aiHub.y}" r="34" />
+          <circle class="stage-ai-hub-ring" cx="${aiHub.x}" cy="${aiHub.y}" r="46" />
+          <text x="${aiHub.x}" y="${aiHub.y + 68}">INTELIGENCIA ARTIFICIAL</text>
+        </g>
         ${aiMarkup}
       </g>
     </svg>
-    <div class="ai-stage-explanation ai-stage-layer" data-ai-layer="${stageIndex}">
+    <div class="ai-stage-explanation ai-stage-layer is-hidden" data-ai-layer="${stageIndex}">
       <div class="ai-stage-summary"><span>✦ AI-FIRST</span><b>Observa</b> ${escapeMarkup(stage.ai.observes)} <b>Analiza</b> ${escapeMarkup(stage.ai.analyzes)} <b>Recomienda</b> ${escapeMarkup(stage.ai.recommends)}</div>
       <div class="ai-term-grid">${explanationMarkup}</div>
     </div>
-    ${stage.ai.note ? `<p class="ai-note">${stage.ai.note}</p>` : ""}
+    ${stage.ai.note ? `<p class="ai-note ai-stage-layer is-hidden" data-ai-layer="${stageIndex}">${stage.ai.note}</p>` : ""}
   </section>`;
 }
 
