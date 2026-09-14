@@ -9,7 +9,16 @@ const mapData = {
       intro: "Dispositivos, servicios y protocolos participan en la comunicación de datos. Las redes locales también pueden estudiarse desde distintos criterios de clasificación.",
       question: "¿Qué debe existir para que dos dispositivos puedan intercambiar información bajo reglas compatibles?",
       nodeIds: ["comunicacion-datos", "dispositivos", "servicios", "aplicaciones", "protocolos", "clasificacion-redes", "clasificacion-titularidad", "topologias", "clasificacion-transferencia", "clasificacion-localizacion", "normalizacion", "organismos", "warriors-visual"],
-      ai: { observes: "flujos y eventos de comunicación", analyzes: "patrones o comportamientos anómalos", recommends: "qué evidencia revisar primero" }
+      diagramColumns: [
+        { label: "Necesidad", ids: ["comunicacion-datos", "dispositivos"] },
+        { label: "Intercambio", ids: ["servicios", "aplicaciones", "protocolos"] },
+        { label: "Clasificación", ids: ["clasificacion-redes", "clasificacion-titularidad", "topologias", "clasificacion-transferencia", "clasificacion-localizacion"] },
+        { label: "Compatibilidad", ids: ["normalizacion", "organismos", "warriors-visual"] }
+      ],
+      ai: { observes: "flujos y eventos de comunicación", analyzes: "patrones o comportamientos anómalos", recommends: "qué evidencia revisar primero", touchpoints: [
+        { from: "protocolos", to: "normalizacion", term: "Análisis de patrones", detail: "Compara eventos observados para destacar comportamientos que merecen revisión." },
+        { from: "comunicacion-datos", to: "protocolos", term: "Lectura asistida del flujo", detail: "Ordena evidencia del intercambio sin reemplazar las reglas académicas." }
+      ] }
     },
     {
       id: "s2",
@@ -18,7 +27,16 @@ const mapData = {
       intro: "Organizar responsabilidades por niveles permite abordar los problemas de diseño y comprender por qué existen modelos y arquitecturas de red.",
       question: "¿Cómo organizamos una comunicación compleja sin tratarla como un único problema?",
       nodeIds: ["problemas-arquitectura", "arquitectura-niveles", "modelo-osi", "capa-aplicacion", "capa-presentacion", "capa-sesion", "capa-transporte", "capa-red", "capa-enlace", "capa-fisica", "tcpip", "red-microsoft"],
-      ai: { observes: "síntomas y evidencia del recorrido", analyzes: "en qué responsabilidad puede originarse el problema", recommends: "un orden de diagnóstico", note: "Apoyo de troubleshooting; no modifica el modelo OSI." }
+      diagramColumns: [
+        { label: "Complejidad", ids: ["problemas-arquitectura"] },
+        { label: "Organización", ids: ["arquitectura-niveles"] },
+        { label: "Arquitecturas", ids: ["modelo-osi", "tcpip", "red-microsoft"] },
+        { label: "Responsabilidades OSI", ids: ["capa-aplicacion", "capa-presentacion", "capa-sesion", "capa-transporte", "capa-red", "capa-enlace", "capa-fisica"] }
+      ],
+      ai: { observes: "síntomas y evidencia del recorrido", analyzes: "en qué responsabilidad puede originarse el problema", recommends: "un orden de diagnóstico", note: "Apoyo de troubleshooting; no modifica el modelo OSI.", touchpoints: [
+        { from: "arquitectura-niveles", to: "modelo-osi", term: "Clasificación de síntomas", detail: "Relaciona la evidencia observada con una responsabilidad posible para orientar el diagnóstico." },
+        { from: "modelo-osi", to: "capa-red", term: "Ruta de diagnóstico", detail: "Propone un orden de revisión; la decisión sigue dependiendo de evidencia técnica." }
+      ] }
     },
     {
       id: "s3",
@@ -27,7 +45,16 @@ const mapData = {
       intro: "El capítulo recorre diferentes ejemplos de redes de transmisión y la Semana 1 conecta esa perspectiva con la infraestructura física de edificios y áreas de trabajo.",
       question: "¿Todas las redes transportan información mediante la misma infraestructura?",
       nodeIds: ["ejemplos-transmision", "rtc", "telex", "iberpac", "rdsi", "internet", "t-portador", "dsl", "redes-cable", "redes-locales", "vpn", "cable-electrico", "area-trabajo", "medios", "cableado", "hardware", "infraestructura", "edificio-campus"],
-      ai: { observes: "estado ambiental y señales operativas", analyzes: "tendencias y anomalías", recommends: "prioridades de revisión física", note: "Aplicación operativa, separada del fundamento académico." }
+      diagramColumns: [
+        { label: "Panorama", ids: ["ejemplos-transmision"] },
+        { label: "Ejemplos estudiados", ids: ["rtc", "telex", "iberpac", "rdsi", "internet", "t-portador", "dsl", "redes-cable", "redes-locales", "vpn", "cable-electrico"] },
+        { label: "Conexión física", ids: ["area-trabajo", "medios", "cableado"] },
+        { label: "Espacio real", ids: ["hardware", "infraestructura", "edificio-campus"] }
+      ],
+      ai: { observes: "estado ambiental y señales operativas", analyzes: "tendencias y anomalías", recommends: "prioridades de revisión física", note: "Aplicación operativa, separada del fundamento académico.", touchpoints: [
+        { from: "medios", to: "infraestructura", term: "Detección de anomalías", detail: "Identifica variaciones en señales operativas para priorizar una inspección física." },
+        { from: "infraestructura", to: "edificio-campus", term: "Monitoreo asistido", detail: "Organiza alertas ambientales y ayuda a reconocer tendencias; no ejecuta cambios por sí solo." }
+      ] }
     },
     {
       id: "s4",
@@ -36,7 +63,17 @@ const mapData = {
       intro: "Una red administrable mantiene alineados sus elementos reales, su inventario, sus etiquetas y su documentación antes y después de cada cambio.",
       question: "¿Qué ocurre cuando la red cambia pero su documentación ya no representa la realidad?",
       nodeIds: ["elemento-red", "identificacion", "inventario", "etiquetado", "documentacion", "estado-real", "cambio", "gestion-cambios", "actualizacion", "seguridad", "gestion-red"],
-      ai: { observes: "inventario, eventos y diferencias documentales", analyzes: "anomalías, omisiones y riesgo del cambio", recommends: "actualizaciones y prioridades de revisión" }
+      diagramColumns: [
+        { label: "Elemento real", ids: ["elemento-red", "estado-real"] },
+        { label: "Trazabilidad", ids: ["identificacion", "inventario", "etiquetado"] },
+        { label: "Control", ids: ["documentacion", "cambio", "gestion-cambios"] },
+        { label: "Estado actualizado", ids: ["actualizacion", "seguridad", "gestion-red"] }
+      ],
+      ai: { observes: "inventario, eventos y diferencias documentales", analyzes: "anomalías, omisiones y riesgo del cambio", recommends: "actualizaciones y prioridades de revisión", touchpoints: [
+        { from: "inventario", to: "documentacion", term: "Conciliación documental", detail: "Compara registros y evidencia para señalar diferencias que una persona debe validar." },
+        { from: "cambio", to: "gestion-cambios", term: "Evaluación de riesgo", detail: "Prioriza señales de riesgo y propone preguntas antes de aprobar una modificación." },
+        { from: "gestion-cambios", to: "actualizacion", term: "Actualización asistida", detail: "Sugiere ajustes documentales después del cambio y conserva la revisión humana." }
+      ] }
     }
   ],
   statuses: {
@@ -826,69 +863,80 @@ function labelLines(value, maxLength = 23) {
 }
 
 function stageInfographic(stage, stageIndex) {
-  const nodes = stage.nodeIds.map(getNodeById).filter(Boolean);
-  const columns = 4;
-  const cardWidth = 245;
-  const cardHeight = 78;
-  const gapX = 36;
-  const gapY = 62;
-  const startX = 55;
-  const startY = 64;
+  const columns = stage.diagramColumns;
+  const width = 1440;
+  const startX = 125;
+  const endX = 1315;
+  const columnGap = (endX - startX) / (columns.length - 1);
+  const maxRows = Math.max(...columns.map((column) => column.ids.length));
+  const plotTop = 105;
+  const rowGap = maxRows > 8 ? 58 : maxRows > 5 ? 70 : 96;
+  const plotHeight = Math.max(430, (maxRows - 1) * rowGap + 90);
+  const height = plotTop + plotHeight + 245;
   const positions = new Map();
-  nodes.forEach((node, index) => {
-    positions.set(node.id, {
-      x: startX + (index % columns) * (cardWidth + gapX),
-      y: startY + Math.floor(index / columns) * (cardHeight + gapY)
+  columns.forEach((column, columnIndex) => {
+    const availableHeight = Math.max(0, (column.ids.length - 1) * rowGap);
+    const columnTop = plotTop + (plotHeight - availableHeight) / 2;
+    column.ids.forEach((id, rowIndex) => {
+      positions.set(id, { x: startX + columnIndex * columnGap, y: columnTop + rowIndex * rowGap });
     });
   });
-  const rows = Math.ceil(nodes.length / columns);
-  const aiY = startY + rows * (cardHeight + gapY) + 34;
-  const height = aiY + 205;
-  const stageIds = new Set(nodes.map((node) => node.id));
-  let stageEdges = mapData.edges.filter((edge) => stageIds.has(edge.source) && stageIds.has(edge.target) && edge.relationshipType !== "ai");
-  if (!stageEdges.length) {
-    stageEdges = nodes.slice(1).map((node, index) => ({ source: nodes[index].id, target: node.id }));
-  }
+  const stageIds = new Set(columns.flatMap((column) => column.ids));
+  const stageEdges = mapData.edges.filter((edge) => stageIds.has(edge.source) && stageIds.has(edge.target) && edge.relationshipType !== "ai");
   const edgeMarkup = stageEdges.map((edge) => {
     const source = positions.get(edge.source);
     const target = positions.get(edge.target);
-    return `<line class="stage-edge" x1="${source.x + cardWidth / 2}" y1="${source.y + cardHeight / 2}" x2="${target.x + cardWidth / 2}" y2="${target.y + cardHeight / 2}" />`;
+    if (!source || !target) return "";
+    const bend = Math.max(45, Math.abs(target.x - source.x) * .42);
+    return `<path class="stage-edge" d="M ${source.x} ${source.y} C ${source.x + bend} ${source.y}, ${target.x - bend} ${target.y}, ${target.x} ${target.y}" />`;
   }).join("");
-  const nodeMarkup = nodes.map((node) => {
-    const position = positions.get(node.id);
-    const lines = labelLines(node.title);
-    const text = lines.map((line, lineIndex) => `<tspan x="${position.x + cardWidth / 2}" dy="${lineIndex ? 18 : 0}">${escapeMarkup(line)}</tspan>`).join("");
-    return `<g class="stage-node" data-node="${node.id}" tabindex="0" role="button" aria-label="Abrir ${escapeMarkup(node.title)}">
-      <rect x="${position.x}" y="${position.y}" width="${cardWidth}" height="${cardHeight}" rx="18" />
-      <text x="${position.x + cardWidth / 2}" y="${position.y + 33 - ((lines.length - 1) * 8)}">${text}</text>
+  const nodeMarkup = columns.flatMap((column) => column.ids).map((id) => {
+    const node = getNodeById(id);
+    const position = positions.get(id);
+    const lines = labelLines(node.title, 20);
+    const text = lines.map((line, lineIndex) => `<tspan x="${position.x}" dy="${lineIndex ? 16 : 0}">${escapeMarkup(line)}</tspan>`).join("");
+    return `<g class="stage-node" data-node="${id}" tabindex="0" role="button" aria-label="Abrir ${escapeMarkup(node.title)}">
+      <circle cx="${position.x}" cy="${position.y}" r="20" />
+      <circle class="stage-node-halo" cx="${position.x}" cy="${position.y}" r="27" />
+      <text x="${position.x}" y="${position.y + 43}">${text}</text>
     </g>`;
   }).join("");
-  const aiTargets = nodes.filter((node) => node.layer !== "ai").slice(-3);
-  const aiLines = aiTargets.map((node) => {
-    const target = positions.get(node.id);
-    return `<line class="stage-ai-edge" x1="600" y1="${aiY + 40}" x2="${target.x + cardWidth / 2}" y2="${target.y + cardHeight}" />`;
+  const columnLabels = columns.map((column, index) => `<text class="stage-column-label" x="${startX + index * columnGap}" y="42">${escapeMarkup(column.label)}</text>`).join("");
+  const aiTouchpoints = stage.ai.touchpoints || [];
+  const aiMarkup = aiTouchpoints.map((touchpoint, index) => {
+    const source = positions.get(touchpoint.from);
+    const target = positions.get(touchpoint.to);
+    if (!source || !target) return "";
+    const x = (source.x + target.x) / 2;
+    const y = (source.y + target.y) / 2 + (index % 2 ? 28 : -28);
+    return `<g class="stage-ai-touchpoint">
+      <path class="stage-ai-edge" d="M ${source.x} ${source.y} Q ${x} ${y}, ${target.x} ${target.y}" />
+      <circle cx="${x}" cy="${y}" r="13" />
+      <text x="${x}" y="${y - 24}">${escapeMarkup(touchpoint.term)}</text>
+    </g>`;
   }).join("");
+  const explanationMarkup = aiTouchpoints.map((touchpoint) => `<article><strong>${escapeMarkup(touchpoint.term)}</strong><p>${escapeMarkup(touchpoint.detail)}</p></article>`).join("");
   return `<section class="stage-infographic" aria-label="Infografía de ${escapeMarkup(stage.label)}">
     <div class="stage-visual-head">
-      <p>Infografía de la etapa</p>
+      <p>Diagrama de red conceptual · flujo de izquierda a derecha</p>
       <label class="ia-switch stage-ai-switch">
         <input type="checkbox" checked data-stage-ai="${stageIndex}" />
         <span class="switch-track" aria-hidden="true"><span></span></span>
         <span>Mostrar lente AI-FIRST</span>
       </label>
     </div>
-    <svg viewBox="0 0 1200 ${height}" role="img" aria-label="Relaciones conceptuales de ${escapeMarkup(stage.label)}">
-      <g>${edgeMarkup}</g>
+    <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Relaciones conceptuales de ${escapeMarkup(stage.label)}">
+      <g>${columnLabels}</g>
+      <g class="stage-base-network">${edgeMarkup}</g>
       <g>${nodeMarkup}</g>
       <g class="ai-stage-layer" data-ai-layer="${stageIndex}">
-        ${aiLines}
-        <rect class="stage-ai-card" x="230" y="${aiY}" width="740" height="150" rx="24" />
-        <text class="stage-ai-title" x="600" y="${aiY + 31}">✦ AI-FIRST · APLICACIÓN SEPARADA</text>
-        <text class="stage-ai-copy" x="270" y="${aiY + 68}">OBSERVA · ${escapeMarkup(stage.ai.observes)}</text>
-        <text class="stage-ai-copy" x="270" y="${aiY + 96}">ANALIZA · ${escapeMarkup(stage.ai.analyzes)}</text>
-        <text class="stage-ai-copy" x="270" y="${aiY + 124}">RECOMIENDA · ${escapeMarkup(stage.ai.recommends)}</text>
+        ${aiMarkup}
       </g>
     </svg>
+    <div class="ai-stage-explanation ai-stage-layer" data-ai-layer="${stageIndex}">
+      <div class="ai-stage-summary"><span>✦ AI-FIRST</span><b>Observa</b> ${escapeMarkup(stage.ai.observes)} <b>Analiza</b> ${escapeMarkup(stage.ai.analyzes)} <b>Recomienda</b> ${escapeMarkup(stage.ai.recommends)}</div>
+      <div class="ai-term-grid">${explanationMarkup}</div>
+    </div>
     ${stage.ai.note ? `<p class="ai-note">${stage.ai.note}</p>` : ""}
   </section>`;
 }
@@ -906,7 +954,7 @@ function renderStoryFlow() {
   `).join("");
   storyFlow.querySelectorAll("[data-stage-ai]").forEach((toggle) => {
     toggle.addEventListener("change", () => {
-      storyFlow.querySelector(`[data-ai-layer="${toggle.dataset.stageAi}"]`)?.classList.toggle("is-hidden", !toggle.checked);
+      storyFlow.querySelectorAll(`[data-ai-layer="${toggle.dataset.stageAi}"]`).forEach((layer) => layer.classList.toggle("is-hidden", !toggle.checked));
     });
   });
   bindNodeInteractions(storyFlow);
