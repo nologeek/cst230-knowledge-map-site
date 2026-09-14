@@ -1174,3 +1174,193 @@ window.addEventListener("popstate", closePopupPanel);
 renderStoryFlow();
 render();
 
+const aiOpsCopy = {
+  es: {
+    eyebrow: "✦ AI-FIRST / EXTENSIÓN AL MUNDO REAL",
+    title: "La IA no vive dentro de la red. Opera mediante herramientas autorizadas.",
+    intro: "Explora cómo una señal se convierte en contexto, una hipótesis, una acción controlada y evidencia verificable.",
+    observe: "Observar",
+    act: "Actuar",
+    inspect: "Pulsa un nodo o una conexión para inspeccionar qué fluye y quién conserva el control.",
+    loop: "Ciclo agéntico de operaciones de red",
+    lab: "Laboratorio CST230",
+    industry: "Patrones verificados en la industria",
+    compare: "Dos direcciones diferentes",
+    source: "Fuente",
+    destination: "Destino",
+    relation: "Tipo de relación",
+    flow: "Qué fluye",
+    interface: "Interfaz",
+    permission: "Permiso",
+    aiRole: "Rol de IA",
+    humanRole: "Rol humano",
+    validation: "Validación",
+    risk: "Riesgo",
+    example: "Ejemplo",
+    epistemic: "Capa epistémica"
+  },
+  en: {
+    eyebrow: "✦ AI-FIRST / REAL-WORLD EXTENSION",
+    title: "AI does not live inside the network. It operates through authorized tools.",
+    intro: "Explore how a signal becomes context, a hypothesis, a controlled action, and verifiable evidence.",
+    observe: "Observe",
+    act: "Act",
+    inspect: "Select a node or connection to inspect what flows and who remains in control.",
+    loop: "Agentic network operations loop",
+    lab: "CST230 lab",
+    industry: "Industry-verified patterns",
+    compare: "Two different directions",
+    source: "Source",
+    destination: "Destination",
+    relation: "Relationship",
+    flow: "What flows",
+    interface: "Interface",
+    permission: "Permission",
+    aiRole: "AI role",
+    humanRole: "Human role",
+    validation: "Validation",
+    risk: "Risk",
+    example: "Example",
+    epistemic: "Epistemic layer"
+  }
+};
+
+const aiOpsNodes = [
+  { id: "human", es: "Humano y política", en: "Human and policy", icon: "human", detailEs: "Define la intención, los límites y la autorización. La autonomía del agente no equivale a autoridad ilimitada.", detailEn: "Defines intent, boundaries, and authorization. Agent autonomy is not unlimited authority." },
+  { id: "model", es: "Modelo", en: "Model", icon: "model", detailEs: "Interpreta contexto y genera razonamiento; por sí solo no accede a la infraestructura.", detailEn: "Interprets context and reasons; by itself it cannot access infrastructure." },
+  { id: "agent", es: "Agente / orquestador", en: "Agent / orchestrator", icon: "agent", detailEs: "Descompone el objetivo, selecciona herramientas y mantiene el ciclo de investigación.", detailEn: "Breaks down the objective, selects tools, and maintains the investigation loop." },
+  { id: "tool", es: "Herramienta autorizada", en: "Authorized tool", icon: "tool", detailEs: "Da capacidad concreta y acotada: consultar o ejecutar una operación permitida.", detailEn: "Provides bounded capability to query or execute a permitted operation." },
+  { id: "interface", es: "Interfaz", en: "Interface", icon: "interface", detailEs: "Terminal, API, CLI, SSH o controlador, solamente cuando el sistema correspondiente lo admite.", detailEn: "Terminal, API, CLI, SSH, or controller, only where the target system supports it." },
+  { id: "system", es: "Sistema de red", en: "Network system", icon: "network", detailEs: "Infraestructura, servicio, dispositivo o entorno virtual que produce estado y ejecuta cambios.", detailEn: "Infrastructure, service, device, or virtual environment that produces state and executes changes." },
+  { id: "result", es: "Resultado y evidencia", en: "Result and evidence", icon: "result", detailEs: "Estado, logs, métricas, puertos, procesos o salida de herramienta que vuelve al contexto.", detailEn: "State, logs, metrics, ports, processes, or tool output returned as context." },
+  { id: "validation", es: "Validación", en: "Validation", icon: "check", detailEs: "Compara el estado esperado con el observado y registra si la hipótesis o el cambio se sostienen.", detailEn: "Compares expected and observed state and records whether the hypothesis or change holds." }
+];
+
+const aiOpsEdges = {
+  observe: [
+    { id: "telemetry", from: "system", to: "result", type: "OBSERVATION", es: "telemetría / estado", en: "telemetry / state", flowEs: "Estado, logs, métricas, puertos y procesos", flowEn: "State, logs, metrics, ports, and processes", iface: "Telemetry / terminal output / API", permissionEs: "Lectura autorizada", permissionEn: "Authorized read", aiEs: "Organiza evidencia y detecta patrones; no declara una causa sin validación.", aiEn: "Organizes evidence and detects patterns; it does not declare cause without validation.", humanEs: "Define el alcance de observación y evalúa la hipótesis.", humanEn: "Defines observation scope and evaluates the hypothesis.", validationEs: "Contrastar la hipótesis con nuevas consultas o pruebas.", validationEn: "Test the hypothesis with further queries or tests.", riskEs: "Contexto incompleto o correlación engañosa.", riskEn: "Incomplete context or misleading correlation." },
+    { id: "context", from: "result", to: "agent", type: "ANALYSIS", es: "contexto verificable", en: "verifiable context", flowEs: "Evidencia estructurada y límites conocidos", flowEn: "Structured evidence and known limits", iface: "Tool result / observability platform", permissionEs: "Acceso de lectura delimitado", permissionEn: "Bounded read access", aiEs: "Correlaciona y genera una hipótesis interrogable.", aiEn: "Correlates and generates a testable hypothesis.", humanEs: "Interpreta impacto y decide el siguiente paso.", humanEn: "Interprets impact and chooses the next step.", validationEs: "La evidencia debe apoyar o refutar la hipótesis.", validationEn: "Evidence must support or refute the hypothesis.", riskEs: "Confundir correlación con causalidad.", riskEn: "Mistaking correlation for causation." },
+    { id: "recommend", from: "agent", to: "human", type: "RECOMMENDATION", es: "hipótesis y recomendación", en: "hypothesis and recommendation", flowEs: "Hallazgos, incertidumbre y próximos pasos", flowEn: "Findings, uncertainty, and next steps", iface: "Workspace / assistant", permissionEs: "No modifica el sistema", permissionEn: "Does not modify the system", aiEs: "Explica y prioriza alternativas.", aiEn: "Explains and prioritizes alternatives.", humanEs: "Acepta, rechaza o redefine la investigación.", humanEn: "Accepts, rejects, or reframes the investigation.", validationEs: "Revisión humana más evidencia técnica.", validationEn: "Human review plus technical evidence.", riskEs: "Sobreconfianza en una recomendación plausible.", riskEn: "Overconfidence in a plausible recommendation." }
+  ],
+  act: [
+    { id: "intent", from: "human", to: "agent", type: "AUTHORIZED_ACTION", es: "intención + autorización", en: "intent + authorization", flowEs: "Objetivo, alcance, política y aprobación", flowEn: "Objective, scope, policy, and approval", iface: "Human-agent workspace", permissionEs: "Explícita y limitada", permissionEn: "Explicit and bounded", aiEs: "Traduce intención en un plan acotado.", aiEn: "Translates intent into a bounded plan.", humanEs: "Conserva autoridad sobre cambios sensibles.", humanEn: "Retains authority over sensitive changes.", validationEs: "Plan revisado antes de ejecución.", validationEn: "Plan reviewed before execution.", riskEs: "Alcance ambiguo o privilegio excesivo.", riskEn: "Ambiguous scope or excessive privilege." },
+    { id: "toolcall", from: "agent", to: "tool", type: "AUTHORIZED_ACTION", es: "llamada autorizada", en: "authorized tool call", flowEs: "Operación estructurada y parámetros", flowEn: "Structured operation and parameters", iface: "Tool contract / MCP / automation platform", permissionEs: "Capacidad permitida por política", permissionEn: "Capability allowed by policy", aiEs: "Selecciona y usa una herramienta disponible.", aiEn: "Selects and uses an available tool.", humanEs: "Define guardrails y aprueba cuando corresponde.", humanEn: "Defines guardrails and approves when required.", validationEs: "Resultado de herramienta y registro de auditoría.", validationEn: "Tool result and audit record.", riskEs: "Herramienta incorrecta o parámetros inseguros.", riskEn: "Wrong tool or unsafe parameters." },
+    { id: "command", from: "tool", to: "interface", type: "PROCESS_FLOW", es: "comando / solicitud", en: "command / request", flowEs: "Comando, consulta o llamada API", flowEn: "Command, query, or API call", iface: "PowerShell / CLI / API / SSH / controller", permissionEs: "Credencial y alcance del sistema", permissionEn: "System credential and scope", aiEs: "No ejecuta directamente: invoca la herramienta.", aiEn: "Does not execute directly: it invokes the tool.", humanEs: "Administra acceso y secretos.", humanEn: "Manages access and secrets.", validationEs: "Código de salida, respuesta y estado posterior.", validationEn: "Exit code, response, and post-state.", riskEs: "Cambio no deseado o exposición de credenciales.", riskEn: "Unwanted change or credential exposure." },
+    { id: "change", from: "interface", to: "system", type: "AUTHORIZED_ACTION", es: "cambio acotado", en: "bounded change", flowEs: "Instrucción que el sistema interpreta", flowEn: "Instruction interpreted by the system", iface: "Interfaz realmente soportada por el objetivo", permissionEs: "Autorización del sistema objetivo", permissionEn: "Target-system authorization", aiEs: "Supervisa la secuencia y espera evidencia.", aiEn: "Tracks the sequence and waits for evidence.", humanEs: "Aprueba cambios críticos y puede detener el proceso.", humanEn: "Approves critical changes and can stop the process.", validationEs: "Comparar estado previo, esperado y posterior.", validationEn: "Compare prior, expected, and resulting state.", riskEs: "Interrupción, deriva o efecto lateral.", riskEn: "Outage, drift, or side effect." },
+    { id: "verify", from: "system", to: "validation", type: "VALIDATION", es: "resultado para verificar", en: "result to verify", flowEs: "Estado posterior, salida, logs y pruebas", flowEn: "Post-state, output, logs, and tests", iface: "Telemetry / tool output", permissionEs: "Lectura posterior al cambio", permissionEn: "Post-change read", aiEs: "Compara el resultado contra el criterio esperado.", aiEn: "Compares the result against expected criteria.", humanEs: "Acepta el resultado o decide reversión/escalamiento.", humanEn: "Accepts the result or decides rollback/escalation.", validationEs: "Evidencia reproducible y trazable.", validationEn: "Reproducible, traceable evidence.", riskEs: "Declarar éxito sin comprobar el servicio final.", riskEn: "Declaring success without checking the end service." },
+    { id: "feedback", from: "validation", to: "agent", type: "FEEDBACK", es: "feedback", en: "feedback", flowEs: "Resultado validado, error o nueva evidencia", flowEn: "Validated result, error, or new evidence", iface: "Operational context", permissionEs: "Retorno de evidencia", permissionEn: "Evidence return", aiEs: "Actualiza contexto y propone el siguiente paso.", aiEn: "Updates context and proposes the next step.", humanEs: "Decide continuar, cerrar o escalar.", humanEn: "Decides whether to continue, close, or escalate.", validationEs: "El ciclo vuelve a observar.", validationEn: "The loop returns to observation.", riskEs: "Bucle sin criterio de parada.", riskEn: "Loop without a stopping criterion." }
+  ]
+};
+
+const aiOpsState = { mode: "observe", lang: "es" };
+
+function aiOpsIcon(name) {
+  const icons = {
+    human: '<circle cx="12" cy="8" r="3"/><path d="M5 20c1-5 13-5 14 0"/>',
+    model: '<path d="M7 5h10v14H7zM4 9h3m10 0h3M4 15h3m10 0h3"/>',
+    agent: '<circle cx="12" cy="12" r="3"/><path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1M7.7 16.3l-2.1 2.1"/>',
+    tool: '<path d="M14 5a4 4 0 0 0-5 5L4 15l5 5 5-5a4 4 0 0 0 5-5l-3 3-3-3z"/>',
+    interface: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m7 10 3 2-3 2m5 1h5"/>',
+    network: '<circle cx="5" cy="12" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="19" cy="18" r="2"/><path d="m7 11 10-4M7 13l10 4"/>',
+    result: '<path d="M5 4h14v16H5zM8 9h8M8 13h8M8 17h5"/>',
+    check: '<circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 6-7"/>'
+  };
+  return `<svg viewBox="0 0 24 24" aria-hidden="true">${icons[name] || icons.network}</svg>`;
+}
+
+function aiOpsPath(edge, index, total) {
+  const sx = 140 + aiOpsNodes.findIndex(n => n.id === edge.from) * 210;
+  const tx = 140 + aiOpsNodes.findIndex(n => n.id === edge.to) * 210;
+  const sy = edge.type === "FEEDBACK" ? 318 : 188;
+  const ty = edge.type === "FEEDBACK" ? 188 : 188;
+  const bend = Math.max(70, Math.abs(tx - sx) * .32);
+  const d = edge.type === "FEEDBACK"
+    ? `M ${sx} ${sy} C ${sx} 390, ${tx} 390, ${tx} ${ty + 42}`
+    : `M ${sx + 34} ${sy} C ${sx + bend} ${sy}, ${tx - bend} ${ty}, ${tx - 34} ${ty}`;
+  return `<g class="ops-edge ops-edge--${edge.type.toLowerCase()}" data-ai-edge="${edge.id}" tabindex="0" role="button" aria-label="${escapeMarkup(edge.es)}">
+    <path class="ops-edge-hit" d="${d}"/>
+    <path class="ops-edge-line" d="${d}" marker-end="url(#opsArrow)"/>
+    <text><textPath href="#ops-${edge.id}" startOffset="50%">${escapeMarkup(aiOpsState.lang === "es" ? edge.es : edge.en)}</textPath></text>
+    <path id="ops-${edge.id}" d="${d}" fill="none"/>
+  </g>`;
+}
+
+function renderAiOpsLens() {
+  const root = document.getElementById("aiOperationsLens");
+  if (!root) return;
+  const c = aiOpsCopy[aiOpsState.lang];
+  const edges = aiOpsEdges[aiOpsState.mode];
+  root.innerHTML = `
+    <div class="ops-intro">
+      <p class="ops-eyebrow">${c.eyebrow}</p>
+      <h2>${c.title}</h2>
+      <p>${c.intro}</p>
+      <div class="ops-controls" role="group" aria-label="AI Lens controls">
+        <button class="${aiOpsState.mode === "observe" ? "is-active" : ""}" data-ops-mode="observe">${c.observe}</button>
+        <button class="${aiOpsState.mode === "act" ? "is-active" : ""}" data-ops-mode="act">${c.act}</button>
+        <span class="ops-divider"></span>
+        <button class="${aiOpsState.lang === "es" ? "is-active" : ""}" data-ops-lang="es">ES</button>
+        <button class="${aiOpsState.lang === "en" ? "is-active" : ""}" data-ops-lang="en">EN</button>
+      </div>
+    </div>
+    <div class="ops-network-shell">
+      <svg class="ops-network" viewBox="0 0 1760 430" role="img" aria-label="${escapeMarkup(c.loop)}">
+        <defs><marker id="opsArrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z"/></marker></defs>
+        <g class="ops-edges">${edges.map(aiOpsPath).join("")}</g>
+        <g class="ops-nodes">${aiOpsNodes.map((node, index) => `<g class="ops-node" data-ops-node="${node.id}" tabindex="0" role="button" aria-label="${escapeMarkup(aiOpsState.lang === "es" ? node.es : node.en)}" transform="translate(${140 + index * 210} 188)"><circle r="38"/><foreignObject x="-18" y="-18" width="36" height="36"><div xmlns="http://www.w3.org/1999/xhtml" class="ops-node-icon">${aiOpsIcon(node.icon)}</div></foreignObject><text y="72">${escapeMarkup(aiOpsState.lang === "es" ? node.es : node.en)}</text></g>`).join("")}</g>
+      </svg>
+    </div>
+    <p class="ops-instruction">${c.inspect}</p>
+    <div class="ops-loop" aria-label="${c.loop}">${["OBSERVE", "UNDERSTAND", "REASON", "ACT", "VERIFY", "FEEDBACK"].map((step, i) => `<span>${step}</span>${i < 5 ? '<b>→</b>' : ''}`).join("")}</div>
+    <div class="ops-two-paths">
+      <article><span>OBSERVE MODE</span><h3>NETWORK <b>╌╌→</b> AI</h3><p>${aiOpsState.lang === "es" ? "La red entrega evidencia. La IA organiza contexto y genera hipótesis." : "The network provides evidence. AI organizes context and generates hypotheses."}</p></article>
+      <article><span>ACTION MODE</span><h3>AI <b>══→</b> TOOL <b>══→</b> NETWORK</h3><p>${aiOpsState.lang === "es" ? "Una acción requiere herramienta, interfaz, permiso y comprobación posterior." : "An action requires a tool, interface, permission, and post-change verification."}</p></article>
+    </div>
+    <section class="ops-lab">
+      <p class="ops-eyebrow">${c.lab} · AI-ASSISTED TROUBLESHOOTING</p>
+      <div class="lab-flow"><button data-ops-node="human">ESTUDIANTE</button><i>→</i><button data-ops-node="agent">AGENTE IA</button><i>→</i><button data-ops-node="tool">TERMINAL</button><i>→</i><span>POWERSHELL</span><i>→</i><span>VAGRANT / VIRTUALBOX</span><i>→</i><button data-ops-node="system">RED VIRTUAL / VM</button></div>
+      <p>${aiOpsState.lang === "es" ? "Retorno: estado, logs, puertos, procesos y configuración → contexto → nueva hipótesis. Toda corrección se ejecuta mediante una herramienta autorizada y se valida contra el estado resultante." : "Return: state, logs, ports, processes, and configuration → context → next hypothesis. Every correction runs through an authorized tool and is validated against resulting state."}</p>
+    </section>
+    <section class="ops-industry">
+      <p class="ops-eyebrow">${c.industry}</p>
+      <div class="industry-grid">
+        <a href="https://www.cisco.com/site/us/en/solutions/artificial-intelligence/agentic-ops/ai-canvas/index.html" target="_blank" rel="noreferrer"><strong>CISCO · AGENTICOPS</strong><span>${aiOpsState.lang === "es" ? "Señales + agentes + investigación + acciones revisadas por el equipo." : "Signals + agents + investigation + team-reviewed actions."}</span></a>
+        <a href="https://www.hpe.com/psnow/downloadDoc/Marvis%20AI%20architecture%20-%20Transform%20IT%20operations%20with%20a%20self-driving%20network-a00151051enw.pdf" target="_blank" rel="noreferrer"><strong>HPE / JUNIPER · MARVIS</strong><span>${aiOpsState.lang === "es" ? "Telemetría + análisis + causa raíz + remediación controlada." : "Telemetry + analysis + root cause + controlled remediation."}</span></a>
+        <a href="https://www.arista.com/assets/data/pdf/Whitepapers/Arista-AVA-Whitepaper.pdf" target="_blank" rel="noreferrer"><strong>ARISTA · AVA</strong><span>${aiOpsState.lang === "es" ? "Agentes + contexto + tools/actions + policy/safety + NetDL + EOS." : "Agents + context + tools/actions + policy/safety + NetDL + EOS."}</span></a>
+      </div>
+      <p class="ops-disclaimer">${aiOpsState.lang === "es" ? "Modelo pedagógico del Atlas basado en patrones documentados por la industria. No forma parte del fundamento oficial CST230/Molina Robles." : "Atlas pedagogical model based on industry-documented patterns. It is not part of the official CST230/Molina Robles foundation."}</p>
+    </section>`;
+
+  root.querySelectorAll("[data-ops-mode]").forEach(button => button.addEventListener("click", () => { aiOpsState.mode = button.dataset.opsMode; renderAiOpsLens(); }));
+  root.querySelectorAll("[data-ops-lang]").forEach(button => button.addEventListener("click", () => { aiOpsState.lang = button.dataset.opsLang; renderAiOpsLens(); }));
+  root.querySelectorAll("[data-ops-node]").forEach(element => element.addEventListener("click", () => openAiOpsNode(element.dataset.opsNode)));
+  root.querySelectorAll("[data-ai-edge]").forEach(element => {
+    element.addEventListener("click", () => openConnectionInspector(edges.find(edge => edge.id === element.dataset.aiEdge)));
+    element.addEventListener("mouseenter", () => root.classList.add("is-tracing"));
+    element.addEventListener("mouseleave", () => root.classList.remove("is-tracing"));
+  });
+}
+
+function openAiOpsNode(id) {
+  const node = aiOpsNodes.find(item => item.id === id);
+  if (!node) return;
+  detailTitle.innerHTML = `${escapeMarkup(aiOpsState.lang === "es" ? node.es : node.en)} <span class="ai-badge">AI-FIRST</span>`;
+  detailContent.classList.add("ai-detail-grid");
+  detailContent.innerHTML = `${detailItem(aiOpsState.lang === "es" ? "¿Qué es?" : "What is it?", aiOpsState.lang === "es" ? node.detailEs : node.detailEn, "detail-lead")}${detailItem(aiOpsState.lang === "es" ? "Papel en la cadena" : "Role in the chain", aiOpsState.lang === "es" ? "Conecta razonamiento, capacidad técnica y evidencia sin ocultar dónde ocurre cada responsabilidad." : "Connects reasoning, technical capability, and evidence without hiding where each responsibility occurs.")}${detailItem(aiOpsState.lang === "es" ? "No confundir con" : "Do not confuse with", aiOpsState.lang === "es" ? "Acceso mágico o autoridad ilimitada sobre la red." : "Magical access or unlimited authority over the network.")}${detailItem(aiOpsState.lang === "es" ? "Capa epistémica" : "Epistemic layer", "✦ AI-FIRST / REAL-WORLD EXTENSION")}`;
+  nodePopup.removeAttribute("hidden"); nodePopup.setAttribute("aria-hidden", "false"); nodeBackdrop.removeAttribute("hidden");
+}
+
+function openConnectionInspector(edge) {
+  if (!edge) return;
+  const c = aiOpsCopy[aiOpsState.lang];
+  const source = aiOpsNodes.find(node => node.id === edge.from);
+  const target = aiOpsNodes.find(node => node.id === edge.to);
+  const pick = key => edge[`${key}${aiOpsState.lang === "es" ? "Es" : "En"}`];
+  detailTitle.innerHTML = `Connection Inspector <span class="ai-badge">${edge.type}</span>`;
+  detailContent.classList.add("ai-detail-grid", "connection-detail-grid");
+  detailContent.innerHTML = `${detailItem(c.source, aiOpsState.lang === "es" ? source.es : source.en)}${detailItem(c.destination, aiOpsState.lang === "es" ? target.es : target.en)}${detailItem(c.relation, edge.type)}${detailItem(c.flow, pick("flow"), "detail-lead")}${detailItem(c.interface, edge.iface)}${detailItem(c.permission, pick("permission"))}${detailItem(c.aiRole, pick("ai"))}${detailItem(c.humanRole, pick("human"))}${detailItem(c.validation, pick("validation"))}${detailItem(c.risk, pick("risk"))}${detailItem(c.example, aiOpsState.lang === "es" ? "Laboratorio CST230 o plataforma industrial, según la interfaz disponible." : "CST230 lab or industry platform, depending on the available interface.")}${detailItem(c.epistemic, "✦ AI-FIRST / REAL-WORLD EXTENSION")}`;
+  nodePopup.removeAttribute("hidden"); nodePopup.setAttribute("aria-hidden", "false"); nodeBackdrop.removeAttribute("hidden");
+}
+
+renderAiOpsLens();
+
