@@ -862,6 +862,25 @@ function labelLines(value, maxLength = 23) {
   return lines.slice(0, 3);
 }
 
+function nodeIconMarkup(node, x, y) {
+  const id = node.id;
+  let icon;
+  if (/seguridad/.test(id)) {
+    icon = '<path d="M9 1.5 15 4v4.5c0 4-2.6 6.5-6 8-3.4-1.5-6-4-6-8V4z"/><path d="m6.5 9 1.6 1.6 3.6-3.7"/>';
+  } else if (/document|inventario|etiquet|identificacion|actualizacion/.test(id)) {
+    icon = '<path d="M4 2h7l3 3v11H4z"/><path d="M11 2v4h4M6.5 9h5M6.5 12h5"/>';
+  } else if (/arquitectura|modelo-osi|capa-|tcpip|microsoft/.test(id)) {
+    icon = '<path d="m9 2 6 3-6 3-6-3zM3 9l6 3 6-3M3 13l6 3 6-3"/>';
+  } else if (/clasificacion|topolog|ejemplos-transmision/.test(id)) {
+    icon = '<circle cx="4" cy="9" r="1.5"/><circle cx="14" cy="4" r="1.5"/><circle cx="14" cy="14" r="1.5"/><path d="M5.5 9h3m0 0 4-5m-4 5 4 5"/>';
+  } else if (/disposit|hardware|infraestructura|area-trabajo|edificio|host/.test(id)) {
+    icon = '<rect x="2.5" y="3" width="13" height="9" rx="1.5"/><path d="M6 15h6M9 12v3"/>';
+  } else {
+    icon = '<path d="M3 6h9M9 3l3 3-3 3M15 12H6m3 3-3-3 3-3"/>';
+  }
+  return `<g class="stage-node-icon" transform="translate(${x - 9} ${y - 9})">${icon}</g>`;
+}
+
 function stageInfographic(stage, stageIndex) {
   const columns = stage.diagramColumns;
   const width = 1440;
@@ -887,8 +906,15 @@ function stageInfographic(stage, stageIndex) {
     const source = positions.get(edge.source);
     const target = positions.get(edge.target);
     if (!source || !target) return "";
-    const bend = Math.max(45, Math.abs(target.x - source.x) * .42);
-    return `<path class="stage-edge" marker-end="url(#stage-arrow-${stageIndex})" d="M ${source.x} ${source.y} C ${source.x + bend} ${source.y}, ${target.x - bend} ${target.y}, ${target.x} ${target.y}" />`;
+    if (source.x === target.x) {
+      const direction = target.y >= source.y ? 1 : -1;
+      return `<path class="stage-edge" marker-end="url(#stage-arrow-${stageIndex})" d="M ${source.x} ${source.y + direction * 28} V ${target.y - direction * 30}" />`;
+    }
+    const direction = target.x >= source.x ? 1 : -1;
+    const sourceX = source.x + direction * 28;
+    const targetX = target.x - direction * 30;
+    const middleX = (sourceX + targetX) / 2;
+    return `<path class="stage-edge" marker-end="url(#stage-arrow-${stageIndex})" d="M ${sourceX} ${source.y} H ${middleX} V ${target.y} H ${targetX}" />`;
   }).join("");
   const nodeMarkup = columns.flatMap((column, columnIndex) => column.ids.map((id) => ({ id, columnIndex }))).map(({ id, columnIndex }) => {
     const node = getNodeById(id);
@@ -900,12 +926,14 @@ function stageInfographic(stage, stageIndex) {
     return `<g class="stage-node" data-node="${id}" tabindex="0" role="button" aria-label="Abrir ${escapeMarkup(node.title)}">
       <circle cx="${position.x}" cy="${position.y}" r="20" />
       <circle class="stage-node-halo" cx="${position.x}" cy="${position.y}" r="27" />
+      ${nodeIconMarkup(node, position.x, position.y)}
       <text class="${labelOnLeft ? "label-left" : "label-right"}" x="${labelX}" y="${position.y - ((lines.length - 1) * 8) + 5}">${text}</text>
     </g>`;
   }).join("");
   const columnLabels = columns.map((column, index) => `<text class="stage-column-label" x="${startX + index * columnGap}" y="42">${escapeMarkup(column.label)}</text>`).join("");
   const aiTouchpoints = stage.ai.touchpoints || [];
   const aiHub = { x: width / 2, y: height - 72 };
+  const aiBusY = plotTop + plotHeight + 48;
   const aiMarkup = aiTouchpoints.map((touchpoint, index) => {
     const source = positions.get(touchpoint.from);
     const target = positions.get(touchpoint.to);
@@ -913,9 +941,12 @@ function stageInfographic(stage, stageIndex) {
     const x = (source.x + target.x) / 2;
     const y = (source.y + target.y) / 2 + (index % 2 ? 28 : -28);
     const pillWidth = Math.max(128, touchpoint.term.length * 7.2 + 24);
-    return `<g class="stage-ai-touchpoint">
-      <path class="stage-ai-origin" d="M ${aiHub.x} ${aiHub.y} Q ${x} ${aiHub.y - 70}, ${x} ${y}" />
-      <path class="stage-ai-edge" marker-end="url(#ai-arrow-${stageIndex})" d="M ${x} ${y} Q ${(x + target.x) / 2} ${y}, ${target.x} ${target.y}" />
+    const targetDirection = target.x >= x ? 1 : -1;
+    const targetEdgeX = target.x - targetDirection * 30;
+    const aiMiddleX = (x + targetEdgeX) / 2;
+    return `<g class="stage-ai-touchpoint" data-ai-touchpoint="${index}" data-stage-index="${stageIndex}" tabindex="0" role="button" aria-label="Abrir explicación de ${escapeMarkup(touchpoint.term)}">
+      <path class="stage-ai-origin" d="M ${aiHub.x} ${aiHub.y - 46} V ${aiBusY} H ${x} V ${y + 15}" />
+      <path class="stage-ai-edge" marker-end="url(#ai-arrow-${stageIndex})" d="M ${x + targetDirection * 15} ${y} H ${aiMiddleX} V ${target.y} H ${targetEdgeX}" />
       <circle cx="${x}" cy="${y}" r="13" />
       <rect class="ai-term-pill" x="${x - pillWidth / 2}" y="${y - 48}" width="${pillWidth}" height="25" rx="12.5" />
       <text x="${x}" y="${y - 31}">${escapeMarkup(touchpoint.term)}</text>
@@ -973,10 +1004,23 @@ function renderStoryFlow() {
     });
   });
   bindNodeInteractions(storyFlow);
+  storyFlow.querySelectorAll("[data-ai-touchpoint]").forEach((element) => {
+    const stage = mapData.stages[Number(element.dataset.stageIndex)];
+    const touchpoint = stage.ai.touchpoints[Number(element.dataset.aiTouchpoint)];
+    const open = () => openAiDetail(stage, touchpoint);
+    element.addEventListener("click", open);
+    element.addEventListener("keypress", (event) => {
+      if (event.key === "Enter") open();
+    });
+  });
 }
 
 function lineClass(type, isDashed) {
   return `${type === "ai" ? "edge-line ai" : "edge-line"}${isDashed ? " dashed" : ""}`;
+}
+
+function detailItem(label, value, className = "") {
+  return `<div class="detail-item ${className}"><dt>${label}</dt><dd>${value || "—"}</dd></div>`;
 }
 
 function updateDetail(node) {
@@ -1007,22 +1051,39 @@ function updateDetail(node) {
     .join("<br>");
 
   detailTitle.innerHTML = `${node.title}${node.layer === "ai" ? ' <span class="ai-badge">IA</span>' : ""}`;
+  detailContent.classList.remove("ai-detail-grid");
   detailContent.innerHTML = `
-    <dt>Definición simple</dt><dd>${node.definitionSimple}</dd>
-    <dt>Definición técnica</dt><dd>${node.definitionTechnical}</dd>
-    <dt>Pregunta de comprensión</dt><dd>${node.question || "¿Qué función cumple este concepto en la red?"}</dd>
-    <dt>Pregunta detallada</dt><dd>${node.questionDetail || "¿Cómo se conecta con el tramo actual?"}</dd>
-    <dt>Analogía</dt><dd>${node.analogy}</dd>
-    <dt>Ejemplo real</dt><dd>${node.realExample}</dd>
-    <dt>Relaciones y conexiones</dt><dd>${relations || "—"}</dd>
-    <dt>Capa OSI</dt><dd>${node.osiLayer || "—"}</dd>
-    <dt>Fuente</dt><dd>${node.source}</dd>
-    <dt>Clasificación de evidencia</dt><dd><span class="evidence-tag">${evidenceLabel}</span></dd>
-    <dt>Semana en que aparece</dt><dd>${node.weekIntroduced}</dd>
-    <dt>Estado de aprendizaje</dt><dd>${statusLabel}</dd>
-    <dt>Capa</dt><dd>${layerLabel}</dd>
-    ${node.layer === "ai" ? `<dt>¿Qué trae IA aquí?</dt><dd>${aiValue}</dd>` : ""}
+    ${detailItem("Definición sencilla", node.definitionSimple, "detail-lead")}
+    ${detailItem("Definición técnica", node.definitionTechnical)}
+    ${detailItem("Pregunta de comprensión", node.question || "¿Qué función cumple este concepto en la red?")}
+    ${detailItem("Pregunta para profundizar", node.questionDetail || "¿Cómo se conecta con el tramo actual?")}
+    ${detailItem("Analogía", node.analogy)}
+    ${detailItem("Ejemplo real", node.realExample)}
+    ${detailItem("Relaciones", relations)}
+    ${detailItem("Capa OSI", node.osiLayer)}
+    ${detailItem("Fuente", node.source)}
+    ${detailItem("Clasificación", `<span class="evidence-tag">${evidenceLabel}</span>`)}
+    ${detailItem("Semana y estado", `Semana ${node.weekIntroduced} · ${statusLabel}`)}
+    ${detailItem("Capa de conocimiento", layerLabel)}
+    ${node.layer === "ai" ? detailItem("Aporte de IA", aiValue) : ""}
   `;
+}
+
+function openAiDetail(stage, touchpoint) {
+  detailTitle.innerHTML = `${escapeMarkup(touchpoint.term)} <span class="ai-badge">AI-FIRST</span>`;
+  detailContent.classList.add("ai-detail-grid");
+  detailContent.innerHTML = `
+    ${detailItem("¿Qué es?", touchpoint.detail, "detail-lead")}
+    ${detailItem("Observa", escapeMarkup(stage.ai.observes))}
+    ${detailItem("Analiza", escapeMarkup(stage.ai.analyzes))}
+    ${detailItem("Recomienda", escapeMarkup(stage.ai.recommends))}
+    ${detailItem("Dónde interviene", `Entre ${escapeMarkup(getNodeById(touchpoint.from)?.title)} y ${escapeMarkup(getNodeById(touchpoint.to)?.title)}.`)}
+    ${detailItem("Límite", "Apoya la lectura y priorización. No sustituye la validación humana ni modifica el fundamento académico.")}
+    ${detailItem("Clasificación", '<span class="evidence-tag ai-evidence">AI-FIRST · aplicación separada</span>')}
+  `;
+  nodePopup.removeAttribute("hidden");
+  nodePopup.setAttribute("aria-hidden", "false");
+  nodeBackdrop.removeAttribute("hidden");
 }
 
 function bindNodeInteractions(root) {

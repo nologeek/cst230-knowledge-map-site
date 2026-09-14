@@ -105,6 +105,7 @@ input { color-scheme: dark; }
   stroke: rgba(103, 216, 210, .2);
   stroke-width: 1;
 }
+.stage-node-icon { fill: none; stroke: #e5ffff; stroke-width: 1.55; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
 .stage-node text {
   fill: var(--text);
   font-size: 12px;
@@ -124,6 +125,9 @@ input { color-scheme: dark; }
 .stage-ai-touchpoint circle { fill: var(--ai); stroke: #d6ebff; stroke-width: 2; filter: drop-shadow(0 0 8px rgba(116, 185, 255, .8)); }
 .stage-ai-touchpoint .ai-term-pill { fill: #0a2740; stroke: rgba(116, 185, 255, .72); stroke-width: 1; }
 .stage-ai-touchpoint text { fill: #b9dcff; font-size: 12px; font-weight: 700; text-anchor: middle; }
+.stage-ai-touchpoint { cursor: pointer; }
+.stage-ai-touchpoint:hover .ai-term-pill, .stage-ai-touchpoint:focus-visible .ai-term-pill { fill: #164f7d; stroke: #d7ebff; }
+.stage-ai-touchpoint:hover circle, .stage-ai-touchpoint:focus-visible circle { filter: drop-shadow(0 0 13px rgba(116, 185, 255, 1)); }
 .stage-ai-hub circle:first-child { fill: #4b9fff; stroke: #e1f0ff; stroke-width: 2.5; filter: drop-shadow(0 0 18px rgba(78, 158, 255, .95)); }
 .stage-ai-hub-ring { fill: transparent; stroke: rgba(116, 185, 255, .5); stroke-width: 1.5; stroke-dasharray: 4 6; }
 .stage-ai-hub text { fill: #bfe0ff; font-size: 13px; font-weight: 800; letter-spacing: 2px; text-anchor: middle; }
@@ -192,9 +196,9 @@ svg { display: block; width: 100%; min-width: 900px; min-height: 620px; overflow
   position: fixed;
   inset: 0;
   z-index: 1000;
-  width: min(720px, calc(100vw - 30px));
-  max-height: min(86vh, 820px);
-  overflow: auto;
+  width: min(1180px, calc(100vw - 40px));
+  max-height: 92vh;
+  overflow: visible;
   margin: auto;
   padding: 2.2rem 2.4rem;
   border: 1px solid rgba(103, 216, 210, .35);
@@ -205,13 +209,23 @@ svg { display: block; width: 100%; min-width: 900px; min-height: 620px; overflow
 }
 .node-popup[hidden], .node-backdrop[hidden] { display: none; }
 .node-popup h4 { margin: 0 3rem 1.5rem 0; font-size: clamp(1.7rem, 4vw, 2.5rem); font-weight: 400; }
-.node-popup dl { margin: 0; display: grid; gap: .65rem; }
-.node-popup dt { margin-top: .75rem; color: var(--canon); font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; }
-.node-popup dd { margin: 0; color: #dcebed; line-height: 1.55; }
+.node-popup dl { margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem 1.5rem; }
+.detail-item { min-width: 0; padding: 1rem 1.1rem; border-left: 1px solid rgba(103, 216, 210, .28); background: rgba(9, 35, 43, .42); }
+.detail-item.detail-lead { grid-column: span 2; border-left-color: var(--canon); }
+.node-popup dt { margin: 0 0 .5rem; color: var(--canon); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; }
+.node-popup dd { margin: 0; color: #dcebed; line-height: 1.45; font-size: .9rem; overflow-wrap: anywhere; }
+.node-popup .ai-detail-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.node-popup .ai-detail-grid .detail-lead { grid-column: span 2; }
 .close-popup { position: sticky; top: 0; float: right; border: 0; background: transparent; color: var(--text); cursor: pointer; font-size: 1.6rem; }
 .node-backdrop { position: fixed; inset: 0; z-index: 999; background: rgba(0, 5, 8, .76); backdrop-filter: blur(5px); }
 .ai-badge { display: inline-flex; padding: .25rem .55rem; border: 1px solid rgba(116, 185, 255, .6); border-radius: 999px; color: var(--ai); font-size: .7rem; }
 .evidence-tag { display: inline-flex; padding: .35rem .65rem; border: 1px solid rgba(103, 216, 210, .4); border-radius: 999px; color: #c9f4f1; font-size: .78rem; }
+.evidence-tag.ai-evidence { border-color: rgba(116, 185, 255, .6); color: #c6e4ff; }
+
+@media (max-width: 980px) {
+  .node-popup { max-height: 90vh; overflow: auto; }
+  .node-popup dl, .node-popup .ai-detail-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 
 @media (max-width: 760px) {
   .course-cover { min-height: 86vh; padding-inline: 1.4rem; }
@@ -222,4 +236,6 @@ svg { display: block; width: 100%; min-width: 900px; min-height: 620px; overflow
   .stage-infographic { overflow-x: auto; }
   .diagram-wrap { padding-inline: 1.4rem; }
   .node-popup { padding: 1.5rem; border-radius: 14px; }
+  .node-popup dl, .node-popup .ai-detail-grid { grid-template-columns: 1fr; }
+  .detail-item.detail-lead, .node-popup .ai-detail-grid .detail-lead { grid-column: auto; }
 }
