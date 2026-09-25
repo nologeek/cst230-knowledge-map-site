@@ -1364,3 +1364,210 @@ function openConnectionInspector(edge) {
 
 renderAiOpsLens();
 
+const weeklyAtlasDeltas = [
+  {
+    week: 2,
+    status: "Parcial documentada",
+    title: "Direccionamiento y viaje lógico del dato",
+    question: "¿Cómo sabe un dato exactamente hacia dónde debe viajar?",
+    story: "La arquitectura canónica confirma la pregunta de Semana 2, pero no se localizó un prompt académico completo con todos los conceptos de la semana. Por eso esta escena queda como puente formal y no como desarrollo cerrado.",
+    source: "Arquitectura canónica V3 recuperada del historial",
+    nodes: [
+      { id: "w2-dato", title: "Dato", kind: "academic", x: 110, y: 160, detail: "Unidad conceptual que necesita un destino y reglas para desplazarse por la red.", analogy: "Una carta que necesita dirección antes de salir.", lab: "Pendiente de material completo de Semana 2." },
+      { id: "w2-direccion", title: "Dirección lógica", kind: "academic", x: 340, y: 95, detail: "Referencia que permite pensar hacia dónde debe viajar la información.", analogy: "La dirección escrita en el sobre.", lab: "Pendiente de material completo de Semana 2." },
+      { id: "w2-ruta", title: "Ruta", kind: "academic", x: 600, y: 160, detail: "Camino lógico que conecta origen y destino dentro del razonamiento de red.", analogy: "El recorrido que toma el mensajero.", lab: "Pendiente de material completo de Semana 2." },
+      { id: "w2-destino", title: "Destino", kind: "academic", x: 860, y: 95, detail: "Punto al que debe llegar el dato para que la comunicación tenga sentido.", analogy: "La puerta correcta del edificio.", lab: "Pendiente de material completo de Semana 2." },
+      { id: "w2-validacion", title: "Validación pendiente", kind: "real", x: 1110, y: 160, detail: "Marca pedagógica para recordar que esta semana requiere fuente académica completa antes de expandirse.", analogy: "No construir el segundo piso sin plano.", lab: "Esperando materiales de Semana 2." }
+    ],
+    edges: [["w2-dato", "w2-direccion"], ["w2-direccion", "w2-ruta"], ["w2-ruta", "w2-destino"], ["w2-destino", "w2-validacion"]],
+    ai: [
+      { from: "w2-ruta", to: "w2-validacion", term: "Trazabilidad de fuente", observes: "conceptos disponibles y huecos documentales", value: "evita presentar como completo lo que sigue sin evidencia" }
+    ],
+    summary: "Semana 2 necesita material académico adicional para quedar completa."
+  },
+  {
+    week: 3,
+    status: "Integrada como delta",
+    title: "Medios físicos e inalámbricos",
+    question: "¿Cómo viajan físicamente los datos desde un dispositivo hasta otro?",
+    story: "Un dispositivo quiere enviar información. La información necesita un camino. Ese camino puede ser cobre, fibra o aire.",
+    source: "Prompt Week 3 CST230 recuperado · Molina Robles (2015) · laboratorios propios",
+    nodes: [
+      { id: "w3-datos", title: "Datos", kind: "academic", x: 100, y: 160, detail: "Información que debe desplazarse entre dispositivos.", analogy: "El mensaje que necesita viajar.", lab: "Punto de partida de los recorridos de transmisión." },
+      { id: "w3-senal", title: "Señal", kind: "academic", x: 310, y: 160, detail: "Forma física o inalámbrica mediante la cual se representa la información para viajar.", analogy: "La voz, la luz o la vibración que transporta el mensaje.", lab: "Observación de tráfico y espectro." },
+      { id: "w3-utp", title: "UTP / cobre", kind: "academic", x: 560, y: 90, detail: "Medio guiado común para redes locales cableadas.", analogy: "Calle urbana: práctica, cercana y económica.", lab: "Router TP-Link, switch y cableado en escenarios de red local." },
+      { id: "w3-fibra", title: "Fibra óptica", kind: "academic", x: 560, y: 220, detail: "Medio guiado que transporta señales ópticas y se asocia a altas distancias o capacidad.", analogy: "Autopista de alta velocidad.", lab: "Referencia para ISP, backbone y centros de datos." },
+      { id: "w3-wifi", title: "Wi-Fi / aire", kind: "academic", x: 820, y: 90, detail: "Medio inalámbrico donde la señal viaja por el aire usando radiofrecuencia.", analogy: "Puentes invisibles entre dispositivos.", lab: "Wi-Fi Analyzer: SSID, canales, RSSI e interferencias." },
+      { id: "w3-rf", title: "Espectro / RF", kind: "real", x: 820, y: 220, detail: "Vista práctica del comportamiento de señales inalámbricas.", analogy: "Ver el tráfico invisible del aire.", lab: "RF Explorer: spectrum, waterfall e interpretación." },
+      { id: "w3-nmap", title: "Nmap", kind: "lab", x: 1080, y: 160, detail: "Herramienta de laboratorio para observar servicios y resultados de escaneo.", analogy: "Una linterna para explorar qué responde en la red.", lab: "Quick Scan, Intense Scan y comparación de resultados." }
+    ],
+    edges: [["w3-datos", "w3-senal"], ["w3-senal", "w3-utp"], ["w3-senal", "w3-fibra"], ["w3-senal", "w3-wifi"], ["w3-wifi", "w3-rf"], ["w3-senal", "w3-nmap"]],
+    ai: [
+      { from: "w3-wifi", to: "w3-rf", term: "Predicción de interferencias", observes: "RSSI, canales y variaciones del espectro", value: "sugiere canal o ubicación a revisar" },
+      { from: "w3-nmap", to: "w3-datos", term: "Explicación automática", observes: "resultados del escaneo", value: "traduce hallazgos técnicos en prioridades de revisión" },
+      { from: "w3-fibra", to: "w3-senal", term: "Mantenimiento preventivo", observes: "telemetría del enlace", value: "ayuda a anticipar degradación" }
+    ],
+    summary: "La semana conecta datos, señal, medios, laboratorios inalámbricos y lectura de resultados."
+  },
+  {
+    week: 4,
+    status: "Integrada como delta",
+    title: "Virtualización y computación en la nube",
+    question: "¿Cómo hacemos que los recursos estén disponibles desde cualquier lugar, de forma segura, flexible y eficiente?",
+    story: "Antes, cada servidor hacía una sola tarea. La virtualización mejora el aprovechamiento; la nube convierte recursos en servicios accesibles.",
+    source: "Prompt Week 4 CST230 recuperado · Fernández Romero & García Pombo · IBM Cloud Advisory Services · AWS · Google Cloud · laboratorios propios",
+    nodes: [
+      { id: "w4-recursos", title: "Recursos", kind: "academic", x: 90, y: 160, detail: "Capacidades de cómputo, red, almacenamiento o aplicación que una organización necesita usar.", analogy: "Energía disponible para encender distintos servicios.", lab: "Comparación AWS vs Google Cloud." },
+      { id: "w4-virtualizacion", title: "Virtualización", kind: "academic", x: 320, y: 95, detail: "Permite crear recursos lógicos sobre hardware físico compartido.", analogy: "Un edificio con varios apartamentos independientes.", lab: "VirtualBox como hypervisor de laboratorio." },
+      { id: "w4-hypervisor", title: "Hypervisor", kind: "academic", x: 570, y: 95, detail: "Capa que permite ejecutar y administrar máquinas virtuales.", analogy: "Administrador del edificio.", lab: "Verificación de VirtualBox y máquinas virtuales." },
+      { id: "w4-cloud", title: "Cloud", kind: "academic", x: 320, y: 225, detail: "Modelo para consumir recursos tecnológicos como servicios disponibles por red.", analogy: "Red eléctrica: se consume sin construir una planta propia.", lab: "OneDrive como SaaS y comparación de proveedores." },
+      { id: "w4-modelos", title: "IaaS / PaaS / SaaS", kind: "academic", x: 590, y: 225, detail: "Modelos que reparten responsabilidades entre proveedor y cliente.", analogy: "Alquilar terreno, cocina equipada o comida lista.", lab: "AWS, Google Cloud y OneDrive." },
+      { id: "w4-vpn", title: "VPN", kind: "real", x: 850, y: 95, detail: "Conexión privada lógica usada para acceso remoto seguro.", analogy: "Túnel privado a través de una vía pública.", lab: "Escenario de teletrabajo y acceso remoto." },
+      { id: "w4-cifrado", title: "Cifrado", kind: "academic", x: 850, y: 225, detail: "Protección de la información para que no sea comprensible sin la clave adecuada.", analogy: "Enviar el mensaje dentro de una caja cerrada.", lab: "Relación con VPN y seguridad." },
+      { id: "w4-lab", title: "Laboratorios cloud", kind: "lab", x: 1110, y: 160, detail: "Evidencia práctica de SaaS, virtualización y comparación de proveedores cloud.", analogy: "Probar servicios antes de elegir arquitectura.", lab: "OneDrive, VirtualBox, AWS vs Google Cloud." }
+    ],
+    edges: [["w4-recursos", "w4-virtualizacion"], ["w4-virtualizacion", "w4-hypervisor"], ["w4-recursos", "w4-cloud"], ["w4-cloud", "w4-modelos"], ["w4-cloud", "w4-vpn"], ["w4-vpn", "w4-cifrado"], ["w4-modelos", "w4-lab"], ["w4-hypervisor", "w4-lab"]],
+    ai: [
+      { from: "w4-virtualizacion", to: "w4-hypervisor", term: "Predicción de carga", observes: "uso de recursos y telemetría", value: "sugiere balanceo o asignación inteligente" },
+      { from: "w4-cloud", to: "w4-modelos", term: "Optimización de costos", observes: "métricas de consumo", value: "recomienda ajustes de servicio o capacidad" },
+      { from: "w4-vpn", to: "w4-cifrado", term: "Detección de anomalías", observes: "logs, eventos y patrones de acceso", value: "alerta comportamientos inusuales para validación humana" }
+    ],
+    summary: "La semana une recursos, virtualización, cloud, VPN, cifrado y laboratorios reales."
+  },
+  {
+    week: 5,
+    status: "Integrada como delta",
+    title: "Subnetting, CIDR, VLSM y VLAN",
+    question: "¿Cómo divido una red sin mover un solo cable?",
+    story: "Cuando una red crece, no basta con conectar más equipos. Hay que dividir direcciones, controlar dominios lógicos y documentar límites.",
+    source: "Prompt actual CST230 Week 5 · laboratorio Linksys · limitación documentada del simulador DEMO",
+    nodes: [
+      { id: "w5-red", title: "Red base", kind: "academic", x: 90, y: 160, detail: "Bloque inicial de direcciones que puede organizarse en partes más pequeñas.", analogy: "Un terreno antes de dividirlo en lotes.", lab: "Punto de partida para ejercicios de subnetting." },
+      { id: "w5-mascara", title: "Máscara de subred", kind: "academic", x: 300, y: 90, detail: "Indica qué parte de la dirección identifica la red y qué parte identifica hosts.", analogy: "La línea que separa barrio y casa.", lab: "Cálculo de red, hosts y broadcast." },
+      { id: "w5-cidr", title: "CIDR", kind: "academic", x: 300, y: 230, detail: "Notación con prefijo que expresa cuántos bits pertenecen a la red.", analogy: "Una forma compacta de escribir el tamaño del lote.", lab: "Lectura de prefijos como /24, /26 o /30." },
+      { id: "w5-vlsm", title: "VLSM", kind: "academic", x: 540, y: 160, detail: "Permite usar máscaras de longitud variable para ajustar subredes a necesidades distintas.", analogy: "Lotes de diferente tamaño según la familia que los usará.", lab: "Asignación eficiente de hosts por segmento." },
+      { id: "w5-hosts", title: "Hosts útiles", kind: "academic", x: 780, y: 90, detail: "Cantidad de direcciones disponibles para dispositivos dentro de una subred.", analogy: "Puestos disponibles después de reservar entrada y salida.", lab: "Cálculo de hosts por subred." },
+      { id: "w5-broadcast", title: "Broadcast", kind: "academic", x: 780, y: 230, detail: "Dirección usada para comunicarse con todos los hosts de una subred.", analogy: "Anuncio por altavoz dentro de un salón.", lab: "Identificación de la última dirección del bloque." },
+      { id: "w5-vlan", title: "VLAN", kind: "academic", x: 1030, y: 90, detail: "Segmentación lógica que separa redes aunque compartan infraestructura física.", analogy: "Aulas distintas dentro del mismo edificio.", lab: "Laboratorio Linksys." },
+      { id: "w5-8021q", title: "IEEE 802.1Q", kind: "academic", x: 1030, y: 230, detail: "Estándar asociado al etiquetado de VLAN en enlaces troncales.", analogy: "Etiqueta en cada paquete para saber a qué aula pertenece.", lab: "VLAN Tagging; simulador DEMO con limitación documentada." },
+      { id: "w5-linksys", title: "Laboratorio Linksys", kind: "lab", x: 1260, y: 160, detail: "Actividad práctica para observar segmentación lógica y sus límites en el simulador.", analogy: "Probar la división antes de llevarla a producción.", lab: "Documentar la limitación del simulador DEMO." }
+    ],
+    edges: [["w5-red", "w5-mascara"], ["w5-red", "w5-cidr"], ["w5-mascara", "w5-vlsm"], ["w5-cidr", "w5-vlsm"], ["w5-vlsm", "w5-hosts"], ["w5-vlsm", "w5-broadcast"], ["w5-vlsm", "w5-vlan"], ["w5-vlan", "w5-8021q"], ["w5-8021q", "w5-linksys"]],
+    ai: [
+      { from: "w5-vlsm", to: "w5-hosts", term: "Revisión de cálculo", observes: "prefijo, hosts requeridos y rangos", value: "detecta inconsistencias y sugiere verificar límites" },
+      { from: "w5-vlan", to: "w5-8021q", term: "Validación de segmentación", observes: "VLAN, tagging y comportamiento esperado", value: "ayuda a explicar si la separación lógica está funcionando" },
+      { from: "w5-linksys", to: "w5-vlan", term: "Bitácora de laboratorio", observes: "resultado real y limitación DEMO", value: "distingue fallo de configuración de limitación del simulador" }
+    ],
+    summary: "La semana formaliza la división lógica de redes por direccionamiento y VLAN."
+  }
+];
+
+function openWeeklyDeltaNode(week, node) {
+  detailTitle.innerHTML = `${escapeMarkup(node.title)} <span class="ai-badge">Semana ${week.week}</span>`;
+  detailContent.classList.remove("ai-detail-grid", "connection-detail-grid");
+  detailContent.innerHTML = `${detailItem("¿Qué es?", escapeMarkup(node.detail), "detail-lead")}${detailItem("Analogía", escapeMarkup(node.analogy))}${detailItem("Laboratorio / actividad", escapeMarkup(node.lab))}${detailItem("Pregunta guía", escapeMarkup(week.question))}${detailItem("Fuente", escapeMarkup(week.source))}${detailItem("Semana y estado", `Semana ${week.week} · ${escapeMarkup(week.status)}`)}${detailItem("Capa", node.kind === "lab" ? "Laboratorio" : node.kind === "real" ? "Mundo real" : "Académica / canónica")}`;
+  nodePopup.removeAttribute("hidden");
+  nodePopup.setAttribute("aria-hidden", "false");
+  nodeBackdrop.removeAttribute("hidden");
+}
+
+function openWeeklyAiDetail(week, touchpoint) {
+  detailTitle.innerHTML = `${escapeMarkup(touchpoint.term)} <span class="ai-badge">AI-FIRST</span>`;
+  detailContent.classList.add("ai-detail-grid");
+  detailContent.innerHTML = `${detailItem("¿Qué observa la IA?", escapeMarkup(touchpoint.observes), "detail-lead")}${detailItem("¿Qué valor aporta?", escapeMarkup(touchpoint.value), "detail-lead")}${detailItem("Dónde se conecta", `${escapeMarkup(week.nodes.find(n => n.id === touchpoint.from)?.title)} → ${escapeMarkup(week.nodes.find(n => n.id === touchpoint.to)?.title)}`)}${detailItem("Validación humana", "La IA recomienda, explica o prioriza; el cambio técnico se valida con evidencia y criterio humano.")}${detailItem("Fuente", escapeMarkup(week.source))}${detailItem("Capa", "AI-FIRST / mundo real, separada del fundamento académico")}`;
+  nodePopup.removeAttribute("hidden");
+  nodePopup.setAttribute("aria-hidden", "false");
+  nodeBackdrop.removeAttribute("hidden");
+}
+
+function weeklyNodeIcon(kind) {
+  if (kind === "lab") return "⌁";
+  if (kind === "real") return "◇";
+  return "○";
+}
+
+function renderWeeklyDeltaGraph(week) {
+  const nodeById = Object.fromEntries(week.nodes.map(node => [node.id, node]));
+  const edgeMarkup = week.edges.map(([from, to]) => {
+    const a = nodeById[from];
+    const b = nodeById[to];
+    if (!a || !b) return "";
+    const dx = Math.max(70, Math.abs(b.x - a.x) * .45);
+    return `<path class="delta-edge" d="M ${a.x} ${a.y} C ${a.x + dx} ${a.y}, ${b.x - dx} ${b.y}, ${b.x} ${b.y}" />`;
+  }).join("");
+  const aiMarkup = week.ai.map((touchpoint, index) => {
+    const a = nodeById[touchpoint.from];
+    const b = nodeById[touchpoint.to];
+    const midX = (a.x + b.x) / 2;
+    const midY = ((a.y + b.y) / 2) - 56 - (index % 2) * 20;
+    return `<g class="delta-ai-link" data-week="${week.week}" data-ai-index="${index}" tabindex="0" role="button" aria-label="${escapeMarkup(touchpoint.term)}">
+      <path d="M ${a.x} ${a.y - 18} Q ${midX} ${midY - 32}, ${b.x} ${b.y - 18}" />
+      <circle cx="${midX}" cy="${midY}" r="8" />
+      <rect x="${midX - 92}" y="${midY - 35}" width="184" height="26" rx="13" />
+      <text x="${midX}" y="${midY - 17}">${escapeMarkup(touchpoint.term)}</text>
+    </g>`;
+  }).join("");
+  const nodeMarkup = week.nodes.map(node => `<g class="delta-node delta-node--${node.kind}" data-week="${week.week}" data-node="${node.id}" tabindex="0" role="button" aria-label="${escapeMarkup(node.title)}" transform="translate(${node.x} ${node.y})">
+    <circle class="delta-node-orbit" r="42" />
+    <circle r="25" />
+    <text class="delta-node-icon" y="5">${weeklyNodeIcon(node.kind)}</text>
+    <text class="delta-node-label" y="58">${escapeMarkup(node.title)}</text>
+  </g>`).join("");
+  return `<svg class="delta-network" viewBox="0 0 1370 330" role="img" aria-label="Grafo Semana ${week.week}">
+    <g>${edgeMarkup}</g>
+    <g class="delta-ai-layer is-hidden" data-week-ai-layer="${week.week}">${aiMarkup}</g>
+    <g>${nodeMarkup}</g>
+  </svg>`;
+}
+
+function renderWeeklyDeltas() {
+  const story = document.getElementById("storyFlow");
+  if (!story || document.getElementById("weeklyDeltas")) return;
+  const section = document.createElement("section");
+  section.id = "weeklyDeltas";
+  section.className = "weekly-deltas";
+  section.innerHTML = `
+    <div class="weekly-deltas__intro">
+      <p class="ops-eyebrow">Deltas semanales</p>
+      <h2>Atlas CST230 hasta Semana 5</h2>
+      <p>Estas escenas no reemplazan la Semana 1: agregan conocimiento progresivo sobre el mismo Atlas. Cada semana mantiene su pregunta, sus nodos, su laboratorio y su capa AI-FIRST separada.</p>
+    </div>
+    ${weeklyAtlasDeltas.map(week => `<article class="weekly-delta" id="week-${week.week}">
+      <div class="weekly-copy">
+        <p class="week-label">Semana ${week.week} · ${escapeMarkup(week.status)}</p>
+        <h3>${escapeMarkup(week.title)}</h3>
+        <p class="week-question">${escapeMarkup(week.question)}</p>
+        <p>${escapeMarkup(week.story)}</p>
+        <label class="ia-switch delta-switch">
+          <input type="checkbox" data-week-ai="${week.week}" />
+          <span class="switch-track" aria-hidden="true"><span></span></span>
+          <span>AI-FIRST</span>
+        </label>
+      </div>
+      <div class="delta-graph-shell">
+        ${renderWeeklyDeltaGraph(week)}
+      </div>
+      <p class="week-summary">${escapeMarkup(week.summary)}</p>
+    </article>`).join("")}`;
+  story.insertAdjacentElement("afterend", section);
+  section.querySelectorAll("[data-week-ai]").forEach(input => {
+    input.addEventListener("change", () => section.querySelectorAll(`[data-week-ai-layer="${input.dataset.weekAi}"]`).forEach(layer => layer.classList.toggle("is-hidden", !input.checked)));
+  });
+  section.querySelectorAll("[data-node]").forEach(element => {
+    const week = weeklyAtlasDeltas.find(item => String(item.week) === element.dataset.week);
+    const node = week?.nodes.find(item => item.id === element.dataset.node);
+    const open = () => node && openWeeklyDeltaNode(week, node);
+    element.addEventListener("click", open);
+    element.addEventListener("keydown", event => { if (event.key === "Enter") open(); });
+  });
+  section.querySelectorAll("[data-ai-index]").forEach(element => {
+    const week = weeklyAtlasDeltas.find(item => String(item.week) === element.dataset.week);
+    const touchpoint = week?.ai[Number(element.dataset.aiIndex)];
+    const open = () => touchpoint && openWeeklyAiDetail(week, touchpoint);
+    element.addEventListener("click", open);
+    element.addEventListener("keydown", event => { if (event.key === "Enter") open(); });
+  });
+}
+
+renderWeeklyDeltas();
+

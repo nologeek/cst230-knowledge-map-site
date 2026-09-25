@@ -1,8 +1,8 @@
 # CST230 Atlas State
 
-Version: Week-1-Foundation
-Academic week: 1
-Scope: Inicio del curso — Semana 1 de 7 (Introducción a las redes en el mundo real)
+Version: Week-5-Deltas-v1
+Academic week: 1-5
+Scope: Atlas incremental con Semana 1 existente y deltas documentados para Semanas 2, 3, 4 y 5.
 
 ## Arquitectura activa
 
@@ -18,7 +18,9 @@ Scope: Inicio del curso — Semana 1 de 7 (Introducción a las redes en el mundo
   - en_aprendizaje
   - comprendido
   - aplicado
-- Filtro semanal incremental con semanas preparadas 1..7.
+- Filtro/switch AI-FIRST global y switches AI-FIRST por delta semanal.
+- Semanas 3, 4 y 5 añadidas como escenas de conocimiento visual conectado.
+- Semana 2 marcada como parcial documentada porque no se localizó prompt académico completo.
 
 ## Estructura de salida
 
@@ -37,3 +39,11 @@ Scope: Inicio del curso — Semana 1 de 7 (Introducción a las redes en el mundo
 - Aprendizaje incremental: nuevos nodos/relaciones se agregan como deltas en semanas futuras.
 - Separación explícita de capas y estado por nodo.
 - Estado inicial con rastreo de semana introducción y fuente académica.
+
+## Estado por semana
+
+- Semana 1: implementada como base del Atlas.
+- Semana 2: parcial; solo pregunta guía canónica localizada: "¿Cómo sabe un dato exactamente hacia dónde debe viajar?"
+- Semana 3: integrada como delta sobre medios físicos e inalámbricos.
+- Semana 4: integrada como delta sobre virtualización, cloud, VPN y cifrado.
+- Semana 5: integrada como delta sobre subnetting, CIDR, VLSM, máscaras, hosts, broadcast, VLAN, IEEE 802.1Q, VLAN Tagging y laboratorio Linksys.
