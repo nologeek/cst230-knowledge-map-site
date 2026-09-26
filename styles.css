@@ -427,6 +427,35 @@ svg { display: block; width: 100%; min-width: 900px; min-height: 620px; overflow
   color: #bfd4d9;
 }
 
+.learning-week { border-top: 1px solid rgba(103,216,210,.18); }
+.learning-week__hero, .learning-scene__opening, .learning-week__closing {
+  max-width: 1120px;
+  margin-inline: auto;
+  text-align: center;
+}
+.learning-week__hero { min-height: 82vh; padding: 17vh 1rem 9vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.learning-week__hero h3 { max-width: 1050px; margin: 1rem 0 2rem; font-size: clamp(3rem, 7vw, 7rem); font-weight: 300; letter-spacing: -.055em; line-height: 1; }
+.learning-week__hero .week-question { max-width: 900px; font-size: clamp(1.5rem, 2.7vw, 2.7rem); }
+.learning-week__hero > p:last-of-type { max-width: 820px; color: #aecbd0; font-size: clamp(1.05rem, 1.5vw, 1.35rem); line-height: 1.6; }
+.learning-week__nav { margin-top: 3.5rem; display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem 1.5rem; }
+.learning-week__nav a { color: var(--canon); text-decoration: none; border-bottom: 1px solid rgba(103,216,210,.35); padding-bottom: .35rem; font-size: .9rem; }
+.learning-week__nav a:hover, .learning-week__nav a:focus-visible { color: #fff; border-color: #fff; }
+.learning-scene { min-height: 100vh; padding: 11vh 0 10vh; border-top: 1px solid rgba(103,216,210,.12); scroll-margin-top: 1rem; }
+.learning-scene__opening { padding: 0 1rem; }
+.learning-scene__question { max-width: 900px; margin: 2rem auto; color: #d4eef0; font-size: clamp(1.35rem, 2.4vw, 2.4rem); line-height: 1.45; }
+.learning-scene__opening h4 { margin: 0 auto 2rem; font-size: clamp(2.7rem, 6vw, 6rem); line-height: 1.03; font-weight: 300; letter-spacing: -.05em; text-transform: uppercase; }
+.learning-scene__opening > p:last-child { max-width: 850px; margin: auto; color: #abc7cb; font-size: clamp(1rem, 1.6vw, 1.35rem); line-height: 1.6; }
+.learning-scene__controls { max-width: 1300px; margin: 4rem auto 0; padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; border-top: 1px solid rgba(103,216,210,.25); color: #83b5b9; font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; }
+.learning-scene__controls .delta-switch { margin: 0; }
+.learning-scene__graph { max-width: 1400px; margin-inline: auto; }
+.learning-scene__graph .delta-network { min-height: 380px; }
+.learning-scene__reflection { max-width: 1000px; margin: 2rem auto 0; padding: 1.25rem 1.5rem; border-left: 2px solid var(--canon); color: #d8eaec; font-size: clamp(1rem, 1.5vw, 1.25rem); line-height: 1.5; }
+.learning-scene__reflection span { display: block; margin-bottom: .5rem; color: var(--canon); font-size: .7rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+.learning-week__closing { padding: 10vh 1rem 15vh; }
+.learning-week__closing p:last-child { color: #d4e8e9; font-size: clamp(1.4rem, 2.4vw, 2.3rem); line-height: 1.4; }
+.learning-scene .delta-edge { stroke: rgba(103,216,210,.7); stroke-width: 3; }
+.learning-scene .delta-node-label { paint-order: stroke; stroke: #04161b; stroke-width: 5px; }
+
 @media (max-width: 980px) {
   .node-popup { max-height: 90vh; overflow: auto; }
   .node-popup dl, .node-popup .ai-detail-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -436,6 +465,10 @@ svg { display: block; width: 100%; min-width: 900px; min-height: 620px; overflow
 }
 
 @media (max-width: 760px) {
+  .learning-week__hero { min-height: 75vh; }
+  .learning-scene { min-height: auto; padding-block: 8vh; }
+  .learning-scene__controls { align-items: flex-start; flex-direction: column; margin-top: 2.5rem; }
+  .learning-scene__reflection { margin-inline: 1rem; }
   .course-cover { min-height: 86vh; padding-inline: 1.4rem; }
   .course-cover h1 { font-size: clamp(2.8rem, 13vw, 4.7rem); }
   .story-panel { min-height: 72vh; padding: 10vh 1.4rem 8vh; }

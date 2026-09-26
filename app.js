@@ -1462,10 +1462,11 @@ const weeklyAtlasDeltas = [
   }
 ];
 
-function openWeeklyDeltaNode(week, node) {
+function openWeeklyDeltaNode(week, node, scene) {
   detailTitle.innerHTML = `${escapeMarkup(node.title)} <span class="ai-badge">Semana ${week.week}</span>`;
   detailContent.classList.remove("ai-detail-grid", "connection-detail-grid");
-  detailContent.innerHTML = `${detailItem("¿Qué es?", escapeMarkup(node.detail), "detail-lead")}${detailItem("Analogía", escapeMarkup(node.analogy))}${detailItem("Laboratorio / actividad", escapeMarkup(node.lab))}${detailItem("Pregunta guía", escapeMarkup(week.question))}${detailItem("Fuente", escapeMarkup(week.source))}${detailItem("Semana y estado", `Semana ${week.week} · ${escapeMarkup(week.status)}`)}${detailItem("Capa", node.kind === "lab" ? "Laboratorio" : node.kind === "real" ? "Mundo real" : "Académica / canónica")}`;
+  const related = week.edges.filter(([from, to]) => from === node.id || to === node.id).map(([from, to]) => week.nodes.find(item => item.id === (from === node.id ? to : from))?.title).filter(Boolean);
+  detailContent.innerHTML = `${detailItem("¿Qué es?", escapeMarkup(node.detail), "detail-lead")}${detailItem("¿Para qué lo exploramos?", escapeMarkup(scene?.question || week.question), "detail-lead")}${detailItem("Analogía", escapeMarkup(node.analogy))}${detailItem("Ejemplo / actividad", escapeMarkup(node.lab))}${detailItem("Se relaciona con", escapeMarkup(related.join(", ") || "Relación por documentar"))}${detailItem("Fuente", escapeMarkup(week.source))}${detailItem("Semana y estado", `Semana ${week.week} · ${escapeMarkup(week.status)}`)}${detailItem("Capa", node.kind === "lab" ? "Laboratorio" : node.kind === "real" ? "Mundo real" : "Académica / canónica")}`;
   nodePopup.removeAttribute("hidden");
   nodePopup.setAttribute("aria-hidden", "false");
   nodeBackdrop.removeAttribute("hidden");
@@ -1500,7 +1501,7 @@ function renderWeeklyDeltaGraph(week) {
     const b = nodeById[touchpoint.to];
     const midX = (a.x + b.x) / 2;
     const midY = ((a.y + b.y) / 2) - 56 - (index % 2) * 20;
-    return `<g class="delta-ai-link" data-week="${week.week}" data-ai-index="${index}" tabindex="0" role="button" aria-label="${escapeMarkup(touchpoint.term)}">
+    return `<g class="delta-ai-link" data-week="${week.week}" data-ai-index="${touchpoint.originalIndex ?? index}" tabindex="0" role="button" aria-label="${escapeMarkup(touchpoint.term)}">
       <path d="M ${a.x} ${a.y - 18} Q ${midX} ${midY - 32}, ${b.x} ${b.y - 18}" />
       <circle cx="${midX}" cy="${midY}" r="8" />
       <rect x="${midX - 92}" y="${midY - 35}" width="184" height="26" rx="13" />
@@ -1520,6 +1521,55 @@ function renderWeeklyDeltaGraph(week) {
   </svg>`;
 }
 
+const weeklyLearningScenes = {
+  2: [
+    { title: "Del dato al destino", question: "Si un dato sale de un dispositivo, ¿qué necesita para llegar al lugar correcto?", purpose: "Observa la necesidad de identificar destino y recorrido. Esta semana conserva su alcance parcial hasta contar con el material académico completo.", ids: ["w2-dato", "w2-direccion", "w2-ruta", "w2-destino", "w2-validacion"], reflection: "¿Qué parte de esta explicación requiere todavía confirmación en la fuente del curso?" }
+  ],
+  3: [
+    { title: "Del dato a la señal", question: "¿Qué tiene que ocurrir para que la información pueda viajar?", purpose: "Comienza con el dato y sigue su representación como señal antes de elegir un medio.", ids: ["w3-datos", "w3-senal", "w3-utp", "w3-fibra"], reflection: "¿Qué cambia entre el mensaje que queremos enviar y la señal que lo transporta?" },
+    { title: "El camino invisible", question: "¿Qué observamos cuando la señal viaja por el aire?", purpose: "Relaciona Wi-Fi con la lectura del espectro y las posibles interferencias del entorno.", ids: ["w3-senal", "w3-wifi", "w3-rf"], reflection: "Si una conexión inalámbrica empeora, ¿qué evidencia revisarías primero?" },
+    { title: "Observar antes de concluir", question: "¿Cómo ayuda un laboratorio a distinguir el medio de lo que responde en la red?", purpose: "Conecta las observaciones de señal con el ejercicio de exploración de servicios.", ids: ["w3-senal", "w3-wifi", "w3-rf", "w3-nmap", "w3-datos"], reflection: "¿Qué puede mostrar una herramienta y qué interpretación aún debemos comprobar?" }
+  ],
+  4: [
+    { title: "Un recurso, varias máquinas", question: "¿Cómo aprovechamos un equipo físico para sostener más de un entorno?", purpose: "Sigue el paso desde los recursos disponibles hacia virtualización e hypervisor.", ids: ["w4-recursos", "w4-virtualizacion", "w4-hypervisor", "w4-lab"], reflection: "¿Qué administra el hypervisor y qué queda a cargo de cada máquina virtual?" },
+    { title: "Recursos como servicio", question: "¿Qué responsabilidad cambia cuando usamos cloud?", purpose: "Explora los modelos de servicio a través de los laboratorios de OneDrive y proveedores cloud.", ids: ["w4-recursos", "w4-cloud", "w4-modelos", "w4-lab"], reflection: "¿Cuál de estos modelos se parece más al servicio usado en el laboratorio?" },
+    { title: "Acceder y proteger", question: "¿Cómo llega una persona a un recurso remoto sin dejar de cuidar la información?", purpose: "Vincula cloud, acceso remoto, VPN y cifrado en un caso de uso reconocible.", ids: ["w4-cloud", "w4-vpn", "w4-cifrado"], reflection: "¿Qué protege la VPN y qué aporta el cifrado al recorrido?" }
+  ],
+  5: [
+    { title: "Definir el tamaño de cada parte", question: "¿Cómo expresamos el límite de una subred?", purpose: "Parte de una red base y relaciona máscara y prefijo CIDR antes de calcular direcciones.", ids: ["w5-red", "w5-mascara", "w5-cidr", "w5-vlsm"], reflection: "¿Qué nos comunica el prefijo sobre la división de la red?" },
+    { title: "Asignar sin desperdiciar", question: "¿Cómo ajustamos bloques a necesidades de distinto tamaño?", purpose: "Usa VLSM para razonar sobre hosts y broadcast dentro de cada bloque.", ids: ["w5-mascara", "w5-cidr", "w5-vlsm", "w5-hosts", "w5-broadcast"], reflection: "Antes de asignar una subred, ¿qué rango y cuántos hosts útiles debes comprobar?" },
+    { title: "Separar sin mover cables", question: "¿Qué aporta una VLAN cuando la infraestructura física es compartida?", purpose: "Conecta la segmentación lógica con IEEE 802.1Q y la observación del laboratorio Linksys.", ids: ["w5-vlsm", "w5-vlan", "w5-8021q", "w5-linksys"], reflection: "¿Cómo distinguirías un resultado del laboratorio de una limitación del simulador DEMO?" }
+  ]
+};
+
+function renderWeeklyLearningScene(week, scene, index) {
+  const selected = scene.ids.map(id => week.nodes.find(node => node.id === id)).filter(Boolean);
+  const spacing = Math.min(240, Math.floor(1150 / Math.max(1, selected.length - 1)));
+  const nodes = selected.map((node, position) => ({ ...node, x: 110 + position * spacing, y: position % 2 ? 205 : 115 }));
+  const ids = new Set(nodes.map(node => node.id));
+  const edges = week.edges.filter(([from, to]) => ids.has(from) && ids.has(to));
+  const ai = week.ai.map((item, originalIndex) => ({ ...item, originalIndex })).filter(item => ids.has(item.from) && ids.has(item.to));
+  const graph = renderWeeklyDeltaGraph({ ...week, nodes, edges, ai });
+  return `<section class="learning-scene" id="week-${week.week}-diagram-${index + 1}" aria-labelledby="week-${week.week}-title-${index + 1}">
+    <div class="learning-scene__opening">
+      <p class="week-label">Semana ${week.week} · Diagrama ${String(index + 1).padStart(2, "0")}</p>
+      <p class="learning-scene__question">${escapeMarkup(scene.question)}</p>
+      <h4 id="week-${week.week}-title-${index + 1}">${escapeMarkup(scene.title)}</h4>
+      <p>${escapeMarkup(scene.purpose)}</p>
+    </div>
+    <div class="learning-scene__controls">
+      <span>Fundamento académico y aplicación</span>
+      <label class="ia-switch delta-switch">
+        <input type="checkbox" data-scene-ai="${week.week}-${index + 1}" />
+        <span class="switch-track" aria-hidden="true"><span></span></span>
+        <span>Aplicar capa IA</span>
+      </label>
+    </div>
+    <div class="delta-graph-shell learning-scene__graph" data-scene="${week.week}-${index + 1}">${graph}</div>
+    <p class="learning-scene__reflection"><span>Para pensar</span>${escapeMarkup(scene.reflection)}</p>
+  </section>`;
+}
+
 function renderWeeklyDeltas() {
   const story = document.getElementById("storyFlow");
   if (!story || document.getElementById("weeklyDeltas")) return;
@@ -1528,35 +1578,33 @@ function renderWeeklyDeltas() {
   section.className = "weekly-deltas";
   section.innerHTML = `
     <div class="weekly-deltas__intro">
-      <p class="ops-eyebrow">Deltas semanales</p>
-      <h2>Atlas CST230 hasta Semana 5</h2>
-      <p>Estas escenas no reemplazan la Semana 1: agregan conocimiento progresivo sobre el mismo Atlas. Cada semana mantiene su pregunta, sus nodos, su laboratorio y su capa AI-FIRST separada.</p>
+      <p class="ops-eyebrow">Recorrido de aprendizaje</p>
+      <h2>Una pregunta abre cada semana</h2>
+      <p>Desciende por los diagramas. Abre los nodos para explorar conceptos, analogías y actividades; activa la capa IA en cada diagrama para descubrir dónde aporta valor.</p>
     </div>
-    ${weeklyAtlasDeltas.map(week => `<article class="weekly-delta" id="week-${week.week}">
-      <div class="weekly-copy">
+    ${weeklyAtlasDeltas.map(week => `<article class="learning-week" id="week-${week.week}">
+      <header class="learning-week__hero">
         <p class="week-label">Semana ${week.week} · ${escapeMarkup(week.status)}</p>
         <h3>${escapeMarkup(week.title)}</h3>
         <p class="week-question">${escapeMarkup(week.question)}</p>
         <p>${escapeMarkup(week.story)}</p>
-        <label class="ia-switch delta-switch">
-          <input type="checkbox" data-week-ai="${week.week}" />
-          <span class="switch-track" aria-hidden="true"><span></span></span>
-          <span>AI-FIRST</span>
-        </label>
-      </div>
-      <div class="delta-graph-shell">
-        ${renderWeeklyDeltaGraph(week)}
-      </div>
-      <p class="week-summary">${escapeMarkup(week.summary)}</p>
+        <nav class="learning-week__nav" aria-label="Diagramas de la semana ${week.week}">${weeklyLearningScenes[week.week].map((scene, index) => `<a href="#week-${week.week}-diagram-${index + 1}">${String(index + 1).padStart(2, "0")} ${escapeMarkup(scene.title)}</a>`).join("")}</nav>
+      </header>
+      ${weeklyLearningScenes[week.week].map((scene, index) => renderWeeklyLearningScene(week, scene, index)).join("")}
+      <footer class="learning-week__closing"><p class="week-label">Modelo mental · Semana ${week.week}</p><p>${escapeMarkup(week.summary)}</p></footer>
     </article>`).join("")}`;
-  story.insertAdjacentElement("afterend", section);
-  section.querySelectorAll("[data-week-ai]").forEach(input => {
-    input.addEventListener("change", () => section.querySelectorAll(`[data-week-ai-layer="${input.dataset.weekAi}"]`).forEach(layer => layer.classList.toggle("is-hidden", !input.checked)));
+  (document.querySelector(".diagram-wrap") || story).insertAdjacentElement("afterend", section);
+  const operationsLens = document.getElementById("aiOperationsLens");
+  if (operationsLens) section.insertAdjacentElement("afterend", operationsLens);
+  section.querySelectorAll("[data-scene-ai]").forEach(input => {
+    input.addEventListener("change", () => input.closest(".learning-scene").querySelectorAll(".delta-ai-layer").forEach(layer => layer.classList.toggle("is-hidden", !input.checked)));
   });
   section.querySelectorAll("[data-node]").forEach(element => {
     const week = weeklyAtlasDeltas.find(item => String(item.week) === element.dataset.week);
     const node = week?.nodes.find(item => item.id === element.dataset.node);
-    const open = () => node && openWeeklyDeltaNode(week, node);
+    const sceneIndex = Number(element.closest(".learning-scene")?.id.split("-").pop()) - 1;
+    const scene = weeklyLearningScenes[week?.week]?.[sceneIndex];
+    const open = () => node && openWeeklyDeltaNode(week, node, scene);
     element.addEventListener("click", open);
     element.addEventListener("keydown", event => { if (event.key === "Enter") open(); });
   });
