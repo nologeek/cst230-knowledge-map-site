@@ -1,0 +1,58 @@
+/* CST230 visual system: preserve the network atlas and improve clarity. */
+:root {
+  --visual-focus: #ffe39a;
+  --visual-surface: #041a21;
+  --visual-ink: #eaf8f8;
+  --visual-muted: #b4d0d3;
+  --visual-rule: rgba(112, 220, 215, .34);
+}
+
+html { scroll-behavior: smooth; }
+body { color: var(--visual-ink); text-rendering: optimizeLegibility; }
+button, input, a, [role="button"] { -webkit-tap-highlight-color: transparent; }
+button:focus-visible, a:focus-visible, input:focus-visible, [role="button"]:focus-visible {
+  outline: 3px solid var(--visual-focus);
+  outline-offset: 4px;
+}
+
+.course-cover { position: relative; isolation: isolate; }
+.course-cover::before {
+  content: "";
+  position: absolute;
+  inset: 8% 6%;
+  z-index: -1;
+  background: radial-gradient(ellipse at 50% 45%, rgba(43, 154, 161, .14), transparent 64%);
+  pointer-events: none;
+}
+.course-cover h1, .story-panel h3, .learning-week__hero h3, .learning-scene__opening h4 {
+  text-wrap: balance;
+}
+.story-intro, .learning-scene__opening > p:last-child, .map-caption { color: var(--visual-muted); }
+.learning-scene__opening, .learning-week__hero { max-width: 74rem; }
+.learning-scene__graph { padding-block: clamp(1.5rem, 4vw, 4rem); }
+.learning-scene .delta-edge { stroke: rgba(115, 224, 218, .8); stroke-width: 3.2; }
+.delta-node:focus-visible circle:not(.delta-node-orbit), .delta-ai-link:focus-visible circle {
+  stroke: var(--visual-focus);
+  stroke-width: 3;
+}
+.delta-node-label, .stage-node text { paint-order: stroke; stroke: var(--visual-surface); stroke-width: 4px; }
+.learning-week__nav a { transition: color .18s ease, border-color .18s ease; }
+.learning-week__nav a:hover { border-color: currentColor; }
+.node-popup { border-color: var(--visual-rule); box-shadow: 0 36px 100px rgba(0, 4, 8, .8); }
+.node-popup h4 { text-wrap: balance; }
+.node-popup dd { color: var(--visual-ink); }
+.detail-item { background: rgba(10, 47, 54, .46); }
+
+@media (max-width: 760px) {
+  html { scroll-behavior: auto; }
+  .course-cover, .story-panel, .learning-week__hero { padding-inline: 1.25rem; }
+  .learning-week__nav { gap: 1rem; }
+  .learning-week__nav a { min-height: 44px; display: inline-flex; align-items: center; }
+  .node-popup { width: calc(100vw - 1rem); max-height: calc(100dvh - 1rem); overflow: auto; padding: 1.25rem; }
+  .close-popup { min-width: 44px; min-height: 44px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
