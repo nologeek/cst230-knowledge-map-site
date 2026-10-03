@@ -1,5 +1,11 @@
 # CST230 Atlas Changelog
 
+## Week-6-Security-v1
+- Agregada Semana 6 al mismo recorrido del Atlas, con pregunta, historia, concepto, grafo interactivo, analogías, caso, laboratorio, errores comunes, autoevaluación y switch AI-FIRST sobre el mismo grafo.
+- Añadidos nodos de riesgos, amenazas, firewall, hardening, control de acceso, IDS, IPS, SIEM, políticas y logs con fichas que explican función, uso y conexiones.
+- Integrados resultados observados de la Actividad 6.2; DNS permanece pendiente y el laboratorio se marca parcial.
+- Conservadas las semanas anteriores y el enlace estable; actualizado el parámetro de caché a `week6-security-v1`.
+
 ## Week-5-Deltas-v1
 - Auditados `index.html`, `styles.css`, `app.js`, `CST230_MAP_STATE.md`, `CST230_MAP_CHANGELOG.md` y `CST230_CONTENT_REVIEW.md`.
 - Confirmado que el código publicado estaba centrado en Semana 1 y no contenía nodos formales `weekIntroduced: 2`, `3`, `4` o `5`.

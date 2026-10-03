@@ -56,3 +56,64 @@ button:focus-visible, a:focus-visible, input:focus-visible, [role="button"]:focu
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+/* Week 6 follows the existing scroll and graph language. */
+.week-six__hero h3 { max-width: 1050px; }
+.week-six__cue { color: #91d6d4; font-size: clamp(1.1rem, 1.8vw, 1.5rem); letter-spacing: .02em; }
+.week-six__story, .week-six__concept {
+  min-height: 78vh;
+  max-width: 1040px;
+  margin-inline: auto;
+  padding: 14vh 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+.week-six__story p:not(.week-label) { margin: 0 auto 2rem; max-width: 900px; font-size: clamp(1.5rem, 2.8vw, 2.8rem); line-height: 1.4; text-wrap: balance; }
+.week-six__story p:last-child { color: #8fe4dd; }
+.week-six__concept h4 { margin: 1rem 0 2rem; font-size: clamp(3rem, 7vw, 7rem); font-weight: 300; letter-spacing: -.055em; line-height: .98; }
+.week-six__concept p:last-child { max-width: 800px; margin-inline: auto; color: #bcd9dc; font-size: clamp(1.15rem, 2vw, 1.75rem); line-height: 1.55; }
+.week-six__scene { padding-bottom: 0; }
+.week-six-graph { max-width: 1500px; padding-top: 2rem; }
+.week-six-graph .delta-network { width: max(100%, 1370px); min-height: 420px; }
+.week-six__legend { margin: 1rem auto 10vh; padding-inline: 1.5rem; color: #a5c4c7; text-align: center; font-size: .88rem; }
+.week-six__analogy, .week-six__case, .week-six__lab, .week-six__mistakes, .week-six__selfcheck, .week-six__ai-control {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 10vh 1.5rem;
+  border-top: 1px solid var(--visual-rule);
+}
+.week-six__analogy > div { display: grid; grid-template-columns: minmax(160px, 1fr) minmax(200px, 2fr); gap: 0; }
+.week-six__analogy strong, .week-six__analogy span { padding: 1.2rem 0; border-bottom: 1px solid rgba(112, 220, 215, .2); font-size: clamp(1rem, 1.7vw, 1.35rem); }
+.week-six__analogy strong { color: #8fe4dd; }
+.week-six__case h4, .week-six__lab h4, .week-six__selfcheck h4 { max-width: 900px; margin: 1rem 0 2rem; font-size: clamp(2.2rem, 4.5vw, 4.5rem); font-weight: 300; line-height: 1.05; letter-spacing: -.045em; text-wrap: balance; }
+.week-six__case-flow { display: flex; align-items: center; flex-wrap: wrap; gap: .8rem; margin: 3rem 0; }
+.week-six__case-flow span { padding: .8rem 0; border-bottom: 2px solid rgba(112, 220, 215, .52); color: #e6f7f5; font-size: 1rem; }
+.week-six__case-flow b { color: #74dbd5; font-weight: 400; }
+.week-six__case > p:last-child, .week-six__evidence { max-width: 900px; color: #a9c8cb; line-height: 1.6; }
+.week-six__lab-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 3rem; }
+.week-six__lab-grid > div { padding: 2rem 0; border-top: 1px solid rgba(112, 220, 215, .25); }
+.week-six__lab-grid span { display: block; margin-bottom: .75rem; color: #8fe4dd; font-size: .75rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.week-six__lab-grid code { color: #e6f8e6; font-size: clamp(.9rem, 1.2vw, 1.1rem); overflow-wrap: anywhere; }
+.week-six__lab-grid p { color: #c3d9dc; line-height: 1.6; }
+.week-six__lab-grid strong { color: #f2ffff; }
+.week-six__mistakes p:not(.week-label) { max-width: 1000px; margin: 0; padding: 1.5rem 0; border-bottom: 1px solid rgba(112, 220, 215, .2); color: #bdd4d6; font-size: clamp(1rem, 1.6vw, 1.3rem); line-height: 1.55; }
+.week-six__mistakes strong { color: #f2ffff; }
+.week-six__selfcheck details { border-top: 1px solid rgba(112, 220, 215, .28); padding: 1.3rem 0; }
+.week-six__selfcheck details:last-child { border-bottom: 1px solid rgba(112, 220, 215, .28); }
+.week-six__selfcheck summary { cursor: pointer; color: #e8f9f8; font-size: clamp(1.05rem, 1.7vw, 1.45rem); }
+.week-six__selfcheck details p { max-width: 800px; color: #add2d3; line-height: 1.6; }
+.week-six__ai-control { min-height: 50vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.week-six__ai-control .ia-switch { margin: 2rem 0; font-size: 1rem; }
+.week-six__ai-control > p:last-child { max-width: 720px; color: #afd1dd; line-height: 1.6; }
+
+@media (max-width: 760px) {
+  .week-six__story, .week-six__concept { min-height: 65vh; padding-block: 9vh; }
+  .week-six__analogy, .week-six__case, .week-six__lab, .week-six__mistakes, .week-six__selfcheck, .week-six__ai-control { padding: 7vh 1.25rem; }
+  .week-six__analogy > div { grid-template-columns: 1fr; }
+  .week-six__analogy strong { padding-bottom: .2rem; border-bottom: 0; }
+  .week-six__analogy span { padding-top: .2rem; }
+  .week-six__lab-grid { grid-template-columns: 1fr; }
+  .week-six__case-flow b { transform: rotate(90deg); }
+}

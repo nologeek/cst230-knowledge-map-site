@@ -1,8 +1,8 @@
 # CST230 Atlas State
 
-Version: Week-5-Deltas-v1
-Academic week: 1-5
-Scope: Atlas incremental con Semana 1 existente y deltas documentados para Semanas 2, 3, 4 y 5.
+Version: Week-6-Security-v1
+Academic week: 1-6
+Scope: Atlas incremental con Semana 1 existente y deltas documentados para Semanas 2 a 6.
 
 ## Arquitectura activa
 
@@ -47,3 +47,5 @@ Scope: Atlas incremental con Semana 1 existente y deltas documentados para Seman
 - Semana 3: integrada como delta sobre medios físicos e inalámbricos.
 - Semana 4: integrada como delta sobre virtualización, cloud, VPN y cifrado.
 - Semana 5: integrada como delta sobre subnetting, CIDR, VLSM, máscaras, hosts, broadcast, VLAN, IEEE 802.1Q, VLAN Tagging y laboratorio Linksys.
+- Semana 6: integrada como experiencia sobre riesgos, amenazas, defensas, observación y respuesta. El grafo y sus fichas se basan en la consigna CST230; los resultados de la Actividad 6.2 se presentan como laboratorio parcial.
+- Evidencia de la Actividad 6.2: Windows `172.28.128.4`; ping Ubuntu→Windows bloqueado; ocho puertos abiertos con `nmap -v`; OS Windows Server 2008; puerto 80 abierto; DNS Server no instalado; puerto 53 filtrado. No se atribuye una vulnerabilidad concreta a un puerto abierto.

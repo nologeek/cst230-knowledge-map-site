@@ -1459,6 +1459,35 @@ const weeklyAtlasDeltas = [
       { from: "w5-linksys", to: "w5-vlan", term: "Bitácora de laboratorio", observes: "resultado real y limitación DEMO", value: "distingue fallo de configuración de limitación del simulador" }
     ],
     summary: "La semana formaliza la división lógica de redes por direccionamiento y VLAN."
+  },
+  {
+    week: 6,
+    status: "En aprendizaje · laboratorio parcial",
+    title: "Riesgos y seguridad de la red",
+    question: "¿Cómo protegemos una red frente a amenazas, errores y accesos no autorizados?",
+    story: "Una empresa trabaja con normalidad. Un empleado abre un correo malicioso. ¿Qué podría ocurrir después y por qué una sola acción exige varias defensas coordinadas?",
+    source: "Consigna CST230 · Semana 6, Riesgos y seguridad de la red; Actividad 6.2, resultados observados en Metasploitable3",
+    nodes: [
+      { id: "w6-seguridad", title: "Seguridad de red", kind: "academic", x: 110, y: 155, detail: "Conjunto de medidas para proteger la comunicación, los equipos y la información de una red.", why: "Una red conectada necesita controlar exposición, acceso y respuesta.", how: "Combina prevención, observación y procedimientos de respuesta.", when: "Durante el diseño y la operación de la red.", analogy: "Proteger un edificio con reglas, cerraduras, vigilancia y un plan de emergencia.", realExample: "Una empresa coordina firewall, acceso, registros y respuesta ante un correo malicioso.", lab: "Actividad 6.2: observar servicios y límites de visibilidad con Nmap." },
+      { id: "w6-riesgos", title: "Riesgos", kind: "academic", x: 350, y: 75, detail: "Posibilidad de que una situación cause daño a la red o a la información.", why: "Ayudan a decidir qué proteger primero.", how: "Se estiman a partir de exposición, consecuencias y evidencia disponible.", when: "Antes de decidir controles y después de detectar cambios.", analogy: "Valorar qué pasaría si una puerta queda abierta.", realExample: "Un servicio visible requiere revisar su necesidad y protección; verlo abierto no prueba una vulnerabilidad.", lab: "Relacionar puertos observados con preguntas de revisión, sin afirmar explotación." },
+      { id: "w6-amenazas", title: "Amenazas", kind: "academic", x: 350, y: 235, detail: "Eventos o acciones que podrían perjudicar la red.", why: "Permiten anticipar incidentes posibles.", how: "Aprovechan errores, accesos indebidos o exposición de servicios cuando se dan las condiciones.", when: "Al diseñar defensas y analizar señales de incidente.", analogy: "Lo que puede intentar atravesar las defensas del edificio.", realExample: "Un correo malicioso inicia una cadena que debe investigarse antes de concluir su impacto.", lab: "El escaneo identifica superficie visible, no demuestra que exista un atacante." },
+      { id: "w6-politicas", title: "Políticas", kind: "academic", x: 590, y: 75, detail: "Reglas organizativas que establecen usos permitidos, responsabilidades y revisión.", why: "Las herramientas necesitan criterios para ser configuradas y auditadas.", how: "Definen controles, responsables y procedimientos de cambio y respuesta.", when: "Antes de operar y cuando cambian servicios o riesgos.", analogy: "Normas de entrada y actuación del edificio.", realExample: "Una política determina quién puede habilitar un servicio y cómo se documenta.", lab: "Registrar por qué se permite o bloquea ICMP y qué evidencia respalda la decisión." },
+      { id: "w6-hardening", title: "Hardening", kind: "academic", x: 590, y: 235, detail: "Reducción de exposición mediante configuración y desactivación de lo que no se necesita.", why: "Disminuye oportunidades de uso indebido.", how: "Revisa servicios, permisos, configuración y mantenimiento del equipo.", when: "Antes de poner un sistema en uso y durante su mantenimiento.", analogy: "Cerrar puertas y ventanas y reforzar cerraduras antes de salir.", realExample: "Revisar si cada servicio visible en un servidor es necesario.", lab: "Nmap mostró ocho puertos abiertos; cada uno requiere revisión contextual, no una conclusión automática." },
+      { id: "w6-acceso", title: "Control de acceso", kind: "academic", x: 820, y: 75, detail: "Decide quién puede usar un recurso y con qué permisos.", why: "No todos los usuarios necesitan las mismas capacidades.", how: "Aplica identidad, permisos y comprobaciones acordes con la política.", when: "Al acceder a equipos, servicios o datos.", analogy: "Llaves distintas para distintas salas.", realExample: "Solo personas autorizadas administran el servidor y sus reglas.", lab: "Distinguir acceso al servicio de simple visibilidad del puerto." },
+      { id: "w6-firewall", title: "Firewall", kind: "academic", x: 820, y: 235, detail: "Control que permite o bloquea tráfico según reglas definidas.", why: "Limita qué comunicaciones llegan a un sistema.", how: "Compara el tráfico con reglas de origen, destino, puerto y contexto configurado.", when: "En los límites de red y en los propios equipos.", analogy: "La portería de un edificio.", realExample: "Windows Firewall impidió respuestas ICMP desde Ubuntu en el laboratorio.", lab: "Ping a 172.28.128.4: 100% de pérdida; el host siguió visible por otros métodos." },
+      { id: "w6-ids", title: "IDS", kind: "academic", x: 1050, y: 75, detail: "Sistema que observa actividad y alerta sobre patrones que merecen investigación.", why: "Un control preventivo puede no explicar todo lo que ocurre.", how: "Analiza tráfico o eventos y emite alertas para revisión.", when: "Cuando se necesita detección y seguimiento de actividad sospechosa.", analogy: "Un guardia que observa y avisa.", realExample: "Una alerta sobre tráfico inusual se contrasta con registros y contexto.", lab: "La Actividad 6.2 no instaló ni probó un IDS; se usa como conexión conceptual." },
+      { id: "w6-ips", title: "IPS", kind: "academic", x: 1050, y: 235, detail: "Sistema que detecta actividad definida y puede impedirla según su configuración.", why: "Algunas respuestas deben ocurrir durante el tránsito del tráfico.", how: "Inspecciona y aplica una acción de bloqueo cuando se cumplen reglas.", when: "Cuando la política autoriza prevención automática en el recorrido.", analogy: "Un guardia que además puede detener al intruso.", realExample: "Una regla puede detener tráfico identificado como dañino y registrar la decisión.", lab: "La Actividad 6.2 no instaló ni probó un IPS; se usa como conexión conceptual." },
+      { id: "w6-siem", title: "SIEM", kind: "academic", x: 1260, y: 75, detail: "Sistema que reúne y relaciona eventos de distintas fuentes para apoyar la investigación.", why: "Una señal aislada puede no mostrar el incidente completo.", how: "Centraliza registros, correlaciona eventos y ayuda a priorizar alertas.", when: "En la supervisión y respuesta de una red con múltiples fuentes de eventos.", analogy: "Centro de monitoreo con cámaras de varios lugares.", realExample: "Relacionar una alerta de acceso, un evento de firewall y un registro del servidor.", lab: "La Actividad 6.2 no desplegó un SIEM; el escaneo sirve como ejemplo de evidencia que habría que contextualizar." },
+      { id: "w6-logs", title: "Logs", kind: "real", x: 1260, y: 235, detail: "Registros de eventos que permiten reconstruir qué ocurrió en un equipo o servicio.", why: "Una alerta necesita evidencia temporal y técnica.", how: "Guardan eventos que deben interpretarse y correlacionarse con otras fuentes.", when: "Para seguimiento, diagnóstico y respuesta a incidentes.", analogy: "El libro de novedades de la portería.", realExample: "Un equipo registra intentos de acceso y cambios de configuración.", lab: "Las capturas Nmap son evidencia del ejercicio; no equivalen a logs de un SIEM." }
+    ],
+    edges: [["w6-seguridad", "w6-riesgos"], ["w6-seguridad", "w6-amenazas"], ["w6-riesgos", "w6-politicas"], ["w6-amenazas", "w6-hardening"], ["w6-politicas", "w6-acceso"], ["w6-hardening", "w6-firewall"], ["w6-acceso", "w6-firewall"], ["w6-firewall", "w6-ids"], ["w6-firewall", "w6-ips"], ["w6-ids", "w6-siem"], ["w6-ips", "w6-siem"], ["w6-siem", "w6-logs"], ["w6-logs", "w6-politicas"]],
+    ai: [
+      { from: "w6-firewall", to: "w6-ids", term: "Anomalías", observes: "eventos de tráfico y bloqueos del firewall", value: "destaca desviaciones para revisión; no decide por sí sola que hubo un ataque" },
+      { from: "w6-ids", to: "w6-siem", term: "Patrones", observes: "alertas y secuencias de eventos", value: "ayuda a agrupar señales relacionadas" },
+      { from: "w6-logs", to: "w6-siem", term: "Correlación", observes: "registros de varias fuentes", value: "resume la secuencia y sugiere qué verificar" },
+      { from: "w6-hardening", to: "w6-politicas", term: "Configuración", observes: "servicios habilitados y reglas documentadas", value: "propone ajustes para revisión y autorización humana" }
+    ],
+    summary: "Proteger una red requiere reducir exposición, controlar acceso, observar eventos y responder con evidencia; el laboratorio mostró visibilidad parcial y un DNS todavía pendiente."
   }
 ];
 
@@ -1466,6 +1495,13 @@ function openWeeklyDeltaNode(week, node, scene) {
   detailTitle.innerHTML = `${escapeMarkup(node.title)} <span class="ai-badge">Semana ${week.week}</span>`;
   detailContent.classList.remove("ai-detail-grid", "connection-detail-grid");
   const related = week.edges.filter(([from, to]) => from === node.id || to === node.id).map(([from, to]) => week.nodes.find(item => item.id === (from === node.id ? to : from))?.title).filter(Boolean);
+  if (week.week === 6) {
+    detailContent.innerHTML = `${detailItem("¿Qué es?", escapeMarkup(node.detail), "detail-lead")}${detailItem("¿Por qué existe?", escapeMarkup(node.why))}${detailItem("¿Cómo funciona?", escapeMarkup(node.how))}${detailItem("¿Cuándo se utiliza?", escapeMarkup(node.when))}${detailItem("Analogía", escapeMarkup(node.analogy))}${detailItem("Ejemplo real", escapeMarkup(node.realExample))}${detailItem("Laboratorio", escapeMarkup(node.lab))}${detailItem("Se relaciona con", escapeMarkup(related.join(", ")))}${detailItem("Fuente y estado", `${escapeMarkup(week.source)} · ${escapeMarkup(week.status)}`)}${detailItem("Capa", node.kind === "real" ? "Mundo real" : "Académica / canónica")}`;
+    nodePopup.removeAttribute("hidden");
+    nodePopup.setAttribute("aria-hidden", "false");
+    nodeBackdrop.removeAttribute("hidden");
+    return;
+  }
   detailContent.innerHTML = `${detailItem("¿Qué es?", escapeMarkup(node.detail), "detail-lead")}${detailItem("¿Para qué lo exploramos?", escapeMarkup(scene?.question || week.question), "detail-lead")}${detailItem("Analogía", escapeMarkup(node.analogy))}${detailItem("Ejemplo / actividad", escapeMarkup(node.lab))}${detailItem("Se relaciona con", escapeMarkup(related.join(", ") || "Relación por documentar"))}${detailItem("Fuente", escapeMarkup(week.source))}${detailItem("Semana y estado", `Semana ${week.week} · ${escapeMarkup(week.status)}`)}${detailItem("Capa", node.kind === "lab" ? "Laboratorio" : node.kind === "real" ? "Mundo real" : "Académica / canónica")}`;
   nodePopup.removeAttribute("hidden");
   nodePopup.setAttribute("aria-hidden", "false");
@@ -1514,7 +1550,7 @@ function renderWeeklyDeltaGraph(week) {
     <text class="delta-node-icon" y="5">${weeklyNodeIcon(node.kind)}</text>
     <text class="delta-node-label" y="58">${escapeMarkup(node.title)}</text>
   </g>`).join("");
-  return `<svg class="delta-network" viewBox="0 0 1370 330" role="img" aria-label="Grafo Semana ${week.week}">
+  return `<svg class="delta-network" viewBox="0 0 1370 ${Math.max(330, ...week.nodes.map(node => node.y + 90))}" role="img" aria-label="Grafo Semana ${week.week}">
     <g>${edgeMarkup}</g>
     <g class="delta-ai-layer is-hidden" data-week-ai-layer="${week.week}">${aiMarkup}</g>
     <g>${nodeMarkup}</g>
@@ -1570,6 +1606,79 @@ function renderWeeklyLearningScene(week, scene, index) {
   </section>`;
 }
 
+function renderWeekSix(week) {
+  return `<article class="learning-week week-six" id="week-6">
+    <header class="learning-week__hero week-six__hero">
+      <p class="week-label">Semana 6 · Riesgos y seguridad de la red</p>
+      <h3>${escapeMarkup(week.question)}</h3>
+      <p class="week-six__cue">Una acción pequeña. Una red entera por proteger.</p>
+    </header>
+    <section class="week-six__story" aria-label="Historia inicial">
+      <p class="week-label">La situación</p>
+      <p>Una empresa tiene su información funcionando correctamente. De repente, un empleado abre un correo malicioso.</p>
+      <p>¿Qué podría ocurrir después? ¿Por qué un solo error obliga a pensar en varias defensas?</p>
+    </section>
+    <section class="week-six__concept" aria-label="Concepto central">
+      <p class="week-label">Concepto central</p>
+      <h4>SEGURIDAD DE RED</h4>
+      <p>Proteger la comunicación exige reconocer riesgos, reducir exposición, controlar accesos, observar señales y decidir cómo responder.</p>
+    </section>
+    <section class="learning-scene week-six__scene" id="week-6-diagram" aria-label="Grafo interactivo de seguridad de red">
+      <div class="learning-scene__opening">
+        <p class="week-label">Knowledge graph · Semana 6</p>
+        <h4>¿Cómo se conectan las defensas?</h4>
+        <p>Pulsa cada nodo para explorar qué hace y cómo se relaciona con los demás. Las líneas muestran un sistema de decisiones, observación y respuesta.</p>
+      </div>
+      <div class="delta-graph-shell learning-scene__graph week-six-graph">${renderWeeklyDeltaGraph(week)}</div>
+      <p class="week-six__legend">Nodos turquesa: fundamento académico. Nodo de registros: aplicación al mundo real. Conexiones azules: apoyo de IA al activar el interruptor.</p>
+      <div class="week-six__analogy">
+        <p class="week-label">Analogías para entender el sistema</p>
+        <div><strong>Firewall</strong><span>Portería</span><strong>IDS</strong><span>Guardia que avisa</span><strong>IPS</strong><span>Guardia que detiene</span><strong>SIEM</strong><span>Centro de monitoreo</span><strong>Hardening</strong><span>Reforzar puertas y ventanas</span></div>
+      </div>
+      <div class="week-six__case">
+        <p class="week-label">Caso real · una empresa</p>
+        <h4>Del primer indicio a la respuesta</h4>
+        <div class="week-six__case-flow" aria-label="Flujo de protección empresarial"><span>Empleado abre correo</span><b>→</b><span>Firewall controla tráfico</span><b>→</b><span>IDS observa</span><b>→</b><span>VPN protege acceso remoto</span><b>→</b><span>Logs aportan evidencia</span><b>→</b><span>Equipo responde</span></div>
+        <p>Este es un escenario de aplicación. El laboratorio de la Actividad 6.2 observó servicios de red; no simuló el correo ni desplegó IDS o SIEM.</p>
+      </div>
+      <div class="week-six__lab">
+        <p class="week-label">Laboratorio · Actividad 6.2</p>
+        <h4>¿Qué nos enseñó el escaneo?</h4>
+        <div class="week-six__lab-grid">
+          <div><span>01 · Destino</span><code>ipconfig</code><p>Windows Server 2008: <strong>172.28.128.4</strong>. Identificamos el equipo observado.</p></div>
+          <div><span>02 · Conectividad</span><code>ping 172.28.128.4</code><p><strong>100% de pérdida.</strong> Windows Firewall bloqueó ICMP entrante; esto no demuestra que el host estuviera apagado.</p></div>
+          <div><span>03 · Visibilidad</span><code>nmap -v 172.28.128.4</code><p>El host respondió al escaneo y se observaron <strong>ocho puertos abiertos</strong>. Cada servicio requiere contexto antes de llamarlo riesgo.</p></div>
+          <div><span>04 · Identificación</span><code>nmap -sS -O 172.28.128.4</code><p>El escaneo identificó <strong>Windows Server 2008 / Windows</strong>. La detección orienta la investigación, no confirma una vulnerabilidad.</p></div>
+          <div><span>05 · Servicio web</span><code>nmap -p 80 172.28.128.4</code><p><strong>80/tcp open http.</strong> Un puerto abierto indica servicio accesible; su necesidad y configuración deben revisarse.</p></div>
+          <div><span>06–07 · DNS</span><code>nmap -p 53 -sV 172.28.128.4</code><p>El rol DNS figuró como <strong>no instalado</strong> y <strong>53/tcp filtered</strong>. No se puede presentar DNS como servicio operativo en este ejercicio.</p></div>
+        </div>
+        <p class="week-six__evidence">Evidencia de la práctica: 01_IP_Windows.png a 07_Nmap_DNS.png, conservadas en la carpeta Descargas del equipo. Estado: laboratorio parcial por DNS pendiente.</p>
+      </div>
+      <div class="week-six__mistakes">
+        <p class="week-label">Errores comunes</p>
+        <p><strong>Ping sin respuesta ≠ equipo apagado.</strong> Una regla de firewall puede bloquear ICMP.</p>
+        <p><strong>Puerto abierto ≠ vulnerabilidad confirmada.</strong> Hace falta revisar servicio, configuración y exposición.</p>
+        <p><strong>Alerta ≠ incidente demostrado.</strong> IDS, IPS y SIEM necesitan interpretación y evidencia.</p>
+        <p><strong>DNS filtrado ≠ DNS instalado.</strong> El rol y la conectividad se comprueban por separado.</p>
+      </div>
+      <div class="week-six__selfcheck">
+        <p class="week-label">Autoevaluación</p>
+        <h4>¿Qué comprobarías antes de concluir?</h4>
+        <details><summary>¿Por qué un firewall no es suficiente?</summary><p>Piensa qué puede observar, qué puede bloquear y quién investiga lo que ocurre después.</p></details>
+        <details><summary>¿Qué diferencia existe entre IDS e IPS?</summary><p>Compara alertar sobre una señal con intervenir en el tráfico.</p></details>
+        <details><summary>¿Cuándo usarías SSH?</summary><p>Relaciona administración remota con acceso autorizado y protección de la sesión.</p></details>
+        <details><summary>¿Qué protege DNSSEC?</summary><p>Pregunta de investigación: revisa la autenticidad de respuestas DNS con una fuente académica antes de incorporarla al grafo.</p></details>
+      </div>
+      <div class="week-six__ai-control">
+        <p class="week-label">Ahora vuelve al mismo diagrama</p>
+        <label class="ia-switch delta-switch"><input type="checkbox" data-scene-ai="6-main" /><span class="switch-track" aria-hidden="true"><span></span></span><span>Aplicar capa AI-FIRST</span></label>
+        <p>La IA observa, relaciona y recomienda en los nodos existentes. Pulsa las conexiones azules para leer su aporte y sus límites.</p>
+      </div>
+    </section>
+    <footer class="learning-week__closing"><p class="week-label">Modelo mental · Semana 6</p><p>${escapeMarkup(week.summary)}</p></footer>
+  </article>`;
+}
+
 function renderWeeklyDeltas() {
   const story = document.getElementById("storyFlow");
   if (!story || document.getElementById("weeklyDeltas")) return;
@@ -1582,7 +1691,7 @@ function renderWeeklyDeltas() {
       <h2>Una pregunta abre cada semana</h2>
       <p>Desciende por los diagramas. Abre los nodos para explorar conceptos, analogías y actividades; activa la capa IA en cada diagrama para descubrir dónde aporta valor.</p>
     </div>
-    ${weeklyAtlasDeltas.map(week => `<article class="learning-week" id="week-${week.week}">
+    ${weeklyAtlasDeltas.map(week => week.week === 6 ? renderWeekSix(week) : `<article class="learning-week" id="week-${week.week}">
       <header class="learning-week__hero">
         <p class="week-label">Semana ${week.week} · ${escapeMarkup(week.status)}</p>
         <h3>${escapeMarkup(week.title)}</h3>
@@ -1597,7 +1706,11 @@ function renderWeeklyDeltas() {
   const operationsLens = document.getElementById("aiOperationsLens");
   if (operationsLens) section.insertAdjacentElement("afterend", operationsLens);
   section.querySelectorAll("[data-scene-ai]").forEach(input => {
-    input.addEventListener("change", () => input.closest(".learning-scene").querySelectorAll(".delta-ai-layer").forEach(layer => layer.classList.toggle("is-hidden", !input.checked)));
+    input.addEventListener("change", () => {
+      const scene = input.closest(".learning-scene");
+      scene.querySelectorAll(".delta-ai-layer").forEach(layer => layer.classList.toggle("is-hidden", !input.checked));
+      if (input.dataset.sceneAi === "6-main") scene.querySelector(".week-six-graph")?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center" });
+    });
   });
   section.querySelectorAll("[data-node]").forEach(element => {
     const week = weeklyAtlasDeltas.find(item => String(item.week) === element.dataset.week);
