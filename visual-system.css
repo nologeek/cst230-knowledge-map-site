@@ -117,3 +117,14 @@ button:focus-visible, a:focus-visible, input:focus-visible, [role="button"]:focu
   .week-six__lab-grid { grid-template-columns: 1fr; }
   .week-six__case-flow b { transform: rotate(90deg); }
 }
+
+.week-seven-transfer { max-width: 1180px; margin: 0 auto; padding: 0 1.5rem 8vh; }
+.week-seven-transfer__section { padding: 9vh 0; border-top: 1px solid var(--visual-rule); }
+.week-seven-transfer__section h4 { max-width: 940px; margin: 1rem 0 2rem; font-size: clamp(2.2rem, 4.5vw, 4.5rem); font-weight: 300; line-height: 1.05; letter-spacing: -.045em; text-wrap: balance; }
+.week-seven-transfer__section p:not(.week-label) { max-width: 960px; color: #bed7d9; font-size: clamp(1.05rem, 1.5vw, 1.3rem); line-height: 1.65; }
+.week-seven-transfer__section p + p { margin-top: 1.5rem; }
+
+@media (max-width: 760px) {
+  .week-seven-transfer { padding-inline: 1.25rem; }
+  .week-seven-transfer__section { padding-block: 7vh; }
+}

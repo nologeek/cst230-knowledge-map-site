@@ -1488,6 +1488,37 @@ const weeklyAtlasDeltas = [
       { from: "w6-hardening", to: "w6-politicas", term: "Configuración", observes: "servicios habilitados y reglas documentadas", value: "propone ajustes para revisión y autorización humana" }
     ],
     summary: "Proteger una red requiere reducir exposición, controlar acceso, observar eventos y responder con evidencia; el laboratorio mostró visibilidad parcial y un DNS todavía pendiente."
+  },
+  {
+    week: 7,
+    status: "Integrada · práctica de monitoreo parcial",
+    title: "Desempeño, tráfico y diagnóstico",
+    question: "¿Cómo sabemos dónde y por qué se degrada una comunicación de red?",
+    story: "Una aplicación tarda en responder. El usuario solo ve una espera; el equipo de red necesita distinguir si el problema está en el trayecto WAN, la capacidad, una prioridad de tráfico, un servicio o una conexión. Cada observación reduce la incertidumbre.",
+    source: "Temario CST230 Semana 7 proporcionado por el estudiante; Actividad 7.2, Detectar cuellos de botella y gestión de registros (evidencia parcial)",
+    nodes: [
+      { id: "w7-performance", title: "Desempeño de red", kind: "academic", x: 100, y: 160, detail: "Comportamiento observable de la comunicación cuando las aplicaciones usan la red.", why: "Una conexión existente puede seguir siendo lenta o inestable.", how: "Se compara lo observado con el comportamiento esperado y se buscan señales de demora o pérdida.", when: "Cuando una aplicación responde lentamente o la experiencia cambia.", analogy: "Una carretera abierta que aun así tiene tráfico lento.", realExample: "Una aplicación empresarial tarda más de lo habitual en cargar.", lab: "Actividad 7.2: Performance Monitor mostró contadores y un reporte de diagnóstico, con vistas pendientes.", commonError: "Confundir conectividad con buen desempeño." },
+      { id: "w7-wan", title: "WAN", kind: "academic", x: 320, y: 90, detail: "Red que conecta ubicaciones separadas a una escala mayor que una red local.", why: "Las organizaciones necesitan comunicarse entre sedes o servicios distantes.", how: "Une redes a través de enlaces y equipos que participan en el recorrido.", when: "Al comunicar sedes, usuarios remotos o servicios fuera de la LAN.", analogy: "La carretera entre ciudades frente a las calles de un barrio.", realExample: "Una sede consulta una aplicación alojada en otra ubicación.", lab: "La Actividad 7.2 no midió un enlace WAN; aquí se usa como escenario de diagnóstico.", commonError: "Atribuir toda demora a la WAN sin medir los otros tramos." },
+      { id: "w7-balancing", title: "Balanceo de carga", kind: "academic", x: 320, y: 230, detail: "Distribución de trabajo entre recursos disponibles para evitar concentración en uno solo.", why: "Un recurso saturado puede afectar el servicio completo.", how: "Reparte solicitudes o tráfico según la configuración del sistema.", when: "Cuando varios recursos pueden atender una misma demanda.", analogy: "Abrir varias cajas en un supermercado para repartir la fila.", realExample: "Varias instancias atienden solicitudes de una aplicación.", lab: "La Actividad 7.2 no configuró un balanceador; se conecta con la búsqueda de cuellos de botella.", commonError: "Suponer que repartir carga resuelve un enlace o servicio defectuoso." },
+      { id: "w7-qos", title: "QoS", kind: "academic", x: 560, y: 90, detail: "Conjunto de mecanismos para tratar el tráfico de acuerdo con prioridades definidas.", why: "Algunas comunicaciones necesitan atención distinta cuando hay competencia por recursos.", how: "Clasifica y administra tráfico según reglas de servicio.", when: "Cuando varios tipos de tráfico comparten capacidad limitada.", analogy: "Una fila prioritaria en una vía congestionada.", realExample: "Una organización define prioridad para una comunicación sensible a la demora.", lab: "No se configuró QoS en la Actividad 7.2; se estudia como posible decisión posterior al diagnóstico.", commonError: "Creer que QoS crea capacidad nueva." },
+      { id: "w7-monitoring", title: "Monitoreo", kind: "academic", x: 560, y: 230, detail: "Observación continua o repetida del estado de equipos, servicios y comunicación.", why: "Permite detectar cambios antes de sacar conclusiones.", how: "Recoge indicadores y los compara a lo largo del tiempo.", when: "Durante la operación y al investigar una degradación.", analogy: "Mirar el tablero de instrumentos durante un viaje.", realExample: "El equipo compara registros de rendimiento antes y durante una lentitud.", lab: "Actividad 7.2: Performance Monitor y reporte de diagnóstico real; Histogram Bar, Report y System Performance quedaron pendientes.", commonError: "Tomar una sola lectura como explicación definitiva." },
+      { id: "w7-capture", title: "Captura de tráfico", kind: "academic", x: 800, y: 90, detail: "Registro de paquetes observados en un punto de la red para analizarlos.", why: "Muestra qué intercambios ocurrieron realmente desde ese punto de observación.", how: "Guarda paquetes y sus datos visibles para filtrar y comparar secuencias.", when: "Cuando se necesita entender el recorrido o fallo de una comunicación.", analogy: "Una cámara colocada en una intersección concreta.", realExample: "Comparar una solicitud con las respuestas que llegaron al equipo.", lab: "No hay captura de paquetes confirmada en la Actividad 7.2; el nodo queda como práctica guiada pendiente.", commonError: "Suponer que una captura muestra toda la red o que el contenido cifrado es legible." },
+      { id: "w7-wireshark", title: "Wireshark", kind: "lab", x: 800, y: 230, detail: "Herramienta para inspeccionar capturas de tráfico y seguir conversaciones observadas.", why: "Facilita leer relaciones entre paquetes y protocolos.", how: "Permite filtrar, ordenar e inspeccionar los paquetes capturados.", when: "Durante un análisis de tráfico autorizado.", analogy: "Una lupa sobre el registro de la intersección.", realExample: "Seguir los paquetes de una solicitud para ubicar dónde aparece la demora.", lab: "Tema de Semana 7 indicado por el estudiante; no se afirma una ejecución de Wireshark sin evidencia.", commonError: "Confundir el nombre de un protocolo con una prueba de fallo." },
+      { id: "w7-diagnosis", title: "Diagnóstico", kind: "academic", x: 1040, y: 160, detail: "Proceso de relacionar síntomas y evidencia para ubicar una causa probable.", why: "Una mejora útil depende de identificar el problema correcto.", how: "Formula hipótesis, observa, compara y vuelve a comprobar.", when: "Después de detectar una anomalía o recibir un reporte de usuario.", analogy: "Un médico que no receta solo por escuchar un síntoma.", realExample: "Separar demora del servidor, del transporte y del trayecto antes de cambiar una regla.", lab: "Actividad 7.2: el reporte de Windows mostró datos y límites concretos del entorno; no completó todas las vistas solicitadas.", commonError: "Cambiar una configuración antes de registrar el estado inicial." },
+      { id: "w7-dns", title: "DNS", kind: "academic", x: 1130, y: 75, detail: "Servicio que ayuda a relacionar nombres con direcciones necesarias para encontrar un destino.", why: "Las personas usan nombres; los equipos necesitan localizar destinos.", how: "Responde consultas de resolución según los registros disponibles.", when: "Antes de conectar a un servicio identificado por nombre.", analogy: "Una agenda que permite encontrar una dirección a partir de un nombre.", realExample: "Una aplicación consulta el nombre del servidor antes de comunicarse.", lab: "Conecta con Semana 6: el rol DNS no estaba instalado en el Windows del laboratorio y 53/tcp figuró filtrado.", commonError: "Confundir una falla de resolución con una falla de HTTP." },
+      { id: "w7-tcp", title: "TCP", kind: "academic", x: 1130, y: 245, detail: "Protocolo de transporte que organiza una comunicación fiable entre extremos.", why: "Algunas aplicaciones requieren entrega ordenada y comprobable.", how: "Establece una conexión y controla la entrega de datos.", when: "En servicios que utilizan este tipo de transporte.", analogy: "Una conversación en la que se confirma qué partes del mensaje llegaron.", realExample: "Una conexión HTTP tradicional puede usar TCP como transporte.", lab: "Relacionar la detección de 80/tcp en Semana 6 con la capa de transporte, sin afirmar una captura de paquetes.", commonError: "Confundir un puerto TCP abierto con una aplicación que funciona correctamente." },
+      { id: "w7-tls", title: "TLS", kind: "academic", x: 1260, y: 75, detail: "Protocolo que protege una conexión mediante cifrado y comprobaciones de identidad configuradas.", why: "El contenido y la identidad del interlocutor requieren protección.", how: "Negocia parámetros de protección para la sesión.", when: "Cuando un servicio necesita comunicación protegida, como HTTPS.", analogy: "Un sobre sellado con verificación de quién lo recibe.", realExample: "Una aplicación web usa TLS para proteger su tráfico HTTPS.", lab: "No se verificó TLS en el escaneo del puerto 80 de Semana 6.", commonError: "Suponer que un puerto 80 abierto demuestra que hay TLS." },
+      { id: "w7-http", title: "HTTP", kind: "academic", x: 1260, y: 245, detail: "Protocolo de aplicación para intercambio de solicitudes y respuestas web.", why: "La aplicación necesita expresar qué recurso solicita y qué respuesta recibe.", how: "Cliente y servicio intercambian mensajes de solicitud y respuesta.", when: "Al utilizar aplicaciones y recursos web.", analogy: "Pedir un documento en ventanilla y recibir una respuesta.", realExample: "Un navegador solicita una página al servidor.", lab: "Semana 6: Nmap observó 80/tcp open http; no se midió su tiempo de respuesta.", commonError: "Confundir servicio visible con desempeño medido." }
+    ],
+    edges: [["w7-performance", "w7-wan"], ["w7-performance", "w7-balancing"], ["w7-performance", "w7-qos"], ["w7-performance", "w7-monitoring"], ["w7-monitoring", "w7-capture"], ["w7-capture", "w7-wireshark"], ["w7-wireshark", "w7-diagnosis"], ["w7-diagnosis", "w7-performance"], ["w7-dns", "w7-tcp"], ["w7-tcp", "w7-tls"], ["w7-tls", "w7-http"], ["w7-http", "w7-capture"], ["w7-capture", "w7-diagnosis"]],
+    ai: [
+      { from: "w7-performance", to: "w7-monitoring", term: "Cambio de patrón", observes: "indicadores de desempeño a lo largo del tiempo", value: "señala desviaciones que una persona debe comprobar" },
+      { from: "w7-wan", to: "w7-balancing", term: "Reparto sugerido", observes: "carga y uso de recursos", value: "sugiere dónde investigar saturación antes de cambiar la distribución" },
+      { from: "w7-wireshark", to: "w7-diagnosis", term: "Flujos agrupados", observes: "paquetes de una captura autorizada", value: "agrupa secuencias y propone preguntas de diagnóstico sin reemplazar la lectura técnica" },
+      { from: "w7-http", to: "w7-capture", term: "Secuencia resumida", observes: "solicitudes y respuestas visibles", value: "resume el orden de eventos y marca huecos para revisar" },
+      { from: "w7-capture", to: "w7-diagnosis", term: "Hipótesis", observes: "tiempos y secuencias de la captura", value: "propone causas posibles que deben validarse con otras mediciones" }
+    ],
+    summary: "El diagnóstico del desempeño une recorrido, capacidad, prioridad, protocolos, captura y monitoreo; una observación aislada nunca basta para declarar la causa."
   }
 ];
 
@@ -1495,6 +1526,13 @@ function openWeeklyDeltaNode(week, node, scene) {
   detailTitle.innerHTML = `${escapeMarkup(node.title)} <span class="ai-badge">Semana ${week.week}</span>`;
   detailContent.classList.remove("ai-detail-grid", "connection-detail-grid");
   const related = week.edges.filter(([from, to]) => from === node.id || to === node.id).map(([from, to]) => week.nodes.find(item => item.id === (from === node.id ? to : from))?.title).filter(Boolean);
+  if (week.week === 7) {
+    detailContent.innerHTML = `${detailItem("¿Qué es?", escapeMarkup(node.detail), "detail-lead")}${detailItem("¿Por qué y para qué?", escapeMarkup(node.why))}${detailItem("¿Cómo funciona?", escapeMarkup(node.how))}${detailItem("¿Cuándo se utiliza?", escapeMarkup(node.when))}${detailItem("Analogía", escapeMarkup(node.analogy))}${detailItem("Caso real", escapeMarkup(node.realExample))}${detailItem("Laboratorio / evidencia", escapeMarkup(node.lab))}${detailItem("Error frecuente", escapeMarkup(node.commonError))}${detailItem("Se conecta con", escapeMarkup(related.join(", ")))}${detailItem("Fuente y estado", `${escapeMarkup(week.source)} · ${escapeMarkup(week.status)}`)}${detailItem("Capa", node.kind === "lab" ? "Herramienta / laboratorio" : "Académica / canónica")}`;
+    nodePopup.removeAttribute("hidden");
+    nodePopup.setAttribute("aria-hidden", "false");
+    nodeBackdrop.removeAttribute("hidden");
+    return;
+  }
   if (week.week === 6) {
     detailContent.innerHTML = `${detailItem("¿Qué es?", escapeMarkup(node.detail), "detail-lead")}${detailItem("¿Por qué existe?", escapeMarkup(node.why))}${detailItem("¿Cómo funciona?", escapeMarkup(node.how))}${detailItem("¿Cuándo se utiliza?", escapeMarkup(node.when))}${detailItem("Analogía", escapeMarkup(node.analogy))}${detailItem("Ejemplo real", escapeMarkup(node.realExample))}${detailItem("Laboratorio", escapeMarkup(node.lab))}${detailItem("Se relaciona con", escapeMarkup(related.join(", ")))}${detailItem("Fuente y estado", `${escapeMarkup(week.source)} · ${escapeMarkup(week.status)}`)}${detailItem("Capa", node.kind === "real" ? "Mundo real" : "Académica / canónica")}`;
     nodePopup.removeAttribute("hidden");
@@ -1575,6 +1613,11 @@ const weeklyLearningScenes = {
     { title: "Definir el tamaño de cada parte", question: "¿Cómo expresamos el límite de una subred?", purpose: "Parte de una red base y relaciona máscara y prefijo CIDR antes de calcular direcciones.", ids: ["w5-red", "w5-mascara", "w5-cidr", "w5-vlsm"], reflection: "¿Qué nos comunica el prefijo sobre la división de la red?" },
     { title: "Asignar sin desperdiciar", question: "¿Cómo ajustamos bloques a necesidades de distinto tamaño?", purpose: "Usa VLSM para razonar sobre hosts y broadcast dentro de cada bloque.", ids: ["w5-mascara", "w5-cidr", "w5-vlsm", "w5-hosts", "w5-broadcast"], reflection: "Antes de asignar una subred, ¿qué rango y cuántos hosts útiles debes comprobar?" },
     { title: "Separar sin mover cables", question: "¿Qué aporta una VLAN cuando la infraestructura física es compartida?", purpose: "Conecta la segmentación lógica con IEEE 802.1Q y la observación del laboratorio Linksys.", ids: ["w5-vlsm", "w5-vlan", "w5-8021q", "w5-linksys"], reflection: "¿Cómo distinguirías un resultado del laboratorio de una limitación del simulador DEMO?" }
+  ],
+  7: [
+    { title: "¿Dónde se pierde el desempeño?", question: "Si una aplicación responde lento, ¿es el trayecto, la capacidad o la prioridad del tráfico?", purpose: "Comienza con el síntoma y compara WAN, balanceo de carga y QoS antes de proponer un cambio. Monitorear permite saber si el problema persiste.", ids: ["w7-performance", "w7-wan", "w7-balancing", "w7-qos", "w7-monitoring"], reflection: "¿Qué observarías para distinguir saturación de un problema de prioridad?" },
+    { title: "Observar antes de diagnosticar", question: "¿Qué evidencia muestra lo que ocurrió realmente en la comunicación?", purpose: "Relaciona monitoreo, captura de tráfico y Wireshark con una hipótesis de diagnóstico. Una captura tiene un punto de vista limitado.", ids: ["w7-performance", "w7-monitoring", "w7-capture", "w7-wireshark", "w7-diagnosis"], reflection: "¿Qué no podrías afirmar a partir de una sola captura?" },
+    { title: "Seguir una solicitud web", question: "Cuando falla una página, ¿en qué paso del intercambio debemos mirar primero?", purpose: "Sigue un caso web: encontrar el destino con DNS, transportar con TCP, proteger la sesión con TLS si es HTTPS e intercambiar mensajes HTTP. La captura ayuda a separar los pasos observables.", ids: ["w7-dns", "w7-tcp", "w7-tls", "w7-http", "w7-capture", "w7-diagnosis"], reflection: "¿Cómo distinguirías un problema de nombres de uno del servicio web?" }
   ]
 };
 
@@ -1679,6 +1722,32 @@ function renderWeekSix(week) {
   </article>`;
 }
 
+function renderWeekSevenEnd() {
+  return `<section class="week-seven-transfer" aria-label="Aplicación y transferencia de Semana 7">
+    <div class="week-seven-transfer__section">
+      <p class="week-label">Analogías y caso práctico</p>
+      <h4>Una solicitud, varios lugares donde mirar</h4>
+      <p>La WAN es la carretera entre ciudades; QoS organiza prioridades en una vía compartida; el balanceo abre más ventanillas para repartir la fila. DNS funciona como agenda, TCP confirma el intercambio, TLS protege la conversación cuando corresponde y HTTP expresa la solicitud de la aplicación.</p>
+      <p>Si una página tarda, el equipo comprueba primero qué parte del recorrido muestra la demora. El monitoreo aporta tendencias; una captura con Wireshark puede mostrar la secuencia visible de paquetes. Luego el diagnóstico contrasta ambas evidencias antes de cambiar la red.</p>
+    </div>
+    <div class="week-seven-transfer__section">
+      <p class="week-label">Laboratorio · Actividad 7.2</p>
+      <h4>Lo que sí se observó</h4>
+      <p>En Windows Server 2008 R2 se abrió Performance Monitor, se configuró una recopilación de contadores, se capturó la recopilación durante 60 segundos y se generó un reporte de diagnóstico. El trabajo dejó evidencia real de monitoreo y de sus límites.</p>
+      <p>La vista Histogram Bar, la vista Report y el conjunto System Performance quedaron pendientes por respuestas del entorno. No hay captura de Wireshark confirmada en esta actividad; su nodo muestra el método de análisis, no un resultado ejecutado.</p>
+    </div>
+    <div class="week-seven-transfer__section">
+      <p class="week-label">Errores frecuentes</p>
+      <p>Conectividad ≠ buen desempeño. Puerto abierto ≠ servicio rápido. Una captura ≠ visibilidad de toda la red. QoS ≠ capacidad nueva. Una sugerencia de IA ≠ diagnóstico validado.</p>
+    </div>
+    <div class="week-seven-transfer__section">
+      <p class="week-label">Conexiones del Atlas</p>
+      <p>Semana 1 aporta modelos, protocolos e infraestructura; Semana 2 conserva pendiente la profundidad académica del direccionamiento; Semana 3 aporta medios y señales; Semana 4 conecta servicios cloud y acceso remoto; Semana 5 aporta segmentación lógica; Semana 6 muestra que las reglas de seguridad y la visibilidad de puertos afectan lo que podemos observar.</p>
+      <p>La siguiente competencia profesional consiste en documentar un síntoma, medir el recorrido, plantear hipótesis, contrastarlas con tráfico y registros, y verificar el resultado de cualquier cambio autorizado.</p>
+    </div>
+  </section>`;
+}
+
 function renderWeeklyDeltas() {
   const story = document.getElementById("storyFlow");
   if (!story || document.getElementById("weeklyDeltas")) return;
@@ -1700,6 +1769,7 @@ function renderWeeklyDeltas() {
         <nav class="learning-week__nav" aria-label="Diagramas de la semana ${week.week}">${weeklyLearningScenes[week.week].map((scene, index) => `<a href="#week-${week.week}-diagram-${index + 1}">${String(index + 1).padStart(2, "0")} ${escapeMarkup(scene.title)}</a>`).join("")}</nav>
       </header>
       ${weeklyLearningScenes[week.week].map((scene, index) => renderWeeklyLearningScene(week, scene, index)).join("")}
+      ${week.week === 7 ? renderWeekSevenEnd() : ""}
       <footer class="learning-week__closing"><p class="week-label">Modelo mental · Semana ${week.week}</p><p>${escapeMarkup(week.summary)}</p></footer>
     </article>`).join("")}`;
   (document.querySelector(".diagram-wrap") || story).insertAdjacentElement("afterend", section);
